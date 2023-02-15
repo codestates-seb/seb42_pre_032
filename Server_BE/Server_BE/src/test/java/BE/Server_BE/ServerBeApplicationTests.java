@@ -1,10 +1,10 @@
-package BE.stack.overflow;
+package BE.Server_BE;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StackOverflowApplicationTests {
+class ServerBeApplicationTests {
 
 	@Test
 	void contextLoads() {
