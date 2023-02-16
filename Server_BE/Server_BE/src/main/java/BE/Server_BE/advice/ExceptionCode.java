@@ -8,8 +8,9 @@ public enum ExceptionCode {
     MEMBER_ALREADY_EXIST(403,"이미 존재하는 회원입니다."),
     METHOD_NOT_ALLOWED(404, "잘못된 메서드 입니다."),
     DATA_IS_EMPTY(405,"저장된 데이터가 없습니다."),
-    FIELD_MUST_BE_FULFILLED(406, "빈칸은 될 수 없습니다.")
-    ;
+    FIELD_MUST_BE_FULFILLED(406, "빈칸은 될 수 없습니다."),
+    EMAIL_IS_DUPLICATED(407, "이미 가입된 이메일이 있습니다.");
+
     @Getter
     int status;
     @Getter
