@@ -1,4 +1,4 @@
-package BE.Server_BE.member.response;
+package BE.Server_BE;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

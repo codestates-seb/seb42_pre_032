@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GlobalExceptionAdvice {
 
     @ExceptionHandler
-    public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    public ResponseEntity handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException e){
         final ErrorResponse response = ErrorResponse.of(e.getBindingResult());
         return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
     }
@@ -24,7 +25,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler
     public ResponseEntity handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         final ErrorResponse response = ErrorResponse.of(e);
-        return new ResponseEntity(response, HttpStatus.valueOf(response.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
     @ExceptionHandler
     public ResponseEntity handleException(NullPointerException e) {
