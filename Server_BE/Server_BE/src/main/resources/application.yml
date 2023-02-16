@@ -6,13 +6,12 @@ spring:
   datasource:
     url: jdbc:h2:mem:test
   jpa:
-    properties:
-      hibernate:
-        highlight_sql: true # hibernate - sql ? ?????
-        format_sql: true  # (3) SQL pretty print
     hibernate:
       ddl-auto: create  # (1) ??? ?? ??
     show-sql: true      # (2) SQL ?? ??
+    properties:
+      hibernate:
+        format_sql: true  # (3) SQL pretty print
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
@@ -22,9 +21,6 @@ spring:
 logging:
   level:
     org:
-      hibernate:
-        type:
-          descriptor:
-            sql: TRACE # hibernate ?? ? ??
       springframework:
         orm:
+          jpa: DEBUG
