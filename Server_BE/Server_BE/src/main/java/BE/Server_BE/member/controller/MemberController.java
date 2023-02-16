@@ -4,7 +4,7 @@ package BE.Server_BE.member.controller;
 import BE.Server_BE.member.dto.MemberDto;
 import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.mapper.MemberMapper;
-import BE.Server_BE.member.response.MultiResponse;
+import BE.Server_BE.MultiResponse;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 import org.springframework.data.domain.Page;
