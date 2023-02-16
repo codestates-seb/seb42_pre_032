@@ -61,6 +61,7 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_ALREADY_EXIST);
         }
     }
+    
     public Member loadMember(long memberId) {
         Member findMember = memberRepository.findById(memberId);
         if (findMember == null) {
