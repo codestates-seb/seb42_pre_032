@@ -11,6 +11,7 @@ public enum ExceptionCode {
     FIELD_MUST_BE_FULFILLED(406, "빈칸은 될 수 없습니다."),
     EMAIL_IS_DUPLICATED(407, "이미 가입된 이메일이 있습니다.");
 
+
     @Getter
     int status;
     @Getter
