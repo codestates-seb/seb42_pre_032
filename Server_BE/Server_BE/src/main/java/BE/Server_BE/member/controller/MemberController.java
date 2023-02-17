@@ -33,7 +33,7 @@ public class MemberController {
     }
 
     @PostMapping
-    ResponseEntity postMember(@RequestBody @Valid MemberDto.Post post) throws Exception {
+    public ResponseEntity postMember(@RequestBody @Valid MemberDto.Post post) throws Exception {
         Member member = mapper.memberDtoPostToMember(post);
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response = mapper.memberToMemberDtoResponse(createdMember);
@@ -42,7 +42,7 @@ public class MemberController {
     }
 
     @PatchMapping("/{member-id}")
-    ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
                                @RequestBody @Valid MemberDto.Patch patch) throws Exception {
         Member member = mapper.memberDtoPatchToMember(patch);
         member.setMemberId(memberId);
@@ -53,14 +53,14 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId){
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId){
         Member findMember = memberService.getMember(memberId);
         MemberDto.Response response = mapper.memberToMemberDtoResponse(findMember);
         response.setUrl(url+memberId);
         return new ResponseEntity(response, HttpStatus.OK);
     }
     @GetMapping
-    ResponseEntity getMembers(@Positive @RequestParam int page, @Positive @RequestParam int size) throws Exception{
+    public ResponseEntity getMembers(@Positive @RequestParam int page, @Positive @RequestParam int size) throws Exception{
         Page<Member> memberPage = memberService.getMembers(page-1, size);
         PageInfo pageInfo = new PageInfo(memberPage.getNumber(), memberPage.getSize(),
                 memberPage.getTotalElements(),memberPage.getTotalPages());
@@ -73,7 +73,7 @@ public class MemberController {
         );
     }
     @DeleteMapping("/{member-id}")
-    ResponseEntity deleteMember (@Positive @PathVariable("member-id") long memberId) throws Exception{
+    public ResponseEntity deleteMember (@Positive @PathVariable("member-id") long memberId) throws Exception{
         memberService.deleteMember(memberId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
