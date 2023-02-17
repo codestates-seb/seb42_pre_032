@@ -38,6 +38,9 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     List<Comment> comments = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     //
     public void addBoard(Board board){
         boards.add(board);
