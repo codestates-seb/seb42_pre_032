@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body{
+    background-color: ${({ theme }) => theme.color.common.blue_btn_bg};
+  }
 
 `;
 
