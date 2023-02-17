@@ -1,5 +1,6 @@
 package BE.Server_BE.answer.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,17 +34,18 @@ public class AnswerDto {
 
     @Getter
     @Setter
+    @Builder
     public static class Response{
 
         private Long answerId;
 
         private String title;
 
-        private String writer;
+        private long memberId;
 
         private String body;
 
-        private Long boardId;
+        private long boardId;
 
 //    private List<CommentDto.Response> comments;
 

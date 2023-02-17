@@ -23,7 +23,6 @@ import java.util.List;
 public class MemberController {
 
     private final String url = "http://localhost:8080/members/";
-
     MemberMapper mapper;
     MemberService memberService;
 

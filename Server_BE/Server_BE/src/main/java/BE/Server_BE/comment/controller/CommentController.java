@@ -30,14 +30,7 @@ public class CommentController {
         this.mapper = mapper;
         this.commentService = commentService;
     }
-    @PostMapping
-    public ResponseEntity postComment (@Valid @RequestBody CommentDto.Post post) throws Exception{
-        Comment comment = mapper.commentDtoPostToComment(post);
-        Comment createdComment = commentService.createComment(comment);
-        CommentDto.Response response = mapper.commentToCommentDtoResponse(createdComment);
-        response.setUrl(url+response.getCommentId());
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
+
     @PatchMapping("/{comment-id}")
     public ResponseEntity patchComment (@PathVariable("comment-id") @Positive long commentId,
                                         @RequestBody @Valid CommentDto.Patch patch) {

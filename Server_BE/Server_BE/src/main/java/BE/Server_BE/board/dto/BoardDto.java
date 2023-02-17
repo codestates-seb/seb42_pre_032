@@ -1,18 +1,19 @@
 package BE.Server_BE.board.dto;
 
+import BE.Server_BE.answer.dto.AnswerDto;
+import BE.Server_BE.answer.entity.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 public class BoardDto {
     @Getter
     public static class Post {
-        @NotNull
-        private long boardId;
         @NotBlank
         private String title;
         @NotBlank
@@ -36,6 +37,7 @@ public class BoardDto {
         private String writer;
         private String title;
         private String body;
+        private List<AnswerDto.Response> answers;
     }
 
 

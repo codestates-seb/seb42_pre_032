@@ -1,6 +1,10 @@
 package BE.Server_BE.board.controller;
 
 import BE.Server_BE.MultiResponse;
+import BE.Server_BE.answer.dto.AnswerDto;
+import BE.Server_BE.answer.entity.Answer;
+import BE.Server_BE.answer.mapper.AnswerMapper;
+import BE.Server_BE.answer.service.AnswerService;
 import BE.Server_BE.board.service.BoardService;
 import BE.Server_BE.board.dto.BoardDto;
 import BE.Server_BE.board.entity.Board;
@@ -30,15 +34,19 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardMapper boardMapper;
     private final BoardVoteService boardVoteService;
-
-
+    private final AnswerService answerService;
+    private final AnswerMapper answerMapper;
 
     public BoardController(BoardService boardService,
                            BoardMapper boardMapper,
-                           BoardVoteService boardVoteService) {
+                           BoardVoteService boardVoteService,
+                           AnswerService answerService,
+                           AnswerMapper answerMapper) {
         this.boardService = boardService;
         this.boardMapper = boardMapper;
         this.boardVoteService = boardVoteService;
+        this.answerService = answerService;
+        this.answerMapper = answerMapper;
     }
 
     @PostMapping
@@ -48,6 +56,18 @@ public class BoardController {
         URI location = UriCreator.createUri(BOARD_DEFAULT_URL, board.getBoardId());
 
         return ResponseEntity.created(location).build();
+    }
+
+    //member 정보 받아오지 않음
+    @PostMapping("/{board-id}")
+    public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
+                                     @Valid @RequestBody AnswerDto.Post requestBody) {
+
+        Answer answer = answerMapper.answerPostToAnswer(requestBody);
+        answer.setBoard(boardService.findBoard(boardId));
+
+        answerService.createAnswer(answer);
+        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
 
     @PatchMapping("/{board-id}")

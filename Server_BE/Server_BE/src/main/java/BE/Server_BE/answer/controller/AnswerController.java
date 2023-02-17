@@ -4,11 +4,14 @@ package BE.Server_BE.answer.controller;
 import BE.Server_BE.MultiResponse;
 import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
-import BE.Server_BE.answer.entity.AnswerVote;
 import BE.Server_BE.answer.mapper.AnswerMapper;
 import BE.Server_BE.answer.service.AnswerService;
 import BE.Server_BE.answer.service.AnswerVoteService;
-import BE.Server_BE.member.entity.Member;
+import BE.Server_BE.board.entity.Board;
+import BE.Server_BE.comment.dto.CommentDto;
+import BE.Server_BE.comment.entity.Comment;
+import BE.Server_BE.comment.mapper.CommentMapper;
+import BE.Server_BE.comment.service.CommentService;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,36 +30,40 @@ import java.util.List;
 @Validated
 @Slf4j
 public class AnswerController{
+    private final String url = "http://localhost:8080/comments/";
 
     private final AnswerVoteService answerVoteService;
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
     private final MemberService memberService;
+    private final CommentMapper commentMapper;
+    private final CommentService commentService;
 
-    public AnswerController(AnswerService answerService,
+    public AnswerController(AnswerVoteService answerVoteService,
+                            AnswerService answerService,
                             AnswerMapper answerMapper,
                             MemberService memberService,
-                            AnswerVoteService answerVoteService){
-        this.answerMapper = answerMapper;
-        this.answerService = answerService;
-        this.memberService = memberService;
+                            CommentMapper commentMapper,
+                            CommentService commentService) {
         this.answerVoteService = answerVoteService;
+        this.answerService = answerService;
+        this.answerMapper = answerMapper;
+        this.memberService = memberService;
+        this.commentMapper = commentMapper;
+        this.commentService = commentService;
     }
 
-//    @PostMapping
-//    public ResponseEntity postComment(@Valid @RequestBody CommentDto.Post requestBody) {
-//
-//    }
+    @PostMapping("/{answer-id}")
+    public ResponseEntity postComment (@PathVariable("answer-id") @Positive long answerId,
+                                       @Valid @RequestBody CommentDto.Post post) throws Exception{
+        Comment comment = commentMapper.commentDtoPostToComment(post);
 
+        comment.setAnswer(answerService.findAnswer(answerId));
 
-    //member정보와 board정보 받아오지 않음
-    @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
-
-        Answer answer = answerMapper.answerPostToAnswer(requestBody);
-
-        answerService.createAnswer(answer);
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
+        Comment createdComment = commentService.createComment(comment);
+        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(createdComment);
+        response.setUrl(url+response.getCommentId());
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")

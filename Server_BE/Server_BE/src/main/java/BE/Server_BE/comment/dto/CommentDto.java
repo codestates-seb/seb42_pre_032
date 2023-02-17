@@ -1,6 +1,7 @@
 package BE.Server_BE.comment.dto;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,10 +20,13 @@ public class CommentDto {
     }
     @Getter
     @Setter
+    @Builder
     public static class Response {
         long commentId;
         String body;
         String url;
+//        long memberId; // 추후...
+        long answerId;
 
     }
 }
