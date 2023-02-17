@@ -4,30 +4,45 @@ import BE.Server_BE.advice.BusinessLogicException;
 import BE.Server_BE.advice.ExceptionCode;
 import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.repository.MemberRepository;
+import BE.Server_BE.springsecurity.HelloAuthorityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MemberService {
 
-    MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final HelloAuthorityUtils authorityUtils;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, HelloAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
+
     public Member createMember(Member member) throws Exception {
-        verifyEmail(member);
-        // 등록된 이메일이 있을 경우, 예외 처리.
-        return memberRepository.save(member);
+        verifyExistedEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+
+        Member createdMember = memberRepository.save(member);
+
+        return createdMember;
     }
     // 중복 이메일이면 이메일 중복 예외 처리하기
     public Member updateMember(Member member) throws Exception{
         Member findMember = loadMember(member.getMemberId());
         // 입력된 id로 불러올 회원정보가 없다면 예외처리
-        verifyEmail(member);
+        verifyExistedEmail(member.getEmail());
         // 입력된 회원정보에 이메일이 중복이라면 이메일 중복 예외 처리.
         Optional.ofNullable(member.getNickName())
                         .ifPresent(nickname -> findMember.setNickName(nickname));
@@ -54,11 +69,10 @@ public class MemberService {
         Member deleteMember = loadMember(memberId);
         memberRepository.delete(deleteMember);
     }
-    public void verifyEmail(Member member) throws Exception {
-        Member findMember = memberRepository.findByEmail(member.getEmail());
-        if (findMember != null) {
+    public void verifyExistedEmail(String email) throws Exception {
+        Optional<Member> foundEmail = memberRepository.findByEmail(email);
+        if (foundEmail.isPresent())
             throw new BusinessLogicException(ExceptionCode.EMAIL_IS_DUPLICATED);
-        }
     }
     public Member loadMember(long memberId) {
         Member findMember = memberRepository.findById(memberId);
