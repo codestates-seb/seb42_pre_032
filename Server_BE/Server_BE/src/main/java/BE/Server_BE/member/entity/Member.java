@@ -2,6 +2,7 @@ package BE.Server_BE.member.entity;
 
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.audit.Auditable;
+import BE.Server_BE.board.entity.Board;
 import BE.Server_BE.comment.entity.Comment;
 import lombok.Getter;
 import lombok.Setter;

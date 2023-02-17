@@ -1,6 +1,8 @@
 package BE.Server_BE.answer.entity;
 
 import BE.Server_BE.audit.Auditable;
+import BE.Server_BE.board.entity.Board;
+import BE.Server_BE.comment.entity.Comment;
 import BE.Server_BE.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,21 +24,17 @@ public class Answer extends Auditable {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "WRITER")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @Column
     private String body;
 
-//    @OneToOne
-//    @JoinColumn(name = "BOARD_ID")
-//    private Board board;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "BOARD_ID")
+    private Board board;
 
-//    @OneToMany(mappedBy = "comment")
-//    private List<Comment> comments = new ArrayList<>();
-
-//    @Column
-//    private Long like;
-
+    @OneToMany(mappedBy = "answer")
+    private List<Comment> comments = new ArrayList<>();
 
 }

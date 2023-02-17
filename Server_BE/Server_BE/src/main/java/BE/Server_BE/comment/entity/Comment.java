@@ -24,17 +24,8 @@ public class Comment extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     Member member;
 
-    public void addMember(Member member) {
-        this.member = member;
-    }
-
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="ANSWER_ID")
     Answer answer;
-
-    public void addAnswer(Answer answer) {
-        this.answer = answer;
-    }
-
 
 }
