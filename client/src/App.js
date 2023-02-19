@@ -9,6 +9,7 @@ import SignUpPage from './page/SignUpPage';
 import LoginPage from './page/LoginPage';
 import CreatePage from './page/CreatePage';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   const theme = {
@@ -89,6 +90,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
