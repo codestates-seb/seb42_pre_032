@@ -5,25 +5,33 @@ import BE.Server_BE.advice.ExceptionCode;
 import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.repository.MemberRepository;
 import BE.Server_BE.springsecurity.HelloAuthorityUtils;
+import BE.Server_BE.springsecurity.MemberRegistrationApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MemberService {
-
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final HelloAuthorityUtils authorityUtils;
+    private final ApplicationEventPublisher publisher;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, HelloAuthorityUtils authorityUtils) {
+    public MemberService(MemberRepository memberRepository,
+                         PasswordEncoder passwordEncoder,
+                         HelloAuthorityUtils authorityUtils,
+                         ApplicationEventPublisher publisher) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
+        this.publisher = publisher;
     }
 
     public Member createMember(Member member) throws Exception {
@@ -35,7 +43,7 @@ public class MemberService {
         member.setRoles(roles);
 
         Member createdMember = memberRepository.save(member);
-
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, createdMember));
         return createdMember;
     }
     // 중복 이메일이면 이메일 중복 예외 처리하기
@@ -57,7 +65,7 @@ public class MemberService {
         return loadMember(memberId);
     }
 
-    public Page<Member> getMembers(int page, int size) throws Exception{
+    public Page<Member> getMembers(int page, int size) throws Exception {
         if (memberRepository.findAll() == null) {
             throw new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY);
         }

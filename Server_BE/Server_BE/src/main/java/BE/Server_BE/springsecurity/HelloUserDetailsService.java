@@ -31,7 +31,7 @@ public class HelloUserDetailsService implements UserDetailsService {
 
         return new HelloUserDetails(findMember);
     }
-    private final class HelloUserDetails extends Member implements UserDetails {
+    public final class HelloUserDetails extends Member implements UserDetails {
         HelloUserDetails(Member member) {
             setMemberId(member.getMemberId());
             setNickName(member.getNickName());
@@ -65,6 +65,4 @@ public class HelloUserDetailsService implements UserDetailsService {
             return true;
         }
     }
-
-
 }

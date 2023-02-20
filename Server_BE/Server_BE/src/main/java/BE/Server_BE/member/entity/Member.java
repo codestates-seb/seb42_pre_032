@@ -18,25 +18,29 @@ import java.util.List;
 public class Member extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    long memberId;
+    private long memberId;
+
     @Column
-    String nickName;
+    private String nickName;
+
     @Column(updatable = false, unique = true)
     @Email
-    String email;
+    private String email;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
     @Column
-    String password;
-    @Column
-    String about_Me;
+    private String about_Me;
 
     @OneToMany(mappedBy = "member")
-    List<Board> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    List<Answer> answers = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
