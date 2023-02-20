@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import LogoSrc from '../../asset/1200px-Stack_Overflow_logo.png';
+import LogoSrc from '../../asset/image/1200px-Stack_Overflow_logo.png';
 
 export const StyledHeader = styled.header`
   display: flex;
