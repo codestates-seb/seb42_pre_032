@@ -9,6 +9,8 @@ import SignUpPage from './page/SignUpPage';
 import LoginPage from './page/LoginPage';
 import CreatePage from './page/CreatePage';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import SearchResultPage from './page/SearchResultPage';
 
 function App() {
   const theme = {
@@ -82,13 +84,17 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:id" element={<QuestionDetailPage />} />
+          <Route path="/searchreasult" element={<SearchResultPage />} />
+          <Route path="/questiondetail">
+            <Route path=":id/:title" element={<QuestionDetailPage />} />
+          </Route>
           <Route path="/update/:id" element={<UpdatePage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="/notfound" element={<NotFoundPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
