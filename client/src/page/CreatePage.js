@@ -1,5 +1,8 @@
+// import Footer from '../components/Footer';
+// import Header from '../components/Header';
+
 const CreatePage = () => {
-  return <div>CreatePage</div>;
+  return <></>;
 };
 
 export default CreatePage;
