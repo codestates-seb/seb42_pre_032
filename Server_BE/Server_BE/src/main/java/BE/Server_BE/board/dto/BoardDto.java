@@ -23,6 +23,7 @@ public class BoardDto {
     @Getter
     @Setter
     public static class Patch {
+        private long memberId;
         @NotNull
         private long boardId;
         private String title;
