@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { StyledFooter } from './styled/Footer.styled';
-import { ReactComponent as FooterLogo } from '../asset/LogoGraysm.svg';
+import { ReactComponent as FooterLogo } from '../asset/image/LogoGraysm.svg';
 
 const Footer = () => {
+  if (window.location.pathname === '/*') return null;
+
   return (
     <>
       <StyledFooter>
