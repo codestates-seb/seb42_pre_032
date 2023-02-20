@@ -14,10 +14,12 @@ import BE.Server_BE.comment.mapper.CommentMapper;
 import BE.Server_BE.comment.service.CommentService;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
+import BE.Server_BE.springsecurity.HelloUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,9 +57,10 @@ public class AnswerController{
 
     @PostMapping("/{answer-id}")
     public ResponseEntity postComment (@PathVariable("answer-id") @Positive long answerId,
-                                       @Valid @RequestBody CommentDto.Post post) throws Exception{
+                                       @Valid @RequestBody CommentDto.Post post,
+                                       @AuthenticationPrincipal HelloUserDetailsService.HelloUserDetails userDetails) throws Exception{
         Comment comment = commentMapper.commentDtoPostToComment(post);
-
+        comment.setMember(memberService.loadMember(userDetails.getMemberId()));
         comment.setAnswer(answerService.findAnswer(answerId));
 
         Comment createdComment = commentService.createComment(comment);

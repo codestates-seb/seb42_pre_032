@@ -29,8 +29,8 @@ public class SecurityConfiguration {
         //http 요청에 따른 보안 설정을 구성
         http
 
-                .authorizeRequests().antMatchers("/h2/*").permitAll()
-                .and()
+//                .authorizeRequests().antMatchers("/h2/*").permitAll()
+//                .and()
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()   // 추후 설정 필요
@@ -46,9 +46,9 @@ public class SecurityConfiguration {
 //                .exceptionHandling().accessDeniedPage("/url") 권한없는 사용자 접근 시 보여줄 페이지
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/boards/**").hasAnyRole("ADMIN", "USER")
-                        .antMatchers("/members/**").hasAnyRole("ADMIN", "USER")
-                        .antMatchers("/comments/**").hasAnyRole("ADMIN", "USER")
+//                        .antMatchers("/boards/**").hasAnyRole("ADMIN", "USER")
+//                        .antMatchers("/members/**").hasAnyRole("ADMIN", "USER")
+//                        .antMatchers("/comments/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest()
                         .permitAll()
                 );
