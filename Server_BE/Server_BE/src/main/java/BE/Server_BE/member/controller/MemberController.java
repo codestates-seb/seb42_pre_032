@@ -59,7 +59,7 @@ public class MemberController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity getMembers(@Positive @RequestParam int page) throws Exception{
+    public ResponseEntity getMembers(@Positive @RequestParam(required = false, defaultValue = "1") int page) throws Exception{
         Page<Member> memberPage = memberService.getMembers(page);
         PageInfo pageInfo = new PageInfo(memberPage.getNumber(), memberPage.getSize(),
                 memberPage.getTotalElements(),memberPage.getTotalPages());

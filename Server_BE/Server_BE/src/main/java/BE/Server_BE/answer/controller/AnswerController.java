@@ -78,7 +78,7 @@ public class AnswerController{
     }
 
     @GetMapping
-    public ResponseEntity getAnswers(@Positive @RequestParam int page) {
+    public ResponseEntity getAnswers(@Positive @RequestParam(required = false, defaultValue = "1") int page) {
         Page<Answer> answerPage = answerService.getAnswers(page);
         PageInfo pageInfo = new PageInfo(answerPage.getNumber(), answerPage.getSize(),
                 answerPage.getTotalElements(),answerPage.getTotalPages());

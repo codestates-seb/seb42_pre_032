@@ -104,7 +104,7 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity getBoards(@Positive @RequestParam int page) {
+    public ResponseEntity getBoards(@Positive @RequestParam(required = false, defaultValue = "1") int page) {
         Page<Board> pageBoards = boardService.findBoards(page);
         PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
                 pageBoards.getTotalElements(),pageBoards.getTotalPages());
