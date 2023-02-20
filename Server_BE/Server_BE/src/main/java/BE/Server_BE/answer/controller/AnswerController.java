@@ -61,7 +61,7 @@ public class AnswerController{
                                        @AuthenticationPrincipal HelloUserDetailsService.HelloUserDetails userDetails) throws Exception{
         Comment comment = commentMapper.commentDtoPostToComment(post);
         comment.setMember(memberService.loadMember(userDetails.getMemberId()));
-        comment.setAnswer(answerService.findAnswer(answerId));
+        comment.setAnswer(answerService.getAnswer(answerId));
 
         Comment createdComment = commentService.createComment(comment);
         CommentDto.Response response = commentMapper.commentToCommentDtoResponse(createdComment);
@@ -72,14 +72,14 @@ public class AnswerController{
     @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer = answerService.getAnswer(answerId);
 
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getAnswers(@Positive @RequestParam int page) {
-        Page<Answer> answerPage = answerService.findAllAnswers(page - 1, 15);
+        Page<Answer> answerPage = answerService.getAnswers(page);
         PageInfo pageInfo = new PageInfo(answerPage.getNumber(), answerPage.getSize(),
                 answerPage.getTotalElements(),answerPage.getTotalPages());
         List<Answer> answers = answerPage.getContent();

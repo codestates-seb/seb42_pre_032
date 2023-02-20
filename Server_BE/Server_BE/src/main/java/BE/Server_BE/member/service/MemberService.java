@@ -65,12 +65,12 @@ public class MemberService {
         return loadMember(memberId);
     }
 
-    public Page<Member> getMembers(int page, int size) throws Exception {
+    public Page<Member> getMembers(int page) throws Exception {
         if (memberRepository.findAll() == null) {
             throw new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY);
         }
         return memberRepository.findAll(PageRequest.of(
-                page, size
+                page-1, 15
         ));
     }
     public void deleteMember(long memberId) throws Exception{
