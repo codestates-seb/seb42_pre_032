@@ -92,7 +92,7 @@ function App() {
           <Route path="/create" element={<CreatePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
