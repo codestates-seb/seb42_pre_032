@@ -65,6 +65,4 @@ public class HelloUserDetailsService implements UserDetailsService {
             return true;
         }
     }
-
-
 }

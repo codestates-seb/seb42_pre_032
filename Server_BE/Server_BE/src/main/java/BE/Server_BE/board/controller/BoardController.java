@@ -20,7 +20,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,13 +58,18 @@ public class BoardController {
         this.answerMapper = answerMapper;
         this.memberService = memberService;
     }
-
+    // 보드 생성하려면 memberId가 필요하거나
+    // User 권한이 있으면 되는데 BoardDto.Post에는
+    // 포함되어있지 않고 따로 authority도 포함되어 있지 않다.
+    // 어떻게 수정해야하는가 ?
     @PostMapping
+
     public ResponseEntity postBoard(@RequestBody BoardDto.Post requestBody,
                                     @AuthenticationPrincipal HelloUserDetailsService.HelloUserDetails userDetails) {
         Board createdBoard = boardMapper.boardPostDtoToBoard(requestBody);
         createdBoard.setMember(memberService.loadMember(userDetails.getMemberId()));
         Board board = boardService.createBoard(createdBoard);
+
 
         return new ResponseEntity<>(boardMapper.boardToBoardResponse(board), HttpStatus.OK);
     }

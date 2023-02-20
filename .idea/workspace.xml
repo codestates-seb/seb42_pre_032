@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2411aec-7322-412f-bac4-06849343b406" name="Changes" comment="[feat] 게시판 기능 추가">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/springsecurity/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/springsecurity/SecurityConfiguration.java" afterDir="false" />
+    <list default="true" id="8e901411-53ea-46ee-b918-47a7f6559028" name="Changes" comment="[feat] 게시판 기능 추가">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +85,9 @@
         </option>
       </RecentBranches>
     </option>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
