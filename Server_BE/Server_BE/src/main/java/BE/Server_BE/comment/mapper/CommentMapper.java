@@ -22,10 +22,11 @@ public interface CommentMapper {
                 .commentId(comment.getCommentId())
                 .body(comment.getBody())
                 .answerId(comment.getAnswer().getAnswerId())
+                .memberId(comment.getMember().getMemberId())
                 .build();
-
         return response;
     }
+
     default List<CommentDto.Response> commentsToCommentDtoResponse(List<Comment> comments){
         return comments
                 .stream()

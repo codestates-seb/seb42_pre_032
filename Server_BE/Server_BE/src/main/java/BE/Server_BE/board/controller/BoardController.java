@@ -65,18 +65,21 @@ public class BoardController {
         response.setUrl(url+response.getBoardId());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-
     }
-
 
     @PatchMapping("/{board-id}")
     public ResponseEntity patchBoard(@PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody BoardDto.Patch requestBody,
-                                     @AuthenticationPrincipal HelloUserDetailsService.HelloUserDetails userDetails) {
-        requestBody.setBoardId(boardId);
-        Board board = boardService.updateBoard(boardMapper.boardPatchDtoToBoard(requestBody), userDetails.getMemberId());
+                                     Principal principal) {
+        Member member = memberService.findMemberByEmail(principal.getName());
+        Board board = boardMapper.boardPatchDtoToBoard(requestBody);
+        board.setMember(member);
+        board.setBoardId(boardId);
+        Board updatedBoard = boardService.updateBoard(board, board.getMember().getMemberId());
+        BoardDto.Response response = boardMapper.boardToBoardResponse(updatedBoard);
+        response.setUrl(url+response.getBoardId());
 
-        return new ResponseEntity(boardMapper.boardToBoardResponse(board), HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{board-id}")
@@ -91,6 +94,7 @@ public class BoardController {
         PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
                 pageBoards.getTotalElements(),pageBoards.getTotalPages());
         List<Board> boards = pageBoards.getContent();
+
         return new ResponseEntity(
                 new MultiResponse(boardMapper.boardsToBoardResponse(boards), pageInfo),  HttpStatus.OK);
     }

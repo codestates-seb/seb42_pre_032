@@ -7,8 +7,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,7 +28,6 @@ public class BoardDto {
     @Setter
     public static class Patch {
         private long memberId;
-        @NotNull
         private long boardId;
         private String title;
         private String body;
@@ -37,9 +39,14 @@ public class BoardDto {
     @Builder
     public static class Response {
         private long boardId;
+        private long memberId;
         private String writer;
         private String title;
         private String body;
+        @Column(name = "created_at", updatable = false)
+        private LocalDateTime createdAt;
+        @Column(name = "LAST_MODIFIED_AT")
+        private LocalDateTime modifiedAt;
         private long like;
         private List<AnswerDto.Response> answers;
         private String url;

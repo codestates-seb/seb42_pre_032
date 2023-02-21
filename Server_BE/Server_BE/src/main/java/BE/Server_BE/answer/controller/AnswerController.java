@@ -47,6 +47,7 @@ public class AnswerController{
         this.memberService = memberService;
         this.boardService = boardService;
     }
+    
     @PostMapping("/{board-id}")
     public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody AnswerDto.Post requestBody,
@@ -65,7 +66,7 @@ public class AnswerController{
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("{answer-id}")
+    @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") @Positive long answerId,
                                        @Valid @RequestBody AnswerDto.Patch requestBody){
 
@@ -74,7 +75,7 @@ public class AnswerController{
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
 
-    @GetMapping("{answer-id}")
+    @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.getAnswer(answerId);

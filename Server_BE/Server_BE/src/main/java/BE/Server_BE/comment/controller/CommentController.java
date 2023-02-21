@@ -2,11 +2,13 @@ package BE.Server_BE.comment.controller;
 
 
 import BE.Server_BE.MultiResponse;
+import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.answer.service.AnswerService;
 import BE.Server_BE.comment.dto.CommentDto;
 import BE.Server_BE.comment.entity.Comment;
 import BE.Server_BE.comment.mapper.CommentMapper;
 import BE.Server_BE.comment.service.CommentService;
+import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 import BE.Server_BE.springsecurity.HelloUserDetailsService;
@@ -23,7 +25,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/boards/{board-id}/answers/{answer-id}/comments/")
+@RequestMapping("/comments")
 @Validated
 public class CommentController {
     private final CommentMapper commentMapper;
@@ -31,7 +33,7 @@ public class CommentController {
     private final MemberService memberService;
     private final AnswerService answerService;
 
-    private final String url = "http://localhost:8080/boards/{board-id}/answers/{answer-id}/comments/";
+    private final String url = "http://localhost:8080/comments/";
 
     public CommentController(CommentMapper commentMapper, CommentService commentService, MemberService memberService, AnswerService answerService) {
         this.commentMapper = commentMapper;
@@ -40,18 +42,20 @@ public class CommentController {
         this.answerService = answerService;
     }
 
-    @PostMapping
+    @PostMapping("/{answer-id}")
     public ResponseEntity postComment (@PathVariable("answer-id") @Positive long answerId,
                                        @Valid @RequestBody CommentDto.Post post,
-                                       Principal principal) throws Exception {
+                                       Principal principal) {
 
-        Comment comment = buildComment(
-                answerId,
-                principal.getName(),
-                post.getBody());
-        commentService.createComment(comment);
-        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(comment);
+        Comment comment = commentMapper.commentDtoPostToComment(post);
+        Member member = memberService.findMemberByEmail(principal.getName());
+        comment.setMember(member);
+        comment.setAnswer(answerService.findAnswer(answerId));
+        Comment createdComment = commentService.createComment(comment);
+
+        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(createdComment);
         response.setUrl(url+response.getCommentId());
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
