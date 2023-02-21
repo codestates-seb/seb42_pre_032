@@ -98,6 +98,7 @@ public class BoardController {
         PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
                 pageBoards.getTotalElements(),pageBoards.getTotalPages());
         List<Board> boards = pageBoards.getContent();
+
         return new ResponseEntity(
                 new MultiResponse(boardMapper.boardsToBoardResponse(boards), pageInfo),  HttpStatus.OK);
     }
