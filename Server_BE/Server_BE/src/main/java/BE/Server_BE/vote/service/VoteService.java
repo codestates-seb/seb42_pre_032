@@ -69,7 +69,7 @@ public class VoteService {
         });
 
         //vote에 데이터 저장
-        Answer answer = answerService.getAnswer(answerId);
+        Answer answer = answerService.findAnswer(answerId);
         Vote vote = new Vote();
         vote.setAnswerVote(answerId, memberId, 1);
         voteRepository.save(vote);
@@ -85,7 +85,7 @@ public class VoteService {
             throw new BusinessLogicException(ExceptionCode.METHOD_NOT_ALLOWED);
         });
 
-        Answer answer = answerService.getAnswer(answerId);
+        Answer answer = answerService.findAnswer(answerId);
         Vote vote = new Vote();
         vote.setAnswerVote(answerId, memberId, -1);
         voteRepository.save(vote);
@@ -105,7 +105,7 @@ public class VoteService {
     public void deleteAnswerVote(long answerId, long memberId){
         voteRepository.getAnswerVote(answerId, memberId).ifPresent(vote -> {
             voteRepository.delete(vote);
-            Answer answer = answerService.getAnswer(answerId);
+            Answer answer = answerService.findAnswer(answerId);
             answer.setVote(answer.getVote()-vote.getVote());
             answerService.updateAnswer(answer);
         });
