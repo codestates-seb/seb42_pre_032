@@ -39,6 +39,7 @@ public class BoardDto {
         private String title;
         private String body;
         private List<AnswerDto.Response> answers;
+        private String url;
     }
 
 

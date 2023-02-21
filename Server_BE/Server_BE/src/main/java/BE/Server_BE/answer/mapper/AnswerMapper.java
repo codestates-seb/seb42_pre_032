@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public interface AnswerMapper {
     Answer answerPostToAnswer (AnswerDto.Post requestBody);
     Answer answerPatchToAnswer (AnswerDto.Patch requestBody);
+//    AnswerDto.Response answerToAnswerResponse(Answer answer);
 
     default AnswerDto.Response answerToAnswerResponse(Answer answer){
         AnswerDto.Response response =AnswerDto.Response
@@ -20,7 +21,7 @@ public interface AnswerMapper {
                 .title(answer.getTitle())
                 .body(answer.getBody())
                 .boardId(answer.getBoard().getBoardId())
-//                .memberId(answer.getMember().getMemberId())
+                .memberId(answer.getMember().getMemberId())
                 .build();
 
         return response;
