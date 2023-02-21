@@ -78,7 +78,7 @@ public class AnswerController{
     @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.getAnswer(answerId);
+        Answer answer = answerService.findAnswer(answerId);
 
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }

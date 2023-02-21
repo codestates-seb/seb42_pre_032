@@ -42,11 +42,6 @@ public interface BoardMapper {
 
         return response;
     }
-    
-
-
-    List<BoardDto.Response> boardsToBoardResponse(List<Board> boards);
-=======
     default List<BoardDto.Response> boardsToBoardResponse(List<Board> boards){
         return boards
                 .stream()
