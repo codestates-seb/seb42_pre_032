@@ -47,6 +47,8 @@ public class AnswerDto {
 
         private long boardId;
 
+        private long like;
+
         private String url;
 
 

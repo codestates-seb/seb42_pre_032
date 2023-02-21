@@ -3,6 +3,7 @@ package BE.Server_BE.board.dto;
 import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,11 +34,13 @@ public class BoardDto {
 
     @Getter
     @Setter
+    @Builder
     public static class Response {
         private long boardId;
         private String writer;
         private String title;
         private String body;
+        private long like;
         private List<AnswerDto.Response> answers;
         private String url;
     }

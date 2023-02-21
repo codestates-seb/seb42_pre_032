@@ -6,46 +6,37 @@ import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.answer.mapper.AnswerMapper;
 import BE.Server_BE.answer.service.AnswerService;
-import BE.Server_BE.answer.service.AnswerVoteService;
-import BE.Server_BE.board.entity.Board;
+import BE.Server_BE.vote.service.VoteService;
 import BE.Server_BE.board.service.BoardService;
-import BE.Server_BE.comment.dto.CommentDto;
-import BE.Server_BE.comment.entity.Comment;
-import BE.Server_BE.comment.mapper.CommentMapper;
-import BE.Server_BE.comment.service.CommentService;
 import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
-import BE.Server_BE.springsecurity.HelloUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/boards/{board-id}/answers")
+@RequestMapping("/answers")
 @Validated
 @Slf4j
 public class AnswerController{
-    private final String url = "http://localhost:8080/boards/{board-id}/answers/";
+    private final String url = "http://localhost:8080/answers/";
 
-    private final AnswerVoteService answerVoteService;
+    private final VoteService answerVoteService;
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
     private final BoardService boardService;
     private final MemberService memberService;
 
-    public AnswerController(AnswerVoteService answerVoteService,
+    public AnswerController(VoteService answerVoteService,
                             AnswerService answerService,
                             AnswerMapper answerMapper,
                             MemberService memberService,
@@ -56,7 +47,7 @@ public class AnswerController{
         this.memberService = memberService;
         this.boardService = boardService;
     }
-    @PostMapping("")
+    @PostMapping("/{board-id}")
     public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody AnswerDto.Post requestBody,
                                      Principal principal) {
@@ -64,6 +55,7 @@ public class AnswerController{
         Answer answer = answerMapper.answerPostToAnswer(requestBody);
         Member member = memberService.findMemberByEmail(principal.getName());
         answer.setMember(member);
+        answer.setVote(0L);
         answer.setBoard(boardService.findVerifiedBoard(boardId));
         Answer createdAnswer = answerService.createAnswer(answer);
 
@@ -111,22 +103,36 @@ public class AnswerController{
     }
 
     @PostMapping("/{answer-id}/like")
-    public ResponseEntity postLike (@PathVariable("answer-id") @Positive long answerId){
-        answerVoteService.createLike(answerId, 1);
+    public ResponseEntity postLike (@PathVariable("answer-id") @Positive long answerId,
+                                    Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.createAnswerLike(answerId, member.getMemberId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/{answer-id}/dislike")
-    public ResponseEntity postDislike (@PathVariable("answer-id") @Positive long answerId){
-        answerVoteService.createDislike(answerId, 1);
+    public ResponseEntity postDislike (@PathVariable("answer-id") @Positive long answerId,
+                                       Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.createAnswerDislike(answerId, member.getMemberId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @DeleteMapping("/{answer-id}/like")
+    public ResponseEntity deleteLike (@PathVariable("answer-id") @Positive long answerId,
+                                    Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.deleteAnswerVote(answerId, member.getMemberId());
 
-    @GetMapping("/{answer-id}/vote")
-    public ResponseEntity getVote (@PathVariable("answer-id") @Positive long answerId){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @DeleteMapping("/{answer-id}/dislike")
+    public ResponseEntity deleteDislike (@PathVariable("answer-id") @Positive long answerId,
+                                       Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.deleteAnswerVote(answerId, member.getMemberId());
 
-        return new ResponseEntity<>(answerVoteService.getVote(answerId),HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

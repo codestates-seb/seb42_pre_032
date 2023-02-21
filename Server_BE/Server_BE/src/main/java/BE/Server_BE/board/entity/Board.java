@@ -3,6 +3,7 @@ package BE.Server_BE.board.entity;
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.audit.Auditable;
 import BE.Server_BE.member.entity.Member;
+import BE.Server_BE.vote.entity.Vote;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,9 @@ public class Board extends Auditable {
 
     @Column(nullable = false)
     private String body;
+//
+    @Column
+    private Long vote;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
