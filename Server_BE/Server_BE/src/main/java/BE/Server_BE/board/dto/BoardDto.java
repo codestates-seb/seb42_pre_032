@@ -47,6 +47,7 @@ public class BoardDto {
         private LocalDateTime createdAt;
         @Column(name = "LAST_MODIFIED_AT")
         private LocalDateTime modifiedAt;
+        private long like;
         private List<AnswerDto.Response> answers;
         private String url;
     }

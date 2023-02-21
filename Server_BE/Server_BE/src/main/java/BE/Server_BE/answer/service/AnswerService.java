@@ -27,7 +27,6 @@ public class AnswerService {
         return savedAnswer;
     }
 
-
     public Answer findAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
@@ -36,14 +35,14 @@ public class AnswerService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Answer> findAllAnswers(int page, int size) {
+    public Page<Answer> getAnswers(int page) {
 
-        return answerRepository.findAll(PageRequest.of(page, size,
+        return answerRepository.findAll(PageRequest.of(page-1, 15,
                 Sort.by("answerId").descending()));
     }
 
     public Answer updateAnswer(Answer answer) {
-        Answer target = findAnswer(answer.getAnswerId());
+        Answer target = getAnswer(answer.getAnswerId());
 
         Optional.ofNullable(answer.getTitle())
                 .ifPresent(title -> target.setTitle(title));
@@ -54,7 +53,7 @@ public class AnswerService {
     }
 
     public void deleteAnswer(long answerId){
-        Answer findMember = findAnswer(answerId);
+        Answer findMember = getAnswer(answerId);
 
         answerRepository.delete(findMember);
     }

@@ -23,11 +23,8 @@ public class AnswerDto {
     @Getter
     public static class Patch{
 
-        @NotNull
         private long answerId;
-
         private String title;
-
         private String body;
 
     }
@@ -40,10 +37,11 @@ public class AnswerDto {
         private Long answerId;
         private long memberId;
         private long boardId;
+
         private String body;
         private String title;
+        private long like;
         private String url;
-
 
     }
 

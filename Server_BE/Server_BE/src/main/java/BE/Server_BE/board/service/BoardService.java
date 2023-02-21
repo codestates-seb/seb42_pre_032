@@ -56,8 +56,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> findBoards(Pageable pageable) {
-        return boardRepository.findAll(PageRequest.of(1,15, Sort.by("boardId").descending()));
+    public Page<Board> findBoards(int page) {
+        return boardRepository.findAll(PageRequest.of(page-1,15, Sort.by("boardId").descending()));
     }
 
     public void deleteBoard(long boardId) {

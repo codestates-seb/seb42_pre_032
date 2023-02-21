@@ -77,8 +77,8 @@ public class CommentController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity getComments(@Positive @RequestParam int page, @Positive @RequestParam int size)throws Exception{
-        Page<Comment> commentPage = commentService.getComments(page-1, size);
+    public ResponseEntity getComments(@Positive @RequestParam(required = false, defaultValue = "1") int page)throws Exception{
+        Page<Comment> commentPage = commentService.getComments(page);
         PageInfo pageInfo = new PageInfo(commentPage.getNumber(), commentPage.getSize(),
                 commentPage.getTotalElements(),commentPage.getTotalPages());
         List<Comment> comments = commentPage.getContent();
@@ -97,7 +97,7 @@ public class CommentController {
         Comment comment = Comment.builder()
                 .body(body)
                 .build();
-        comment.setAnswer(answerService.findAnswer(answerId));
+        comment.setAnswer(answerService.getAnswer(answerId));
         comment.setMember(memberService.findMemberByEmail(email));
         return comment;
     }

@@ -40,12 +40,12 @@ public class CommentService {
     public Comment getComment(long commentId) {
         return loadComment(commentId);
     }
-    public Page<Comment> getComments(int page, int size) throws Exception {
+    public Page<Comment> getComments(int page) throws Exception {
         if (commentRepository.findAll() == null) {
             throw new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY);
         }
         return commentRepository.findAll(PageRequest.of(
-                page, size
+                page-1, 15
         ));
     }
     public void deleteComment(long commentId) throws Exception {
