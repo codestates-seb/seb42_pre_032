@@ -47,9 +47,9 @@ public class AnswerDto {
 
         private long boardId;
 
-//    private List<CommentDto.Response> comments;
+        private String url;
 
-//        private Long like;
+
     }
 
 }

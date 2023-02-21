@@ -37,7 +37,7 @@ import java.util.List;
 @RequestMapping("/boards")
 @Slf4j
 public class BoardController {
-    public static String BOARD_DEFAULT_URL = "/boards";
+    public static String url = "http://localhost:8080/boards/";
     private final BoardService boardService;
     private final BoardMapper boardMapper;
     private final BoardVoteService boardVoteService;
@@ -58,34 +58,20 @@ public class BoardController {
         this.answerMapper = answerMapper;
         this.memberService = memberService;
     }
-    // 보드 생성하려면 memberId가 필요하거나
-    // User 권한이 있으면 되는데 BoardDto.Post에는
-    // 포함되어있지 않고 따로 authority도 포함되어 있지 않다.
-    // 어떻게 수정해야하는가 ?
     @PostMapping
-
     public ResponseEntity postBoard(@RequestBody BoardDto.Post requestBody,
-                                    @AuthenticationPrincipal HelloUserDetailsService.HelloUserDetails userDetails) {
-        Board createdBoard = boardMapper.boardPostDtoToBoard(requestBody);
-        createdBoard.setMember(memberService.loadMember(userDetails.getMemberId()));
-        Board board = boardService.createBoard(createdBoard);
+                                    Principal principal) {
+        Member member = memberService.findMemberByEmail(principal.getName());
+        Board board = boardMapper.boardPostDtoToBoard(requestBody);
+        board.setMember(member);
+        Board postedBoard = boardService.createBoard(board);
+        BoardDto.Response response = boardMapper.boardToBoardResponse(postedBoard);
+        response.setUrl(url+response.getBoardId());
 
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
-        return new ResponseEntity<>(boardMapper.boardToBoardResponse(board), HttpStatus.OK);
     }
 
-    @PostMapping("/{board-id}")
-    public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
-                                     @Valid @RequestBody AnswerDto.Post requestBody,
-                                     @AuthenticationPrincipal HelloUserDetailsService.HelloUserDetails userDetails) {
-
-        Answer answer = answerMapper.answerPostToAnswer(requestBody);
-        answer.setMember(memberService.loadMember(userDetails.getMemberId()));
-        answer.setBoard(boardService.findBoard(boardId));
-
-        answerService.createAnswer(answer);
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
-    }
 
     @PatchMapping("/{board-id}")
     public ResponseEntity patchBoard(@PathVariable("board-id") @Positive long boardId,
@@ -131,10 +117,10 @@ public class BoardController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
     @GetMapping("/{board-id}/vote")
     public ResponseEntity getVote (@PathVariable("board-id") @Positive long boardId){
 
         return new ResponseEntity<>(boardVoteService.getVote(boardId),HttpStatus.OK);
     }
+
 }

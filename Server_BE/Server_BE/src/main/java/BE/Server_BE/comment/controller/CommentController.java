@@ -2,49 +2,73 @@ package BE.Server_BE.comment.controller;
 
 
 import BE.Server_BE.MultiResponse;
+import BE.Server_BE.answer.service.AnswerService;
 import BE.Server_BE.comment.dto.CommentDto;
 import BE.Server_BE.comment.entity.Comment;
 import BE.Server_BE.comment.mapper.CommentMapper;
 import BE.Server_BE.comment.service.CommentService;
 import BE.Server_BE.member.response.PageInfo;
+import BE.Server_BE.member.service.MemberService;
+import BE.Server_BE.springsecurity.HelloUserDetailsService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/boards/{board-id}/answers/{answer-id}/comments/")
 @Validated
 public class CommentController {
-    CommentMapper mapper;
-    CommentService commentService;
+    private final CommentMapper commentMapper;
+    private final CommentService commentService;
+    private final MemberService memberService;
+    private final AnswerService answerService;
 
-    private final String url = "http://localhost:8080/comments/";
+    private final String url = "http://localhost:8080/boards/{board-id}/answers/{answer-id}/comments/";
 
-    public CommentController(CommentMapper mapper, CommentService commentService) {
-        this.mapper = mapper;
+    public CommentController(CommentMapper commentMapper, CommentService commentService, MemberService memberService, AnswerService answerService) {
+        this.commentMapper = commentMapper;
         this.commentService = commentService;
+        this.memberService = memberService;
+        this.answerService = answerService;
+    }
+
+    @PostMapping
+    public ResponseEntity postComment (@PathVariable("answer-id") @Positive long answerId,
+                                       @Valid @RequestBody CommentDto.Post post,
+                                       Principal principal) throws Exception {
+
+        Comment comment = buildComment(
+                answerId,
+                principal.getName(),
+                post.getBody());
+        commentService.createComment(comment);
+        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(comment);
+        response.setUrl(url+response.getCommentId());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{comment-id}")
     public ResponseEntity patchComment (@PathVariable("comment-id") @Positive long commentId,
                                         @RequestBody @Valid CommentDto.Patch patch) {
-        Comment comment = mapper.commentDtoPatchToComment(patch);
+        Comment comment = commentMapper.commentDtoPatchToComment(patch);
         comment.setCommentId(commentId);
         Comment updatedComment = commentService.updateComment(comment);
-        CommentDto.Response response = mapper.commentToCommentDtoResponse(updatedComment);
+        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(updatedComment);
         response.setUrl(url+response.getCommentId());
         return new ResponseEntity(response, HttpStatus.OK);
     }
     @GetMapping("/{comment-id}")
     public ResponseEntity getComment (@PathVariable("comment-id") @Positive long commentId){
         Comment findComment = commentService.getComment(commentId);
-        CommentDto.Response response = mapper.commentToCommentDtoResponse(findComment);
+        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(findComment);
         response.setUrl(url+commentId);
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -54,7 +78,7 @@ public class CommentController {
         PageInfo pageInfo = new PageInfo(commentPage.getNumber(), commentPage.getSize(),
                 commentPage.getTotalElements(),commentPage.getTotalPages());
         List<Comment> comments = commentPage.getContent();
-        List<CommentDto.Response> responses = mapper.commentsToCommentDtoResponse(comments);
+        List<CommentDto.Response> responses = commentMapper.commentsToCommentDtoResponse(comments);
         responses.stream().forEach(s -> s.setUrl(url+s.getCommentId()));
 
         return new ResponseEntity<>(
@@ -64,5 +88,13 @@ public class CommentController {
     public ResponseEntity deleteComment(@Positive @PathVariable("comment-id")long commentId) throws Exception {
         commentService.deleteComment(commentId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+    private Comment buildComment(long answerId, String email,String body) {
+        Comment comment = Comment.builder()
+                .body(body)
+                .build();
+        comment.setAnswer(answerService.findAnswer(answerId));
+        comment.setMember(memberService.findMemberByEmail(email));
+        return comment;
     }
 }

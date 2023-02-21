@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.Optional;
 
 
@@ -49,6 +50,10 @@ public class BoardService {
 
     public Board findBoard(long boardId) {
         return findVerifiedBoard(boardId);
+    }
+    public Board findBoard(long boardId, Principal principal) {
+        Board board = findVerifiedBoard(boardId);
+        return board;
     }
 
     @Transactional(readOnly = true)
