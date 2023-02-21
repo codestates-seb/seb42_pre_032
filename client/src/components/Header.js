@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LinkButton, BlueLinkButton } from './Buttons';
 import { StyledHeader, StyledWrapper } from './styled/Header.styled';
 import { useState } from 'react';
+import StyledInput from './styled/Input.styled';
 
 const Header = () => {
   const [str, setStr] = useState('');
@@ -31,7 +32,7 @@ const Header = () => {
         <form onSubmit={onSubmit}>
           <div>
             <GrSearch />
-            <input
+            <StyledInput
               onChange={onChange}
               value={str}
               type="text"
