@@ -61,35 +61,27 @@ public class AnswerController{
     public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody AnswerDto.Post requestBody,
                                      Principal principal) {
-        Answer answer = buildAnswer(
-                boardId,
-                principal.getName(),
-                requestBody.getTitle(),
-                requestBody.getBody()
-        );
-        answerService.createAnswer(answer);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
 
-//        Answer answer = answerMapper.answerPostToAnswer(requestBody);
-//        Member member = memberService.findMemberByEmail(principal.getName());
-//        answer.setMember(member);
-//        Answer createdAnswer = answerService.createAnswer(answer);
-//
-//        AnswerDto.Response response = answerMapper.answerToAnswerResponse(createdAnswer);
-//        response.setUrl(url+response.getAnswerId());
-//
-//        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-    private Answer buildAnswer(long boardId, String email,String title, String body) {
-        Answer answer = Answer.builder()
-                .title(title)
-                .body(body)
-                .build();
-        answer.setBoard(boardService.findBoard(boardId));
-        answer.setMember(memberService.findMemberByEmail(email));
+        Answer answer = answerMapper.answerPostToAnswer(requestBody);
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answer.setMember(member);
+        answer.setBoard(boardService.findVerifiedBoard(boardId));
+        Answer createdAnswer = answerService.createAnswer(answer);
 
-        return answer;
+        AnswerDto.Response response = answerMapper.answerToAnswerResponse(createdAnswer);
+        response.setUrl(url+response.getAnswerId());
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+//    private Answer buildAnswer(long boardId, String email,String title, String body) {
+//        Answer answer = Answer.builder()
+//                .title(title)
+//                .body(body)
+//                .build();
+//        answer.setBoard(boardService.findBoard(boardId));
+//        answer.setMember(memberService.findMemberByEmail(email));
+//        return answer;
+//    }
     @PatchMapping("{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") @Positive long answerId,
                                        @Valid @RequestBody AnswerDto.Patch requestBody){

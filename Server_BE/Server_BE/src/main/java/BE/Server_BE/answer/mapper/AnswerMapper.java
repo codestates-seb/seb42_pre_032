@@ -21,7 +21,7 @@ public interface AnswerMapper {
                 .title(answer.getTitle())
                 .body(answer.getBody())
                 .boardId(answer.getBoard().getBoardId())
-//                .memberId(answer.getMember().getMemberId())
+                .memberId(answer.getMember().getMemberId())
                 .build();
 
         return response;
