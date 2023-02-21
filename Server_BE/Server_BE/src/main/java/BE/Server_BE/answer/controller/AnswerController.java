@@ -53,8 +53,8 @@ public class AnswerController{
                                      @Valid @RequestBody AnswerDto.Post requestBody,
                                      Principal principal) {
 
-        Answer answer = answerMapper.answerPostToAnswer(requestBody);
         Member member = memberService.findMemberByEmail(principal.getName());
+        Answer answer = answerMapper.answerPostToAnswer(requestBody);
         answer.setMember(member);
         answer.setVote(0L);
         answer.setBoard(boardService.findVerifiedBoard(boardId));
@@ -71,6 +71,7 @@ public class AnswerController{
                                        @Valid @RequestBody AnswerDto.Patch requestBody){
 
         Answer answer = answerService.updateAnswer(answerMapper.answerPatchToAnswer(requestBody));
+        answer.setAnswerId(answerId);
 
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
@@ -78,7 +79,7 @@ public class AnswerController{
     @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.getAnswer(answerId);
+        Answer answer = answerService.findAnswer(answerId);
 
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }

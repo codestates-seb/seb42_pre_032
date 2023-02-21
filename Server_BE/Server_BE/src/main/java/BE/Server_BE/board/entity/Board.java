@@ -25,7 +25,7 @@ public class Board extends Auditable {
 
     @Column(nullable = false)
     private String body;
-//
+
     @Column
     private Long vote;
 

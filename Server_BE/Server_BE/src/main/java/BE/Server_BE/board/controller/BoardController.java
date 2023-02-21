@@ -56,11 +56,13 @@ public class BoardController {
     @PostMapping
     public ResponseEntity postBoard(@RequestBody BoardDto.Post requestBody,
                                     Principal principal) {
+
         Member member = memberService.findMemberByEmail(principal.getName());
         Board board = boardMapper.boardPostDtoToBoard(requestBody);
         board.setMember(member);
         board.setVote(0L);
         Board postedBoard = boardService.createBoard(board);
+
         BoardDto.Response response = boardMapper.boardToBoardResponse(postedBoard);
         response.setUrl(url+response.getBoardId());
 
