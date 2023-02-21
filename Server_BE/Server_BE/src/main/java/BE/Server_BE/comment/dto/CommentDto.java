@@ -5,9 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 public class CommentDto {
     @Getter
     public static class Post {
+        @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         String body;
 
     }

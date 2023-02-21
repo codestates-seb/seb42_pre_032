@@ -38,15 +38,10 @@ public class AnswerDto {
     public static class Response{
 
         private Long answerId;
-
-        private String title;
-
         private long memberId;
-
-        private String body;
-
         private long boardId;
-
+        private String body;
+        private String title;
         private String url;
 
 

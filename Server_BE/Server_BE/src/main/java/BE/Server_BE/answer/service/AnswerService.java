@@ -22,18 +22,15 @@ public class AnswerService {
 
     public Answer createAnswer(Answer answer){
 
-
         Answer savedAnswer = answerRepository.save(answer);
 
         return savedAnswer;
     }
 
-    @Transactional(readOnly = true)
+
     public Answer findAnswer(long answerId) {
-        Optional<Answer> optionalQuestion =
-                answerRepository.findById(answerId);
-        Answer findAnswer =
-                optionalQuestion.orElseThrow(() ->
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        Answer findAnswer = optionalAnswer.orElseThrow(() ->
                  new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY));
         return findAnswer;
     }

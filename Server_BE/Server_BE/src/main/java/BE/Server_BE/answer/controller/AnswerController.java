@@ -33,11 +33,12 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/boards/{board-id}/answers")
+//@RequestMapping("/boards/{board-id}/answers")
+@RequestMapping("/answers")
 @Validated
 @Slf4j
 public class AnswerController{
-    private final String url = "http://localhost:8080/boards/{board-id}/answers/";
+    private final String url = "http://localhost:8080/answers/";
 
     private final AnswerVoteService answerVoteService;
     private final AnswerService answerService;
@@ -57,7 +58,7 @@ public class AnswerController{
         this.boardService = boardService;
     }
 
-    @PostMapping("")
+    @PostMapping("/{board-id}")
     public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody AnswerDto.Post requestBody,
                                      Principal principal) {
@@ -73,16 +74,8 @@ public class AnswerController{
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-//    private Answer buildAnswer(long boardId, String email,String title, String body) {
-//        Answer answer = Answer.builder()
-//                .title(title)
-//                .body(body)
-//                .build();
-//        answer.setBoard(boardService.findBoard(boardId));
-//        answer.setMember(memberService.findMemberByEmail(email));
-//        return answer;
-//    }
-    @PatchMapping("{answer-id}")
+
+    @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") @Positive long answerId,
                                        @Valid @RequestBody AnswerDto.Patch requestBody){
 
@@ -91,7 +84,7 @@ public class AnswerController{
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
 
-    @GetMapping("{answer-id}")
+    @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.findAnswer(answerId);

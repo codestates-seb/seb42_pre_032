@@ -36,7 +36,6 @@ public class BoardService {
     public Board updateBoard(Board board, long memberId) {
         Board findBoard = findVerifiedBoard(board.getBoardId());
 
-        // 글을 작성한 사용자만 글을 삭제할수잇다(근데 관리자는 어케삭제하지)
         if(memberId != findBoard.getMember().getMemberId())
             throw new BusinessLogicException(ExceptionCode.METHOD_NOT_ALLOWED);
 
