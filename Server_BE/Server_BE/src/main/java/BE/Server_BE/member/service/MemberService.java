@@ -77,16 +77,26 @@ public class MemberService {
         Member deleteMember = loadMember(memberId);
         memberRepository.delete(deleteMember);
     }
+    // 존재하는 이메일인지 확인
     public void verifyExistedEmail(String email) throws Exception {
         Optional<Member> foundEmail = memberRepository.findByEmail(email);
         if (foundEmail.isPresent())
             throw new BusinessLogicException(ExceptionCode.EMAIL_IS_DUPLICATED);
     }
+    // 존재하는 회원인지 확인
     public Member loadMember(long memberId) {
         Member findMember = memberRepository.findById(memberId);
         if (findMember == null) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         }
+        return findMember;
+    }
+    // 이메일을 통해 회원 확인
+    public Member findMemberByEmail(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+
+        Member findMember = optionalMember.orElseThrow(()
+                ->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 }

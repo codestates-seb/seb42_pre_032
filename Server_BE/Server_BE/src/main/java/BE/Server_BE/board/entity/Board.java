@@ -19,15 +19,15 @@ public class Board extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
-
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
     @OneToMany(mappedBy = "board")
     private List<Answer> answers = new ArrayList<>();

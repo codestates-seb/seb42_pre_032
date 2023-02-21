@@ -3,7 +3,9 @@ package BE.Server_BE.comment.entity;
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.audit.Auditable;
 import BE.Server_BE.member.entity.Member;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Comment extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,5 +30,11 @@ public class Comment extends Auditable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name="ANSWER_ID")
     Answer answer;
+
+    @Builder
+    public Comment(long commentId, String body, Member member, Answer answer) {
+        this.commentId = commentId;
+        this.body = body;
+    }
 
 }
