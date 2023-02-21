@@ -23,7 +23,7 @@ public class AnswerVoteService {
     }
 
     public void createLike(long answerId, long memberId){
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer = answerService.getAnswer(answerId);
         Member member = memberService.loadMember(memberId);
         AnswerVote vote = new AnswerVote(member, answer, 1);
 
@@ -31,7 +31,7 @@ public class AnswerVoteService {
     }
 
     public void createDislike(long answerId, long memberId){
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer = answerService.getAnswer(answerId);
         Member member = memberService.loadMember(memberId);
         AnswerVote vote = new AnswerVote(member, answer, -1);
 

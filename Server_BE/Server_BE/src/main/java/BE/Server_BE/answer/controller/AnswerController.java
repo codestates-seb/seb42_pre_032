@@ -56,7 +56,6 @@ public class AnswerController{
         this.memberService = memberService;
         this.boardService = boardService;
     }
-
     @PostMapping("")
     public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody AnswerDto.Post requestBody,
@@ -73,15 +72,7 @@ public class AnswerController{
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-//    private Answer buildAnswer(long boardId, String email,String title, String body) {
-//        Answer answer = Answer.builder()
-//                .title(title)
-//                .body(body)
-//                .build();
-//        answer.setBoard(boardService.findBoard(boardId));
-//        answer.setMember(memberService.findMemberByEmail(email));
-//        return answer;
-//    }
+
     @PatchMapping("{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") @Positive long answerId,
                                        @Valid @RequestBody AnswerDto.Patch requestBody){
@@ -94,14 +85,14 @@ public class AnswerController{
     @GetMapping("{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer = answerService.getAnswer(answerId);
 
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getAnswers(@Positive @RequestParam int page) {
-        Page<Answer> answerPage = answerService.findAllAnswers(page - 1, 15);
+    public ResponseEntity getAnswers(@Positive @RequestParam(required = false, defaultValue = "1") int page) {
+        Page<Answer> answerPage = answerService.getAnswers(page);
         PageInfo pageInfo = new PageInfo(answerPage.getNumber(), answerPage.getSize(),
                 answerPage.getTotalElements(),answerPage.getTotalPages());
         List<Answer> answers = answerPage.getContent();
