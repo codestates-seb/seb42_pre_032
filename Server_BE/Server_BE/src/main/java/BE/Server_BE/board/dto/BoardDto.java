@@ -22,6 +22,10 @@ public class BoardDto {
         private String title;
         @NotBlank
         private String body;
+
+        public Post(String title, String body) {
+
+        }
     }
 
     @Getter
