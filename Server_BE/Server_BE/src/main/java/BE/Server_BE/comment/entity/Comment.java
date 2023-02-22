@@ -29,15 +29,11 @@ public class Comment extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name="ANSWER_ID")
     private Answer answer;
 
-    @Builder
-    public Comment(long commentId, String body, Member member, Answer answer) {
-        this.commentId = commentId;
-        this.body = body;
-    }
     public void setMember(Member member) {
         this.member = member;
         if (!member.getComments().contains(this)) {

@@ -18,6 +18,7 @@ public class AnswerDto {
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다")
         private String body;
+
     }
 
     @Getter
@@ -37,7 +38,6 @@ public class AnswerDto {
         private Long answerId;
         private long memberId;
         private long boardId;
-
         private String body;
         private String title;
         private long like;

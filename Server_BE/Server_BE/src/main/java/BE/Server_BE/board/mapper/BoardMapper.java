@@ -43,18 +43,21 @@ public interface BoardMapper {
 
         return response;
     }
-    default List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers){
+    default List<AnswerDto.Response> answersToAnswerResponses (List <Answer> answers) {
+        final String url = "http://localhost:8080/answers/";
         return answers
-                .stream()
-                .map(answer -> AnswerDto.Response
-                        .builder()
-                        .answerId(answer.getAnswerId())
-                        .title(answer.getTitle())
-                        .body(answer.getBody())
-                        .memberId(answer.getMember().getMemberId())
-                        .boardId(answer.getBoard().getBoardId())
-                        .like(answer.getVote())
-                        .build())
-                .collect(Collectors.toList());
-    }
-}
+                        .stream()
+                        .map(answer -> AnswerDto.Response
+                                .builder()
+                                .answerId(answer.getAnswerId())
+                                .title(answer.getTitle())
+                                .body(answer.getBody())
+                                .memberId(answer.getMember().getMemberId())
+                                .boardId(answer.getBoard().getBoardId())
+                                .like(answer.getVote())
+                                .url(url+answer.getAnswerId())
+                                .build())
+                        .collect(Collectors.toList());
+            }
+        }
+

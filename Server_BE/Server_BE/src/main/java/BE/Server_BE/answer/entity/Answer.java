@@ -34,14 +34,15 @@ public class Answer extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name = "BOARD_ID")
     private Board board;
 
     @Column
     private Long vote;
 
-    @OneToMany(mappedBy = "answer")
+    @OneToMany(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

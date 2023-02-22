@@ -51,42 +51,30 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
 
-
-                        // [회원 등록] -> 아무나 가능
                         .antMatchers(HttpMethod.POST,"/members").permitAll()
-                        // [회원 수정] -> 회원 당사자, 관리자
                         .antMatchers(HttpMethod.PATCH,"/members/{member-id}").hasAnyRole("USER","ADMIN")
-                        // [회원 단일 조회] -> 당사자 유저, 관리자
                         .antMatchers(HttpMethod.GET,"/members/{member-id}").hasAnyRole("USER","ADMIN")
-                        // [회원 전체 조회] -> 관리자
                         .antMatchers(HttpMethod.GET,"/members").hasRole("ADMIN")
-                        // [회원 삭제] -> 관리자
                         .antMatchers(HttpMethod.DELETE, "/members/{member-id}").hasRole("ADMIN")
 
+                        .antMatchers(HttpMethod.POST,"/boards").hasAnyRole("ADMIN", "USER")
+                        .antMatchers(HttpMethod.PATCH, "/boards/{board-id}").hasAnyRole("ADMIN", "USER")
+                        .antMatchers(HttpMethod.GET, "/boards/{board-id}").hasAnyRole("ADMIN", "USER")
+                        .antMatchers(HttpMethod.GET, "/boards").hasAnyRole("ADMIN", "USER")
+                        .antMatchers(HttpMethod.DELETE, "/boards/{board-id}").hasAnyRole("ADMIN", "USER")
 
-                        // [게시글 등록] -> 유저, 관리자
-                        .antMatchers(HttpMethod.POST,"/boards").hasRole("USER")
-                        // [게시글 수정] -> 본인 [작성자], 관리자
-                        .antMatchers(HttpMethod.PATCH, "/boards/{board-id}").hasRole("USER")
-                        // [게시글 조회] -> 유저, 관리자
-                        // [게시글 삭제] -> 본인 [작성자], 관리자
+                                .antMatchers(HttpMethod.POST,"/answers/{board-id}").hasAnyRole("ADMIN", "USER")
+                                .antMatchers(HttpMethod.PATCH, "/answers/{answer-id}").hasAnyRole("ADMIN", "USER")
+                                .antMatchers(HttpMethod.GET, "/answers/{answer-id}").hasAnyRole("ADMIN", "USER")
+                                .antMatchers(HttpMethod.GET, "/answers").hasAnyRole("ADMIN", "USER")
+                                .antMatchers(HttpMethod.DELETE, "/answers/{answer-id}").hasAnyRole("ADMIN","USER")
 
-                        // [답글 등록] -> 회원인 유저, 관리자
-                        // [답글 수정] -> 회원인 유저[작성자], 관리자
-                        // [답글 조회] -> 회원인 유저, 관리자
-                        // [답글 삭제] -> 회원인 유저[작성자], 관리자
-
-                        // [댓글 등록] -> 회원인 유저, 관리자
-                        // [댓글 수정] -> 회원인 유저[작성자], 관리자
-                        // [댓글 조회] -> 회원인 유저, 관리자
-                        // [댓글 삭제] -> 회원인 유저[작성자], 관리자
-
-                        .antMatchers(HttpMethod.PATCH,"/boards/**").hasAnyRole("ADMIN", "USER")
-                        .antMatchers("/members/**").hasAnyRole("ADMIN", "USER")
-                        .antMatchers("/comments/**").hasAnyRole("ADMIN", "USER")
-                        .anyRequest().permitAll()
-
-                );
+                                .antMatchers(HttpMethod.POST, "/comments/{answer-id}").hasAnyRole("ADMIN","USER")
+                                .antMatchers(HttpMethod.PATCH,"/comments/{comment-id}").hasAnyRole("ADMIN","USER")
+                                .antMatchers(HttpMethod.GET, "/comments/{comment-id}").hasAnyRole("ADMIN","USER")
+                                .antMatchers(HttpMethod.GET, "/comments").hasAnyRole("ADMIN","USER")
+                                .antMatchers(HttpMethod.DELETE,"/comments/{comment-id}").hasAnyRole("ADMIN","USER")
+                        .anyRequest().permitAll());
         return http.build();
     }
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {

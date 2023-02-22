@@ -32,6 +32,7 @@ public interface CommentMapper {
                 .stream()
                 .map(comment -> CommentDto.Response
                         .builder()
+                        .memberId(comment.getMember().getMemberId())
                         .commentId(comment.getCommentId())
                         .body(comment.getBody())
                         .answerId(comment.getAnswer().getAnswerId())
