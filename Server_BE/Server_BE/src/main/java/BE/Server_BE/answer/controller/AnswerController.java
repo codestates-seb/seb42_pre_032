@@ -88,7 +88,7 @@ public class AnswerController{
         Answer answer = answerService.findAnswer(answerId);
         AnswerDto.Response response = answerMapper.answerToAnswerResponse(answer);
         response.setUrl(url+answerId);
-
+        
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

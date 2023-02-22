@@ -25,7 +25,7 @@ public interface BoardMapper {
     Board boardPatchDtoToBoard(BoardDto.Patch requestBody);
     List<BoardDto.Response> boardsToBoardResponse(List<Board> boards);
 
-    default BoardDto.Response boardToBoardResponse(Board board) {
+    default BoardDto.Response boardToBoardResponse(Board board){
         List<Answer> answerList = board.getAnswers();
 
         BoardDto.Response response = BoardDto.Response
