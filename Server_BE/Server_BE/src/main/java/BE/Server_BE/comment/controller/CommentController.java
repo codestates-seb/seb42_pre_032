@@ -97,7 +97,7 @@ public class CommentController {
         Comment comment = Comment.builder()
                 .body(body)
                 .build();
-        comment.setAnswer(answerService.getAnswer(answerId));
+        comment.setAnswer(answerService.findAnswer(answerId));
         comment.setMember(memberService.findMemberByEmail(email));
         return comment;
     }
