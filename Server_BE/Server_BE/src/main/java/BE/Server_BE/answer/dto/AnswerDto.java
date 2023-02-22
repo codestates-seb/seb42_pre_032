@@ -19,6 +19,10 @@ public class AnswerDto {
         @NotBlank(message = "내용은 공백이 아니어야 합니다")
         private String body;
 
+        public Post(String title, String body) {
+
+        }
+
     }
 
     @Getter
