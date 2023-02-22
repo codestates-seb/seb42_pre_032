@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SiderbarCom = styled.div`
   background-color: ${({ theme }) => theme.color.common.default_bg};
   border-radius: 5px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   width: 164px;
   height: 100vh;
   display: flex;
@@ -15,11 +15,13 @@ const SiderbarCom = styled.div`
   line-height: 40px;
 
   .menu_title {
-    margin-left: 10px;
+    margin-left: 30px;
+    padding-top: 30px;
   }
   .menu_tab {
     letter-spacing: 1px;
     text-indent: 30px;
+    margin-left: 10px;
   }
 
   .menu_tab li:hover {
