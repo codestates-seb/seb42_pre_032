@@ -17,6 +17,7 @@ import java.util.List;
 
 public class BoardDto {
     @Getter
+    @AllArgsConstructor
     public static class Post {
         @NotBlank
         private String title;
@@ -26,6 +27,7 @@ public class BoardDto {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Patch {
         private long memberId;
         private long boardId;
@@ -37,6 +39,7 @@ public class BoardDto {
     @Getter
     @Setter
     @Builder
+    @AllArgsConstructor
     public static class Response {
         private long boardId;
         private long memberId;

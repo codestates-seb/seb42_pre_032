@@ -49,7 +49,8 @@ public class Member extends Auditable {
     private List<String> roles = new ArrayList<>();
 
     // 테스트 하기 위해 추가
-    public Member(String nickName, String email, String password, String about_Me) {
+    public Member(long memberId, String nickName, String email, String password, String about_Me) {
+        this.memberId = memberId;
         this.nickName = nickName;
         this.email = email;
         this.password = password;

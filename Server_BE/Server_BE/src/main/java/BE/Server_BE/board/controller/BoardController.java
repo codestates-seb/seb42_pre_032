@@ -36,21 +36,15 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardMapper boardMapper;
     private final VoteService voteService;
-    private final AnswerService answerService;
-    private final AnswerMapper answerMapper;
     private final MemberService memberService;
 
     public BoardController(BoardService boardService,
                            BoardMapper boardMapper,
                            VoteService voteService,
-                           AnswerService answerService,
-                           AnswerMapper answerMapper,
                            MemberService memberService) {
         this.boardService = boardService;
         this.boardMapper = boardMapper;
         this.voteService = voteService;
-        this.answerService = answerService;
-        this.answerMapper = answerMapper;
         this.memberService = memberService;
     }
     @PostMapping
@@ -133,7 +127,7 @@ public class BoardController {
         Member member = memberService.findMemberByEmail(principal.getName());
         voteService.deleteBoardVote(boardId, member.getMemberId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @DeleteMapping("/{board-id}/dislike")
     public ResponseEntity deleteDislike (@PathVariable("board-id") @Positive long boardId,
@@ -141,7 +135,7 @@ public class BoardController {
         Member member = memberService.findMemberByEmail(principal.getName());
         voteService.deleteBoardVote(boardId, member.getMemberId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

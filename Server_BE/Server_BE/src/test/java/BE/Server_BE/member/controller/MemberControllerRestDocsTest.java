@@ -190,4 +190,51 @@ public class MemberControllerRestDocsTest {
                 ));
     }
 
+    @Test
+    public void getMemberTest() throws Exception {
+
+        long memberId = 1L;
+        MemberDto.Patch patch = new MemberDto.Patch(memberId, "John", "Paul@gmail.com", "John", "John");
+
+        ResultActions actions1 =
+                mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/{member-id}", memberId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                );
+
+        actions1
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.memberId").value(patch.getMemberId()))
+                .andExpect(jsonPath("$.nickName").value(patch.getNickName()))
+                .andExpect(jsonPath("$.email").value(patch.getEmail()))
+                .andExpect(jsonPath("$.password").value(patch.getPassword()))
+                .andExpect(jsonPath("$.about_Me").value(patch.getAbout_Me()))
+                .andDo(document("patch-member",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        pathParameters(
+                                parameterWithName("member-id").description("회원 식별자")
+                        ),
+                        requestFields(
+                                List.of(
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자").ignored(),
+                                        fieldWithPath("nickName").type(JsonFieldType.STRING).description("작성자").optional(),
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("이메일").optional(),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional(),
+                                        fieldWithPath("about_Me").type(JsonFieldType.STRING).description("자기소개").optional()
+                                )
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("nickName").type(JsonFieldType.STRING).description("작성자"),
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
+                                        fieldWithPath("about_Me").type(JsonFieldType.STRING).description("자기소개"),
+                                        fieldWithPath("url").type(JsonFieldType.STRING).description("url")
+                                )
+                        )
+                ));
+    }
+
 }
