@@ -4,11 +4,8 @@ import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.answer.mapper.AnswerMapper;
 import BE.Server_BE.answer.service.AnswerService;
-import BE.Server_BE.board.dto.BoardDto;
-import BE.Server_BE.board.entity.Board;
 import BE.Server_BE.board.mapper.BoardMapper;
-import BE.Server_BE.member.dto.MemberDto;
-import BE.Server_BE.member.entity.Member;
+import BE.Server_BE.comment.dto.CommentDto;
 import BE.Server_BE.member.mapper.MemberMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -16,25 +13,34 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.hamcrest.Matchers.is;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+import static BE.Server_BE.member.util.ApiDocumentUtils.getRequestPreProcessor;
+import static BE.Server_BE.member.util.ApiDocumentUtils.getResponsePreProcessor;
+
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.startsWith;
-import static org.mockito.ArgumentMatchers.startsWith;
+import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AnswerController.class)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
+@AutoConfigureMockMvc(addFilters = false)
 public class AnswerControllerTest {
 
     @Autowired
@@ -42,6 +48,9 @@ public class AnswerControllerTest {
 
     @MockBean
     private AnswerService answerService;
+
+    @Mock
+    private Principal principal;
 
     @MockBean
     private AnswerMapper answerMapper;
@@ -58,38 +67,64 @@ public class AnswerControllerTest {
     @Test
     public void postAnswerTest() throws Exception {
         // given
-        MemberDto.Post memberPost = new MemberDto.Post("아이언맨","IronMan@marvel.com","123123","아이언맨입니다.");
-        Member member = memberMapper.memberDtoPostToMember(memberPost);
-        member.setMemberId(1L);
 
-
-        BoardDto.Post boardPost = new BoardDto.Post("게시글 제목", "게시글 내용");
-        Board board = boardMapper.boardPostDtoToBoard(boardPost);
-        board.setBoardId(1L);
         
         AnswerDto.Post answerPost = new AnswerDto.Post("답글 제목", "답글 내용");
-        Answer answer = answerMapper.answerPostToAnswer(answerPost);
-        answer.setAnswerId(1L);
-
-        given(answerService.createAnswer(Mockito.any(Answer.class)))
-                .willReturn(answer);
-
         String content = gson.toJson(answerPost);
 
+        List<CommentDto.Response> responses = new ArrayList<>();
+
+        AnswerDto.Response response =
+                new AnswerDto.Response(
+                        1L,
+                        1L,
+                        1L,
+                        "답글 내용",
+                        "답글 제목",
+                        0L,
+                        "http://localhost:8080/answers/1"
+                );
+
+        given(answerMapper.answerPostToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
+        given(answerService.createAnswer(Mockito.any(Answer.class))).willReturn(new Answer());
+        given(answerMapper.answerToAnswerResponse(Mockito.any(Answer.class))).willReturn(response);
+
         // when
+        when(principal.getName()).thenReturn("123@123");
         ResultActions actions =
                 mockMvc.perform(
-                        post("/answers/1")
+                        post("/answers")
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .principal(principal)
                                 .content(content)
                 );
-        actions.andExpect(status().isCreated())
-                .andExpect(header().string("Location", is(startsWith("/answers/1"))));
-
         //then
-
-
-
+        actions
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value(answerPost.getTitle()))
+                .andExpect(jsonPath("$.body").value(answerPost.getBody()))
+                .andDo(document(
+                        "post-answer",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        requestFields(
+                                List.of(
+                                        fieldWithPath("title").type(JsonFieldType.STRING).description("답글 제목"),
+                                        fieldWithPath("body").type(JsonFieldType.STRING).description("답글 내용")
+                                )
+                        ),
+                        requestFields(
+                                List.of(
+                                        fieldWithPath("answerId").type(JsonFieldType.NUMBER).description("답글 식별자"),
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("boardId").type(JsonFieldType.NUMBER).description("게시글 식별자"),
+                                        fieldWithPath("body").type(JsonFieldType.STRING).description("답글 내용"),
+                                        fieldWithPath("title").type(JsonFieldType.STRING).description("답글 제목"),
+                                        fieldWithPath("like").type(JsonFieldType.NUMBER).description("답글 좋아요"),
+                                        fieldWithPath("url").type(JsonFieldType.STRING).description("url")
+                                )
+                        )
+                ));
     }
 }

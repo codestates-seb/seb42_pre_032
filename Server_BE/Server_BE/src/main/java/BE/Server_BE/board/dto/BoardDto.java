@@ -2,10 +2,7 @@ package BE.Server_BE.board.dto;
 
 import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
@@ -18,20 +15,19 @@ import java.util.List;
 public class BoardDto {
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @NotBlank
         private String title;
         @NotBlank
         private String body;
 
-        public Post(String title, String body) {
-
-        }
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
         private long memberId;
         private long boardId;

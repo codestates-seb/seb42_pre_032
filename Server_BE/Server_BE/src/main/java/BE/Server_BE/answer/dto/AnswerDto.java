@@ -1,5 +1,6 @@
 package BE.Server_BE.answer.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class AnswerDto {
     @Getter
     @Setter
     @Builder
+    @AllArgsConstructor
     public static class Response{
 
         private Long answerId;

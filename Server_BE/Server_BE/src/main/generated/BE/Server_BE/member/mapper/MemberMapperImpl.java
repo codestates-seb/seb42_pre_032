@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-20T15:11:42+0900",
+    date = "2023-02-22T17:17:43+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -56,13 +56,21 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        Response response = new Response();
+        long memberId = 0L;
+        String nickName = null;
+        String email = null;
+        String password = null;
+        String about_Me = null;
 
-        response.setMemberId( member.getMemberId() );
-        response.setNickName( member.getNickName() );
-        response.setEmail( member.getEmail() );
-        response.setPassword( member.getPassword() );
-        response.setAbout_Me( member.getAbout_Me() );
+        memberId = member.getMemberId();
+        nickName = member.getNickName();
+        email = member.getEmail();
+        password = member.getPassword();
+        about_Me = member.getAbout_Me();
+
+        String url = null;
+
+        Response response = new Response( memberId, nickName, email, password, about_Me, url );
 
         return response;
     }
