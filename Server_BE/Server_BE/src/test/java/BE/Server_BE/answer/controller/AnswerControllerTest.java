@@ -76,9 +76,7 @@ public class AnswerControllerTest {
         given(answerService.createAnswer(Mockito.any(Answer.class)))
                 .willReturn(answer);
 
-
         String content = gson.toJson(answerPost);
-
 
         // when
         ResultActions actions =
