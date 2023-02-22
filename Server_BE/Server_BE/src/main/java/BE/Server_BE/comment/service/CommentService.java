@@ -25,12 +25,10 @@ public class CommentService {
         this.memberService = memberService;
         this.answerService = answerService;
     }
-// memberId를 가져오는 방법 필요 = UserDetails를 통해 가져오기!! ㅡ> Security;;;;;
-    public Comment createComment(Comment comment) throws Exception{
-//        memberService.loadMember(comment.getMember().getMemberId());
-//        answerService.findAnswer(1);
-//        comment.setMember(memberService.loadMember(1));
-        return commentRepository.save(comment);
+
+    public Comment createComment(Comment comment) {
+        Comment savedComment = commentRepository.save(comment);
+        return savedComment;
     }
     public Comment updateComment(Comment comment) {
         Comment findComment = loadComment(comment.getCommentId());

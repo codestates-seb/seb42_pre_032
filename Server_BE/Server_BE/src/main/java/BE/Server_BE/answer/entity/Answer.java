@@ -4,6 +4,7 @@ import BE.Server_BE.audit.Auditable;
 import BE.Server_BE.board.entity.Board;
 import BE.Server_BE.comment.entity.Comment;
 import BE.Server_BE.member.entity.Member;
+import BE.Server_BE.vote.entity.Vote;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,9 @@ public class Answer extends Auditable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "BOARD_ID")
     private Board board;
+
+    @Column
+    private Long vote;
 
     @OneToMany(mappedBy = "answer")
     private List<Comment> comments = new ArrayList<>();

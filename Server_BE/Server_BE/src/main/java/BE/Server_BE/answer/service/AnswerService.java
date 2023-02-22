@@ -22,18 +22,14 @@ public class AnswerService {
 
     public Answer createAnswer(Answer answer){
 
-
         Answer savedAnswer = answerRepository.save(answer);
 
         return savedAnswer;
     }
 
-    @Transactional(readOnly = true)
-    public Answer getAnswer(long answerId) {
-        Optional<Answer> optionalQuestion =
-                answerRepository.findById(answerId);
-        Answer findAnswer =
-                optionalQuestion.orElseThrow(() ->
+    public Answer findAnswer(long answerId) {
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        Answer findAnswer = optionalAnswer.orElseThrow(() ->
                  new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY));
         return findAnswer;
     }
@@ -46,7 +42,7 @@ public class AnswerService {
     }
 
     public Answer updateAnswer(Answer answer) {
-        Answer target = getAnswer(answer.getAnswerId());
+        Answer target = findAnswer(answer.getAnswerId());
 
         Optional.ofNullable(answer.getTitle())
                 .ifPresent(title -> target.setTitle(title));
@@ -57,7 +53,7 @@ public class AnswerService {
     }
 
     public void deleteAnswer(long answerId){
-        Answer findMember = getAnswer(answerId);
+        Answer findMember = findAnswer(answerId);
 
         answerRepository.delete(findMember);
     }
