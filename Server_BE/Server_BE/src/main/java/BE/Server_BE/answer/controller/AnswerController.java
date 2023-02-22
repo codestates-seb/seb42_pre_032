@@ -6,12 +6,9 @@ import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.answer.mapper.AnswerMapper;
 import BE.Server_BE.answer.service.AnswerService;
-import BE.Server_BE.answer.service.AnswerVoteService;
-import BE.Server_BE.board.entity.Board;
-import BE.Server_BE.comment.dto.CommentDto;
-import BE.Server_BE.comment.entity.Comment;
-import BE.Server_BE.comment.mapper.CommentMapper;
-import BE.Server_BE.comment.service.CommentService;
+import BE.Server_BE.vote.service.VoteService;
+import BE.Server_BE.board.service.BoardService;
+import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,61 +28,42 @@ import java.util.List;
 @Validated
 @Slf4j
 public class AnswerController{
-    private final String url = "http://localhost:8080/comments/";
+    private final String url = "http://localhost:8080/answers/";
 
-    private final AnswerVoteService answerVoteService;
+    private final VoteService answerVoteService;
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
+    private final BoardService boardService;
     private final MemberService memberService;
-    private final CommentMapper commentMapper;
-    private final CommentService commentService;
 
-    public AnswerController(AnswerVoteService answerVoteService,
+    public AnswerController(VoteService answerVoteService,
                             AnswerService answerService,
                             AnswerMapper answerMapper,
                             MemberService memberService,
-                            CommentMapper commentMapper,
-                            CommentService commentService) {
+                            BoardService boardService) {
         this.answerVoteService = answerVoteService;
         this.answerService = answerService;
         this.answerMapper = answerMapper;
         this.memberService = memberService;
-        this.commentMapper = commentMapper;
-        this.commentService = commentService;
+        this.boardService = boardService;
     }
+    
+    @PostMapping("/{board-id}")
+    public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
+                                     @Valid @RequestBody AnswerDto.Post requestBody,
+                                     Principal principal) {
 
-    @PostMapping("/{answer-id}")
-    public ResponseEntity postComment (@PathVariable("answer-id") @Positive long answerId,
-                                       @Valid @RequestBody CommentDto.Post post) throws Exception{
-        Comment comment = commentMapper.commentDtoPostToComment(post);
+        Answer answer = answerMapper.answerPostToAnswer(requestBody);
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answer.setMember(member);
+        answer.setVote(0L);
+        answer.setBoard(boardService.findVerifiedBoard(boardId));
+        Answer createdAnswer = answerService.createAnswer(answer);
 
-        comment.setAnswer(answerService.findAnswer(answerId));
+        AnswerDto.Response response = answerMapper.answerToAnswerResponse(createdAnswer);
+        response.setUrl(url+response.getAnswerId());
 
-        Comment createdComment = commentService.createComment(comment);
-        CommentDto.Response response = commentMapper.commentToCommentDtoResponse(createdComment);
-        response.setUrl(url+response.getCommentId());
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
-
-    @GetMapping("/{answer-id}")
-    public ResponseEntity getAnswer(
-            @PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
-
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity getAnswers(@Positive @RequestParam int page) {
-        Page<Answer> answerPage = answerService.findAllAnswers(page - 1, 15);
-        PageInfo pageInfo = new PageInfo(answerPage.getNumber(), answerPage.getSize(),
-                answerPage.getTotalElements(),answerPage.getTotalPages());
-        List<Answer> answers = answerPage.getContent();
-        List<AnswerDto.Response> responses = answerMapper.answersToAnswerResponses(answers);
-
-        return new ResponseEntity<>(
-                new MultiResponse<>(responses, pageInfo), HttpStatus.OK
-        );
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answer-id}")
@@ -96,6 +75,27 @@ public class AnswerController{
         return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
     }
 
+    @GetMapping("/{answer-id}")
+    public ResponseEntity getAnswer(
+            @PathVariable("answer-id") @Positive long answerId) {
+        Answer answer = answerService.findAnswer(answerId);
+
+        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getAnswers(@Positive @RequestParam(required = false, defaultValue = "1") int page) {
+        Page<Answer> answerPage = answerService.getAnswers(page);
+        PageInfo pageInfo = new PageInfo(answerPage.getNumber(), answerPage.getSize(),
+                answerPage.getTotalElements(),answerPage.getTotalPages());
+        List<Answer> answers = answerPage.getContent();
+        List<AnswerDto.Response> responses = answerMapper.answersToAnswerResponses(answers);
+
+        return new ResponseEntity<>(
+                new MultiResponse<>(responses, pageInfo), HttpStatus.OK
+        );
+    }
+
     @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer (@PathVariable("answer-id") @Positive long answerId){
         answerService.deleteAnswer(answerId);
@@ -104,22 +104,36 @@ public class AnswerController{
     }
 
     @PostMapping("/{answer-id}/like")
-    public ResponseEntity postLike (@PathVariable("answer-id") @Positive long answerId){
-        answerVoteService.createLike(answerId, 1);
+    public ResponseEntity postLike (@PathVariable("answer-id") @Positive long answerId,
+                                    Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.createAnswerLike(answerId, member.getMemberId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/{answer-id}/dislike")
-    public ResponseEntity postDislike (@PathVariable("answer-id") @Positive long answerId){
-        answerVoteService.createDislike(answerId, 1);
+    public ResponseEntity postDislike (@PathVariable("answer-id") @Positive long answerId,
+                                       Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.createAnswerDislike(answerId, member.getMemberId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @DeleteMapping("/{answer-id}/like")
+    public ResponseEntity deleteLike (@PathVariable("answer-id") @Positive long answerId,
+                                    Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.deleteAnswerVote(answerId, member.getMemberId());
 
-    @GetMapping("/{answer-id}/vote")
-    public ResponseEntity getVote (@PathVariable("answer-id") @Positive long answerId){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @DeleteMapping("/{answer-id}/dislike")
+    public ResponseEntity deleteDislike (@PathVariable("answer-id") @Positive long answerId,
+                                       Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        answerVoteService.deleteAnswerVote(answerId, member.getMemberId());
 
-        return new ResponseEntity<>(answerVoteService.getVote(answerId),HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

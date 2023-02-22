@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.Optional;
 
 
@@ -32,8 +33,11 @@ public class BoardService {
         return savedBoard;
     }
 
-    public Board updateBoard(Board board) {
+    public Board updateBoard(Board board, long memberId) {
         Board findBoard = findVerifiedBoard(board.getBoardId());
+
+        if(memberId != findBoard.getMember().getMemberId())
+            throw new BusinessLogicException(ExceptionCode.METHOD_NOT_ALLOWED);
 
                 Optional.ofNullable(board.getTitle())
                         .ifPresent(findBoard::setTitle);
@@ -46,10 +50,14 @@ public class BoardService {
     public Board findBoard(long boardId) {
         return findVerifiedBoard(boardId);
     }
+    public Board findBoard(long boardId, Principal principal) {
+        Board board = findVerifiedBoard(boardId);
+        return board;
+    }
 
     @Transactional(readOnly = true)
-    public Page<Board> findBoards(Pageable pageable) {
-        return boardRepository.findAll(PageRequest.of(1,15, Sort.by("boardId").descending()));
+    public Page<Board> findBoards(int page) {
+        return boardRepository.findAll(PageRequest.of(page-1,15, Sort.by("boardId").descending()));
     }
 
     public void deleteBoard(long boardId) {

@@ -27,20 +27,17 @@ public class AnswerService {
         return savedAnswer;
     }
 
-    @Transactional(readOnly = true)
     public Answer findAnswer(long answerId) {
-        Optional<Answer> optionalQuestion =
-                answerRepository.findById(answerId);
-        Answer findAnswer =
-                optionalQuestion.orElseThrow(() ->
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        Answer findAnswer = optionalAnswer.orElseThrow(() ->
                  new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY));
         return findAnswer;
     }
 
     @Transactional(readOnly = true)
-    public Page<Answer> findAllAnswers(int page, int size) {
+    public Page<Answer> getAnswers(int page) {
 
-        return answerRepository.findAll(PageRequest.of(page, size,
+        return answerRepository.findAll(PageRequest.of(page-1, 15,
                 Sort.by("answerId").descending()));
     }
 

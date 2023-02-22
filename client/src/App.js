@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './components/styled/global.styled';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from './components/Main';
+import MainPage from './page/MainPage';
 import UpdatePage from './page/UpdatePage';
 import NotFoundPage from './page/NotFoundPage';
 import QuestionDetailPage from './page/QuestionDetailPage';
@@ -83,7 +83,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/searchreasult" element={<SearchResultPage />} />
           <Route path="/questiondetail">
             <Route path=":id/:title" element={<QuestionDetailPage />} />
@@ -92,7 +92,7 @@ function App() {
           <Route path="/create" element={<CreatePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

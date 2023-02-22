@@ -8,12 +8,12 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.4.2.Final/e55bd90d51cddd638c07d5bd89fc7535d4e3d069/mapstruct-processor-1.4.2.Final.jar" />
         </processorPath>
-        <module name="Server_BE.Server_BE.main~1" />
+        <module name="Server_BE.Server_BE.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Server_BE.Server_BE.main" target="11" />
-      <module name="Server_BE.Server_BE.test" target="11" />
+      <module name="Server_BE.Server_BE.main~1" target="11" />
+      <module name="Server_BE.Server_BE.test~1" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -18,14 +18,12 @@ public class HelloAuthorityUtils {
 
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN","USER");
     private final List<String> USER_ROLES_STRING = List.of("USER");
-
     public List<GrantedAuthority> createAuthorities(List<String> roles){
         List<GrantedAuthority> authorities = roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_"+role))
                 .collect(Collectors.toList());
         return authorities;
     }
-
     public List<String> createRoles(String email) {
         if(email.equals(adminMailAddress)) {
             return ADMIN_ROLES_STRING;

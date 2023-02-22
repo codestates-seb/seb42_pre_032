@@ -5,17 +5,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 public class CommentDto {
     @Getter
     public static class Post {
+        @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         String body;
-        long answerId;
-        // long memberId; 필요하지만 추후 UserDetails로 가져올 예정
+
     }
     @Getter
     @Setter
     public static class Patch {
-        long commentId;
         String body;
     }
     @Getter
@@ -23,10 +24,9 @@ public class CommentDto {
     @Builder
     public static class Response {
         long commentId;
+        long answerId;
+        long memberId;
         String body;
         String url;
-//        long memberId; // 추후...
-        long answerId;
-
     }
 }

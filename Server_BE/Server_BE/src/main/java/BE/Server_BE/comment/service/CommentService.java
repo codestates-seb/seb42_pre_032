@@ -25,12 +25,10 @@ public class CommentService {
         this.memberService = memberService;
         this.answerService = answerService;
     }
-// memberId를 가져오는 방법 필요 = UserDetails를 통해 가져오기!! ㅡ> Security;;;;;
-    public Comment createComment(Comment comment) throws Exception{
-//        memberService.loadMember(comment.getMember().getMemberId());
-//        answerService.findAnswer(1);
-//        comment.setMember(memberService.loadMember(1));
-        return commentRepository.save(comment);
+
+    public Comment createComment(Comment comment) {
+        Comment savedComment = commentRepository.save(comment);
+        return savedComment;
     }
     public Comment updateComment(Comment comment) {
         Comment findComment = loadComment(comment.getCommentId());
@@ -42,12 +40,12 @@ public class CommentService {
     public Comment getComment(long commentId) {
         return loadComment(commentId);
     }
-    public Page<Comment> getComments(int page, int size) throws Exception {
+    public Page<Comment> getComments(int page) throws Exception {
         if (commentRepository.findAll() == null) {
             throw new BusinessLogicException(ExceptionCode.DATA_IS_EMPTY);
         }
         return commentRepository.findAll(PageRequest.of(
-                page, size
+                page-1, 15
         ));
     }
     public void deleteComment(long commentId) throws Exception {

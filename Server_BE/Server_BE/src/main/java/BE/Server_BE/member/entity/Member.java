@@ -4,7 +4,9 @@ import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.audit.Auditable;
 import BE.Server_BE.board.entity.Board;
 import BE.Server_BE.comment.entity.Comment;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,31 +17,44 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Member extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    long memberId;
+    private long memberId;
+
     @Column
-    String nickName;
+    private String nickName;
+
     @Column(updatable = false, unique = true)
     @Email
-    String email;
+    private String email;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
     @Column
-    String password;
-    @Column
-    String about_Me;
+    private String about_Me;
 
     @OneToMany(mappedBy = "member")
-    List<Board> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    List<Answer> answers = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    // 테스트 하기 위해 추가
+    public Member(String nickName, String email, String password, String about_Me) {
+        this.nickName = nickName;
+        this.email = email;
+        this.password = password;
+        this.about_Me = about_Me;
+    }
 
     //
     public void addBoard(Board board){
