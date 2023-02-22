@@ -87,7 +87,9 @@ public class BoardController {
     @GetMapping("/{board-id}")
     public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId) {
         Board board = boardService.findBoard(boardId);
-        return new ResponseEntity(boardMapper.boardToBoardResponse(board), HttpStatus.OK);
+        BoardDto.Response response = boardMapper.boardToBoardResponse(board);
+        response.setUrl(url+response.getBoardId());
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping
@@ -96,9 +98,11 @@ public class BoardController {
         PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
                 pageBoards.getTotalElements(),pageBoards.getTotalPages());
         List<Board> boards = pageBoards.getContent();
+        List<BoardDto.Response> responses = boardMapper.boardsToBoardResponse(boards);
+        responses.stream().forEach(b -> b.setUrl(url+b.getBoardId()));
 
         return new ResponseEntity(
-                new MultiResponse(boardMapper.boardsToBoardResponse(boards), pageInfo),  HttpStatus.OK);
+                new MultiResponse(responses, pageInfo),  HttpStatus.OK);
     }
 
     @DeleteMapping("/{board-id}")

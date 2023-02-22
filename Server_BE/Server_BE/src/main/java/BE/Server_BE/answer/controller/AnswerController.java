@@ -68,20 +68,28 @@ public class AnswerController{
 
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") @Positive long answerId,
-                                       @Valid @RequestBody AnswerDto.Patch requestBody){
-
-        Answer answer = answerService.updateAnswer(answerMapper.answerPatchToAnswer(requestBody));
+                                       @Valid @RequestBody AnswerDto.Patch requestBody,
+                                       Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        Answer answer = answerMapper.answerPatchToAnswer(requestBody);
         answer.setAnswerId(answerId);
+        answer.setMember(member);
+        Answer updatedAnswer = answerService.updateAnswer(answer);
+        AnswerDto.Response response = answerMapper.answerToAnswerResponse(updatedAnswer);
+        response.setUrl(url+response.getAnswerId());
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.findAnswer(answerId);
+        AnswerDto.Response response = answerMapper.answerToAnswerResponse(answer);
+        response.setUrl(url+answerId);
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
@@ -91,6 +99,7 @@ public class AnswerController{
                 answerPage.getTotalElements(),answerPage.getTotalPages());
         List<Answer> answers = answerPage.getContent();
         List<AnswerDto.Response> responses = answerMapper.answersToAnswerResponses(answers);
+        responses.stream().forEach(a -> a.setUrl(url+a.getAnswerId()));
 
         return new ResponseEntity<>(
                 new MultiResponse<>(responses, pageInfo), HttpStatus.OK
