@@ -66,12 +66,10 @@ public class AnswerControllerTest {
         BoardDto.Post boardPost = new BoardDto.Post("게시글 제목", "게시글 내용");
         Board board = boardMapper.boardPostDtoToBoard(boardPost);
         board.setBoardId(1L);
-
-
+        
         AnswerDto.Post answerPost = new AnswerDto.Post("답글 제목", "답글 내용");
         Answer answer = answerMapper.answerPostToAnswer(answerPost);
         answer.setAnswerId(1L);
-
 
         given(answerService.createAnswer(Mockito.any(Answer.class)))
                 .willReturn(answer);
