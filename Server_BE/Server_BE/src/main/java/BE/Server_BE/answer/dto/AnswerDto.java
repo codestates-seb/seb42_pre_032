@@ -38,7 +38,6 @@ public class AnswerDto {
         private Long answerId;
         private long memberId;
         private long boardId;
-
         private String body;
         private String title;
         private long like;

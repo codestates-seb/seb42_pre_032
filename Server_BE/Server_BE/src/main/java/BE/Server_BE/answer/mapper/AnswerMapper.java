@@ -12,9 +12,11 @@ import java.util.stream.Collectors;
 public interface AnswerMapper {
     Answer answerPostToAnswer (AnswerDto.Post requestBody);
     Answer answerPatchToAnswer (AnswerDto.Patch requestBody);
-//    AnswerDto.Response answerToAnswerResponse(Answer answer);
+
+
 
     default AnswerDto.Response answerToAnswerResponse(Answer answer){
+        final String url = "http://localhost:8080/answers/";
         AnswerDto.Response response =AnswerDto.Response
                 .builder()
                 .answerId(answer.getAnswerId())
@@ -23,11 +25,12 @@ public interface AnswerMapper {
                 .boardId(answer.getBoard().getBoardId())
                 .memberId(answer.getMember().getMemberId())
                 .like(answer.getVote())
+                .url(url+answer.getAnswerId())
                 .build();
-
         return response;
     }
     default List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers){
+        final String url = "http://localhost:8080/answers/";
         return answers
                 .stream()
                 .map(answer -> AnswerDto.Response
@@ -38,6 +41,7 @@ public interface AnswerMapper {
                         .memberId(answer.getMember().getMemberId())
                         .boardId(answer.getBoard().getBoardId())
                         .like(answer.getVote())
+                        .url(url+answer.getAnswerId())
                         .build())
                 .collect(Collectors.toList());
     }

@@ -44,6 +44,7 @@ public interface BoardMapper {
         return response;
     }
     default List<AnswerDto.Response> answersToAnswerResponses (List <Answer> answers) {
+        final String url = "http://localhost:8080/answers/";
         return answers
                         .stream()
                         .map(answer -> AnswerDto.Response
@@ -54,6 +55,7 @@ public interface BoardMapper {
                                 .memberId(answer.getMember().getMemberId())
                                 .boardId(answer.getBoard().getBoardId())
                                 .like(answer.getVote())
+                                .url(url+answer.getAnswerId())
                                 .build())
                         .collect(Collectors.toList());
             }

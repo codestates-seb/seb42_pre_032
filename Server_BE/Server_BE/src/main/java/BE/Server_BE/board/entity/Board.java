@@ -33,8 +33,7 @@ public class Board extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Answer> answers = new ArrayList<>();
-
-
+    
 }

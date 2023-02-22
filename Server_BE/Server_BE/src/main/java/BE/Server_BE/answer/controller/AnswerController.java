@@ -102,15 +102,14 @@ public class AnswerController{
         responses.stream().forEach(a -> a.setUrl(url+a.getAnswerId()));
 
         return new ResponseEntity<>(
-                new MultiResponse<>(responses, pageInfo), HttpStatus.OK
-        );
+                new MultiResponse<>(responses, pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer (@PathVariable("answer-id") @Positive long answerId){
         answerService.deleteAnswer(answerId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/{answer-id}/like")
