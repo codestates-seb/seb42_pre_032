@@ -51,6 +51,4 @@ public class BoardDto {
         private List<AnswerDto.Response> answers;
         private String url;
     }
-
-
 }

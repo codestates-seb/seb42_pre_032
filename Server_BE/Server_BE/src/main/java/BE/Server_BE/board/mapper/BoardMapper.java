@@ -23,8 +23,10 @@ import java.util.stream.Collectors;
 public interface BoardMapper {
     Board boardPostDtoToBoard(BoardDto.Post requestBody);
     Board boardPatchDtoToBoard(BoardDto.Patch requestBody);
+    List<BoardDto.Response> boardsToBoardResponse(List<Board> boards);
 
-    default BoardDto.Response boardToBoardResponse(Board board){
+    default BoardDto.Response boardToBoardResponse(Board board) {
+        List<Answer> answerList = board.getAnswers();
 
         BoardDto.Response response = BoardDto.Response
                 .builder()
@@ -35,32 +37,25 @@ public interface BoardMapper {
                 .body(board.getBody())
                 .boardId(board.getBoardId())
                 .memberId(board.getMember().getMemberId())
-                
-//                .answers(board.getAnswers())
+                .answers(answersToAnswerResponses(answerList))
                 .like(board.getVote())
                 .build();
 
         return response;
     }
+    default List<AnswerDto.Response> answersToAnswerResponses (List <Answer> answers) {
+        return answers
+                        .stream()
+                        .map(answer -> AnswerDto.Response
+                                .builder()
+                                .answerId(answer.getAnswerId())
+                                .title(answer.getTitle())
+                                .body(answer.getBody())
+                                .memberId(answer.getMember().getMemberId())
+                                .boardId(answer.getBoard().getBoardId())
+                                .like(answer.getVote())
+                                .build())
+                        .collect(Collectors.toList());
+            }
+        }
 
-
-//    List<BoardDto.Response> boardsToBoardResponse(List<Board> boards);
-
-    default List<BoardDto.Response> boardsToBoardResponse(List<Board> boards){
-        return boards
-                .stream()
-                .map(board -> BoardDto.Response
-                        .builder()
-                        .boardId(board.getBoardId())
-                        .title(board.getTitle())
-                        .body(board.getBody())
-                        .createdAt(board.getCreatedAt())
-                        .modifiedAt(board.getModifiedAt())
-                        .memberId(board.getMember().getMemberId())
-//                .answers(board.getAnswers())
-                        .writer(board.getMember().getNickName())
-                        .like(board.getVote())
-                        .build())
-                .collect(Collectors.toList());
-    }
-}
