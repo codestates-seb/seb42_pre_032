@@ -40,6 +40,7 @@ public class MemberDto {
     @Getter
     @Setter
     @AllArgsConstructor //test
+    @NoArgsConstructor //test
     public static class Response{
         long memberId;
         String nickName;
