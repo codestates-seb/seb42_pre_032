@@ -280,7 +280,6 @@ public class BoardControllerRestDocsTest {
                                         fieldWithPath("like").type(JsonFieldType.NUMBER).description("좋아요"),
                                         fieldWithPath("answers").type(JsonFieldType.ARRAY).description("답글 목록"),
                                         fieldWithPath("url").type(JsonFieldType.STRING).description("url")
-
                                 )
                         )
                 ));
@@ -363,7 +362,6 @@ public class BoardControllerRestDocsTest {
                                         fieldWithPath("pageinfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
                                         fieldWithPath("pageinfo.totalElements").type(JsonFieldType.NUMBER).description("데이터 개수"),
                                         fieldWithPath("pageinfo.totalPages").type(JsonFieldType.NUMBER).description("모든 페이지")
-
                                 )
                         )
                 ));
@@ -390,7 +388,6 @@ public class BoardControllerRestDocsTest {
                         pathParameters(
                                 parameterWithName("board-id").description("게시글 식별자")
                         )
-
                 ));
     }
 
@@ -478,7 +475,7 @@ public class BoardControllerRestDocsTest {
     }
 
     @Test
-    public void deleteBoardDisikeTest() throws Exception {
+    public void deleteBoardDislikeTest() throws Exception {
         //given
         long boardId = 1L;
         long memberId = 1L;

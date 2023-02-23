@@ -50,10 +50,10 @@ public class BoardService {
     public Board findBoard(long boardId) {
         return findVerifiedBoard(boardId);
     }
-    public Board findBoard(long boardId, Principal principal) {
-        Board board = findVerifiedBoard(boardId);
-        return board;
+    public Page<Board> findBoardByTitle(String q, int page) {
+        return boardRepository.findAllByTitle(q, PageRequest.of(page-1,15, Sort.by("VOTE").descending()));
     }
+
 
     @Transactional(readOnly = true)
     public Page<Board> findBoards(int page) {

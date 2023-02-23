@@ -65,6 +65,7 @@ public class AnswerControllerTest {
     @Autowired
     private Gson gson;
 
+<<<<<<< Updated upstream
     @Test
     public void postAnswerTest() throws Exception {
         // given
@@ -132,4 +133,70 @@ public class AnswerControllerTest {
                         )
                 ));
     }
+=======
+//    @Test
+//    public void postAnswerTest() throws Exception {
+//        // given
+//
+//
+//        AnswerDto.Post answerPost = new AnswerDto.Post("답글 제목", "답글 내용");
+//        String content = gson.toJson(answerPost);
+//
+//        List<CommentDto.Response> responses = new ArrayList<>();
+//
+//        AnswerDto.Response response =
+//                new AnswerDto.Response(
+//                        1L,
+//                        1L,
+//                        1L,
+//                        "답글 내용",
+//                        "답글 제목",
+//                        0L,
+//                        "http://localhost:8080/answers/1"
+//                        ""
+//                );
+//
+//        given(answerMapper.answerPostToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
+//        given(answerService.createAnswer(Mockito.any(Answer.class))).willReturn(new Answer());
+//        given(answerMapper.answerToAnswerResponse(Mockito.any(Answer.class))).willReturn(response);
+//
+//        // when
+//        when(principal.getName()).thenReturn("123@123");
+//        ResultActions actions =
+//                mockMvc.perform(
+//                        post("/answers")
+//                                .accept(MediaType.APPLICATION_JSON)
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .principal(principal)
+//                                .content(content)
+//                );
+//        //then
+//        actions
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.title").value(answerPost.getTitle()))
+//                .andExpect(jsonPath("$.body").value(answerPost.getBody()))
+//                .andDo(document(
+//                        "post-answer",
+//                        getRequestPreProcessor(),
+//                        getResponsePreProcessor(),
+//                        requestFields(
+//                                List.of(
+//                                        fieldWithPath("title").type(JsonFieldType.STRING).description("답글 제목"),
+//                                        fieldWithPath("body").type(JsonFieldType.STRING).description("답글 내용")
+//                                )
+//                        ),
+//                        requestFields(
+//                                List.of(
+//                                        fieldWithPath("answerId").type(JsonFieldType.NUMBER).description("답글 식별자"),
+//                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+//                                        fieldWithPath("boardId").type(JsonFieldType.NUMBER).description("게시글 식별자"),
+//                                        fieldWithPath("body").type(JsonFieldType.STRING).description("답글 내용"),
+//                                        fieldWithPath("title").type(JsonFieldType.STRING).description("답글 제목"),
+//                                        fieldWithPath("like").type(JsonFieldType.NUMBER).description("답글 좋아요"),
+//                                        fieldWithPath("url").type(JsonFieldType.STRING).description("url")
+//                                )
+//                        )
+//                ));
+//    }
+>>>>>>> Stashed changes
 }
