@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +83,11 @@ public class AnswerControllerTest {
                         "답글 내용",
                         "답글 제목",
                         0L,
+                        responses,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
                         "http://localhost:8080/answers/1"
+
                 );
 
         given(answerMapper.answerPostToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
