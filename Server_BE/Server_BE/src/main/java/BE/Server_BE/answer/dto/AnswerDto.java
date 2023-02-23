@@ -1,12 +1,15 @@
 package BE.Server_BE.answer.dto;
 
+import BE.Server_BE.comment.dto.CommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AnswerDto {
@@ -47,6 +50,11 @@ public class AnswerDto {
         private String body;
         private String title;
         private long like;
+        private List<CommentDto.Response> comments;
+        @Column(name = "created_at", updatable = false)
+        private LocalDateTime createdAt;
+        @Column(name = "LAST_MODIFIED_AT")
+        private LocalDateTime modifiedAt;
         private String url;
 
     }
