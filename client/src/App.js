@@ -84,7 +84,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/searchreasult" element={<SearchResultPage />} />
+          <Route path="/searchresult" element={<SearchResultPage />} />
           <Route path="/questiondetail">
             <Route path=":id/:title" element={<QuestionDetailPage />} />
           </Route>
