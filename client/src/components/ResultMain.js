@@ -22,7 +22,7 @@ const PaginationContainer = styled.div`
   margin-left: 20px;
 `;
 
-const Main = () => {
+const ResultMain = () => {
   const [currentTab, setCurrentTab] = useState('Newest');
 
   const sortButtonOnClickHandler = (e) => {
@@ -31,13 +31,13 @@ const Main = () => {
   return (
     <MainContainer>
       <HeaderRow>
-        <StyledHeader>Top Questions</StyledHeader>
+        <StyledHeader>Search Results</StyledHeader>
         <BlueLinkButton to={'/create'} width={'100px'}>
           Ask&nbsp;Question
         </BlueLinkButton>
       </HeaderRow>
       <HeaderRow>
-        <QuestionsNum>23&nbsp;questions</QuestionsNum>
+        <QuestionsNum>5&nbsp;questions</QuestionsNum>
         <MainbarSortButtonContainer>
           <SortButton
             className={currentTab === 'Newest' ? 'selected' : ''}
@@ -68,4 +68,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ResultMain;
