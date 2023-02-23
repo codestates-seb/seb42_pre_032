@@ -26,7 +26,7 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: ${JWT_SECRET_KEY}
+  key: zxcasdlqwealksjdioqywejkashdjkhj1k23hjkhsd87382h
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 

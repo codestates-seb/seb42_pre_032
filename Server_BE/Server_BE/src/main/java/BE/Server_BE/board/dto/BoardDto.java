@@ -15,12 +15,7 @@ import java.util.List;
 public class BoardDto {
     @Getter
     @AllArgsConstructor
-<<<<<<< Updated upstream
     @NoArgsConstructor //test
-
-=======
-    @NoArgsConstructor
->>>>>>> Stashed changes
     public static class Post {
         @NotBlank
         private String title;
@@ -33,10 +28,6 @@ public class BoardDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     public static class Patch {
         private long memberId;
         private long boardId;
