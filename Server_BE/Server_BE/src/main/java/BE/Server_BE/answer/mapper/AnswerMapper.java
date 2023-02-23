@@ -15,7 +15,6 @@ public interface AnswerMapper {
     Answer answerPostToAnswer (AnswerDto.Post requestBody);
     Answer answerPatchToAnswer (AnswerDto.Patch requestBody);
 
-
     default AnswerDto.Response answerToAnswerResponse(Answer answer){
         List<Comment> commentList = answer.getComments();
         final String url = "http://localhost:8080/answers/";
