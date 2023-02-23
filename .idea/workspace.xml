@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="62d64894-9a55-40e7-9891-d36a475e1b1e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/docs/asciidoc/index.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/docs/asciidoc/index.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/board/dto/BoardDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/member/controller/MemberControllerRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/member/controller/MemberControllerRestDocsTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/Server_BE/Server_BE">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/Server_BE/Server_BE">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Server_BE" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Empty" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/BE/board" />
+                    <option name="lastUsedInstant" value="1676557608" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature" />
+                    <option name="lastUsedInstant" value="1676557607" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar:///Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/NullPointerException.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.3.25/a1dbd0ee414155d8330405526538e0956c0f9435/spring-core-5.3.25-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2LnnZJX14rqEBAb94jshuuHQy0s" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;Empty&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/selny/codestates/seb42_pre_032&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="BE.Server_BE.member.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ServerBeApplication">
+    <configuration name="ServerBeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.ServerBeApplication" />
+      <module name="Server_BE.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BE.Server_BE.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberControllerRestDocsTest.deleteBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server_BE.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="deleteBoardTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberControllerRestDocsTest.deleteMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server_BE.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="deleteMemberTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberControllerRestDocsTest.getMembersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server_BE.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="getMembersTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberControllerRestDocsTest.postMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server_BE.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="postMemberTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ServerBeApplication" />
+        <item itemvalue="JUnit.MemberControllerRestDocsTest.postMemberTest" />
+        <item itemvalue="JUnit.MemberControllerRestDocsTest.deleteMemberTest" />
+        <item itemvalue="JUnit.MemberControllerRestDocsTest.deleteBoardTest" />
+        <item itemvalue="JUnit.MemberControllerRestDocsTest.getMembersTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="62d64894-9a55-40e7-9891-d36a475e1b1e" name="Changes" comment="" />
+      <created>1676515767371</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676515767371</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[feat] 게시판 기능 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] 게시판 기능 추가" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="post.nickName" language="JAVA" />
+        <watch expression="post.nickName" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
