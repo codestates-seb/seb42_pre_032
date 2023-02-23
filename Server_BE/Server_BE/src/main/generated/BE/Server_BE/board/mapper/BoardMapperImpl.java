@@ -2,18 +2,13 @@ package BE.Server_BE.board.mapper;
 
 import BE.Server_BE.board.dto.BoardDto.Patch;
 import BE.Server_BE.board.dto.BoardDto.Post;
-import BE.Server_BE.board.dto.BoardDto.Response;
 import BE.Server_BE.board.entity.Board;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-
-    date = "2023-02-22T18:47:56+0900",
-
+    date = "2023-02-23T13:01:52+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -46,19 +41,5 @@ public class BoardMapperImpl implements BoardMapper {
         board.setBody( requestBody.getBody() );
 
         return board;
-    }
-
-    @Override
-    public List<Response> boardsToBoardResponse(List<Board> boards) {
-        if ( boards == null ) {
-            return null;
-        }
-
-        List<Response> list = new ArrayList<Response>( boards.size() );
-        for ( Board board : boards ) {
-            list.add( boardToBoardResponse( board ) );
-        }
-
-        return list;
     }
 }

@@ -138,5 +138,19 @@ public class BoardController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchByTitle (@RequestParam String q,
+                                         @RequestParam(required = false, defaultValue = "1") int page){
+        Page<Board> pageBoards = boardService.findBoardByTitle(q, page);
+        PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
+                pageBoards.getTotalElements(),pageBoards.getTotalPages());
+        List<Board> boards = pageBoards.getContent();
+        List<BoardDto.Response> responses = boardMapper.boardsToBoardResponse(boards);
+        responses.stream().forEach(b -> b.setUrl(url+b.getBoardId()));
+
+        return new ResponseEntity(
+                new MultiResponse(responses, pageInfo),  HttpStatus.OK);
+    }
+
 
 }

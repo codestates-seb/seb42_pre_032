@@ -15,11 +15,7 @@ import java.util.List;
 public class BoardDto {
     @Getter
     @AllArgsConstructor
-<<<<<<< Updated upstream
-    @NoArgsConstructor
-=======
     @NoArgsConstructor //test
->>>>>>> Stashed changes
     public static class Post {
         @NotBlank
         private String title;
@@ -31,11 +27,7 @@ public class BoardDto {
     @Getter
     @Setter
     @AllArgsConstructor
-<<<<<<< Updated upstream
     @NoArgsConstructor
-=======
-    @NoArgsConstructor //test
->>>>>>> Stashed changes
     public static class Patch {
         private long memberId;
         private long boardId;
@@ -51,15 +43,15 @@ public class BoardDto {
     public static class Response {
         private long boardId;
         private long memberId;
-        private String writer;
-        private String title;
-        private String body;
         @Column(name = "created_at", updatable = false)
         private LocalDateTime createdAt;
         @Column(name = "LAST_MODIFIED_AT")
         private LocalDateTime modifiedAt;
+        private String writer;
+        private String title;
+        private String body;
         private long like;
-        private List<AnswerDto.Response> answers;
         private String url;
+        private List<AnswerDto.Response> answers;
     }
 }

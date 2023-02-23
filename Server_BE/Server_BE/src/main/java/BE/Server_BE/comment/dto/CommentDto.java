@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 public class CommentDto {
     @Getter
@@ -26,6 +28,10 @@ public class CommentDto {
         long commentId;
         long answerId;
         long memberId;
+        @Column(name = "created_at", updatable = false)
+        private LocalDateTime createdAt;
+        @Column(name = "LAST_MODIFIED_AT")
+        private LocalDateTime modifiedAt;
         String body;
         String url;
     }
