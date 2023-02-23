@@ -1,4 +1,3 @@
-import { RxHamburgerMenu } from 'react-icons/rx';
 import { GrSearch } from 'react-icons/gr';
 import { Link, useNavigate } from 'react-router-dom';
 import { LinkButton, BlueLinkButton } from './Buttons';
@@ -23,9 +22,6 @@ const Header = () => {
   return (
     <StyledHeader>
       <StyledWrapper>
-        <Link className="menu" to="#">
-          <RxHamburgerMenu />
-        </Link>
         <Link id="logo" to="/">
           <span>Stack Overflow</span>
         </Link>
