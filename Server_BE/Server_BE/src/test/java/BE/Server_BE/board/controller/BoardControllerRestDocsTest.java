@@ -81,6 +81,7 @@ public class BoardControllerRestDocsTest {
         String content = gson.toJson(post);
 
         List<AnswerDto.Response> responses = new ArrayList<>();
+
         BoardDto.Response responseDto =
                 new BoardDto.Response(
                         1,
