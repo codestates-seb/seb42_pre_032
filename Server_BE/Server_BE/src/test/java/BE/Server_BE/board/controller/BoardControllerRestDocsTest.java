@@ -86,14 +86,14 @@ public class BoardControllerRestDocsTest {
                 new BoardDto.Response(
                         1,
                         1,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
                         "글쓴이",
                         "Test Title",
                         "Test Body",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
                         0,
-                        responses,
-                        "http://localhost:8080/boards/1"
+                        "http://localhost:8080/boards/1",
+                        responses
                 );
 
         given(mapper.boardPostDtoToBoard(Mockito.any(BoardDto.Post.class))).willReturn(new Board());
@@ -157,14 +157,14 @@ public class BoardControllerRestDocsTest {
                 new BoardDto.Response(
                         1,
                         1,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
                         "글쓴이",
                         "Test Title",
                         "Test Body",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
                         0,
-                        responses,
-                        "http://localhost:8080/boards/1"
+                        "http://localhost:8080/boards/1",
+                        responses
                 );
 
         given(mapper.boardPatchDtoToBoard(Mockito.any(BoardDto.Patch.class))).willReturn(new Board());
@@ -235,14 +235,14 @@ public class BoardControllerRestDocsTest {
                 new BoardDto.Response(
                         1,
                         1,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
                         "글쓴이",
                         "Test Title",
                         "Test Body",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
                         0,
-                        responses,
-                        "http://localhost:8080/boards/1"
+                        "http://localhost:8080/boards/1",
+                        responses
                 );
 
         given(boardService.findBoard(Mockito.anyLong())).willReturn(new Board());
@@ -286,6 +286,72 @@ public class BoardControllerRestDocsTest {
     }
 
     @Test
+    public void getBoardsByTitleTest() throws Exception {
+        //given
+        String query = "제목1";
+        Board board1 = new Board(1L, "Test1 Title", "Test Body", 0);
+        List<AnswerDto.Response> responses1 = new ArrayList<>();
+
+        Page<Board> pageBoards =
+                new PageImpl<>(List.of(board1),
+                        PageRequest.of(0,15, Sort.by("VOTE").descending()), 1);
+
+        List<BoardDto.Response> responses = List.of(
+                new BoardDto.Response(
+                        1,
+                        1,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
+                        "글쓴이",
+                        "Test1 Title",
+                        "Test Body",
+                        0,
+                        "http://localhost:8080/boards/1",
+                        responses1
+                )
+        );
+
+        given(boardService.findBoardByTitle(Mockito.any(String.class), Mockito.anyInt())).willReturn(pageBoards);
+        given(mapper.boardsToBoardResponse(Mockito.anyList())).willReturn(responses);
+
+        //when
+        ResultActions actions =
+                mockMvc.perform(RestDocumentationRequestBuilders.get("/boards/search?q={query}", query)
+                        .accept(MediaType.APPLICATION_JSON)
+                );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").isArray())
+                .andDo(document(
+                        "get-boards",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과 데이터"),
+                                        fieldWithPath("data[].boardId").type(JsonFieldType.NUMBER).description("게시글 식별자"),
+                                        fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("data[].writer").type(JsonFieldType.STRING).description("글쓴이"),
+                                        fieldWithPath("data[].title").type(JsonFieldType.STRING).description("게시글 제목"),
+                                        fieldWithPath("data[].body").type(JsonFieldType.STRING).description("게시글 내용"),
+                                        fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성 시간"),
+                                        fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("수정 시간"),
+                                        fieldWithPath("data[].like").type(JsonFieldType.NUMBER).description("좋아요"),
+                                        fieldWithPath("data[].answers").type(JsonFieldType.ARRAY).description("답글 목록"),
+                                        fieldWithPath("data[].url").type(JsonFieldType.STRING).description("url"),
+                                        fieldWithPath("pageinfo").type(JsonFieldType.OBJECT).description("페이지 데이터"),
+                                        fieldWithPath("pageinfo.page").type(JsonFieldType.NUMBER).description("현재 페이지"),
+                                        fieldWithPath("pageinfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
+                                        fieldWithPath("pageinfo.totalElements").type(JsonFieldType.NUMBER).description("데이터 개수"),
+                                        fieldWithPath("pageinfo.totalPages").type(JsonFieldType.NUMBER).description("모든 페이지")
+                                )
+                        )
+                ));
+    }
+
+    @Test
     public void getBoardsTest() throws Exception {
         //given
         long boardId1 = 1L;
@@ -304,26 +370,26 @@ public class BoardControllerRestDocsTest {
                 new BoardDto.Response(
                         1,
                         1,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
                         "글쓴이",
                         "Test Title",
                         "Test Body",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
                         0,
-                        responses1,
-                        "http://localhost:8080/boards/1"
+                        "http://localhost:8080/boards/1",
+                        responses1
                 ),
                 new BoardDto.Response(
                         1,
                         1,
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
                         "글쓴이",
                         "Test Title",
                         "Test Body",
-                        LocalDateTime.now(),
-                        LocalDateTime.now(),
                         0,
-                        responses2,
-                        "http://localhost:8080/boards/1"
+                        "http://localhost:8080/boards/1",
+                        responses2
                 )
         );
 
