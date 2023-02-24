@@ -75,7 +75,17 @@ public class MemberControllerRestDocsTest {
     @Test
     public void postMemberTest() throws Exception {
         //given
-        MemberDto.Post post = new MemberDto.Post();
+        MemberDto.Post post = new MemberDto.Post("Paul","Paul@gmail.com","Paul","Paul");
+        /*
+        @NotBlank(message = "이름은 공백이 아니어야 합니다.")
+        String nickName;
+        @NotBlank
+        @Email
+        String email;
+        @NotBlank
+        String password;
+        String about_Me;
+        * */
         String content = gson.toJson(post);
 
         MemberDto.Response responseDto =
@@ -206,35 +216,38 @@ public class MemberControllerRestDocsTest {
     public void getMemberTest() throws Exception {
 
         long memberId = 1L;
-        MemberDto.Patch patch = new MemberDto.Patch(memberId, "John", "Paul@gmail.com", "John", "John");
+        Member member = new Member(1, "John", "Paul@gmail.com", "John", "John");
 
-        ResultActions actions1 =
-                mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/{member-id}", memberId)
-                        .contentType(MediaType.APPLICATION_JSON)
+        MemberDto.Response response =
+                new MemberDto.Response(
+                        1L,
+                        "John",
+                        "Paul@gmail.com",
+                        "John",
+                        "John",
+                        "http://localhost:8080/members/1"
+                );
+
+        given(memberService.getMember(Mockito.any(Long.class))).willReturn(new Member());
+        given(mapper.memberToMemberDtoResponse(Mockito.any(Member.class))).willReturn(response);
+
+        ResultActions actions =
+                mockMvc.perform(RestDocumentationRequestBuilders.get("/members/{member-id}", memberId)
                         .accept(MediaType.APPLICATION_JSON)
                 );
 
-        actions1
+        actions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.memberId").value(patch.getMemberId()))
-                .andExpect(jsonPath("$.nickName").value(patch.getNickName()))
-                .andExpect(jsonPath("$.email").value(patch.getEmail()))
-                .andExpect(jsonPath("$.password").value(patch.getPassword()))
-                .andExpect(jsonPath("$.about_Me").value(patch.getAbout_Me()))
-                .andDo(document("patch-member",
+                .andExpect(jsonPath("$.memberId").value(member.getMemberId()))
+                .andExpect(jsonPath("$.nickName").value(member.getNickName()))
+                .andExpect(jsonPath("$.email").value(member.getEmail()))
+                .andExpect(jsonPath("$.password").value(member.getPassword()))
+                .andExpect(jsonPath("$.about_Me").value(member.getAbout_Me()))
+                .andDo(document("get-member",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
                         pathParameters(
                                 parameterWithName("member-id").description("회원 식별자")
-                        ),
-                        requestFields(
-                                List.of(
-                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자").ignored(),
-                                        fieldWithPath("nickName").type(JsonFieldType.STRING).description("작성자").optional(),
-                                        fieldWithPath("email").type(JsonFieldType.STRING).description("이메일").optional(),
-                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional(),
-                                        fieldWithPath("about_Me").type(JsonFieldType.STRING).description("자기소개").optional()
-                                )
                         ),
                         responseFields(
                                 List.of(
