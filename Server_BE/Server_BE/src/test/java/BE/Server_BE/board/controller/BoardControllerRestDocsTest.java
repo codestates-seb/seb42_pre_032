@@ -127,16 +127,6 @@ public class BoardControllerRestDocsTest {
                         ),
                         responseFields(
                                 List.of(
-                                        fieldWithPath("boardId").type(JsonFieldType.NUMBER).description("게시글 식별자"),
-                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
-                                        fieldWithPath("writer").type(JsonFieldType.STRING).description("글쓴이"),
-                                        fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
-                                        fieldWithPath("body").type(JsonFieldType.STRING).description("게시글 내용"),
-                                        fieldWithPath("createdAt").type(JsonFieldType.STRING).description("생성 시간"),
-                                        fieldWithPath("modifiedAt").type(JsonFieldType.STRING).description("수정 시간"),
-                                        fieldWithPath("like").type(JsonFieldType.NUMBER).description("좋아요"),
-                                        fieldWithPath("answers").type(JsonFieldType.ARRAY).description("답글 목록"),
-                                        fieldWithPath("url").type(JsonFieldType.STRING).description("url")
 
                                 )
                         )

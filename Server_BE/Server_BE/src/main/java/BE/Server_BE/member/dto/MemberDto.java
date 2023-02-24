@@ -23,6 +23,8 @@ public class MemberDto {
         @NotBlank
         String password;
         String about_Me;
+
+
     }
     @Getter
     @Setter
