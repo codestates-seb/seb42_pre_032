@@ -34,6 +34,16 @@ public class Comment extends Auditable {
     @JoinColumn(name="ANSWER_ID")
     private Answer answer;
 
+    // test
+    public Comment (String body){
+        this.body = body;
+    }
+
+    public Comment(long commentId, String body) {
+        this.commentId = commentId;
+        this.body = body;
+    }
+
     public void setMember(Member member) {
         this.member = member;
         if (!member.getComments().contains(this)) {
