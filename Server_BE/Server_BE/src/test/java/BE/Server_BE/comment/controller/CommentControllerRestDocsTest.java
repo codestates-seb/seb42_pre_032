@@ -35,8 +35,10 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static BE.Server_BE.comment.utill.ApiDocumentUtils.getRequestPreProcessor;
-import static BE.Server_BE.comment.utill.ApiDocumentUtils.getResponsePreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getRequestPreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getResponsePreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getRequestPreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getResponsePreProcessor;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;

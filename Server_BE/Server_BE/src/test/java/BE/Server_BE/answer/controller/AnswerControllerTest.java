@@ -1,18 +1,15 @@
 package BE.Server_BE.answer.controller;
 
-import BE.Server_BE.answer.controller.AnswerController;
 import BE.Server_BE.answer.dto.AnswerDto;
 import BE.Server_BE.answer.entity.Answer;
 import BE.Server_BE.answer.mapper.AnswerMapper;
 import BE.Server_BE.answer.repository.AnswerRepository;
 import BE.Server_BE.answer.service.AnswerService;
-import BE.Server_BE.board.dto.BoardDto;
 import BE.Server_BE.board.entity.Board;
 import BE.Server_BE.board.mapper.BoardMapper;
 import BE.Server_BE.board.service.BoardService;
 import BE.Server_BE.comment.dto.CommentDto;
 import BE.Server_BE.member.entity.Member;
-import BE.Server_BE.member.mapper.MemberMapper;
 import BE.Server_BE.member.service.MemberService;
 import BE.Server_BE.vote.service.VoteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,30 +27,25 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import javax.persistence.Column;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static BE.Server_BE.member.util.ApiDocumentUtils.getRequestPreProcessor;
-import static BE.Server_BE.member.util.ApiDocumentUtils.getResponsePreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getRequestPreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getResponsePreProcessor;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.Mockito.doNothing;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;

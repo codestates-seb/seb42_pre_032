@@ -4,7 +4,6 @@ import BE.Server_BE.member.dto.MemberDto;
 import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.mapper.MemberMapper;
 
-import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 
 import com.google.gson.Gson;
@@ -22,31 +21,22 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.security.access.method.P;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
-import javax.xml.transform.Result;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
-import static BE.Server_BE.member.util.ApiDocumentUtils.getRequestPreProcessor;
-import static BE.Server_BE.member.util.ApiDocumentUtils.getResponsePreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getRequestPreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getResponsePreProcessor;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
 import static org.springframework.restdocs.request.RequestDocumentation.*;
