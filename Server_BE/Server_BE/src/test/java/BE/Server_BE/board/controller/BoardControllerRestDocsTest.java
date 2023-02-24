@@ -66,7 +66,6 @@ public class BoardControllerRestDocsTest {
     @MockBean
     private VoteService voteService;
 
-
     @MockBean
     private MemberService memberService;
 
@@ -143,7 +142,6 @@ public class BoardControllerRestDocsTest {
                         )
                 ));
     }
-
     @Test
     public void patchBoardTest() throws Exception {
         //given
@@ -377,8 +375,7 @@ public class BoardControllerRestDocsTest {
                         "Test Body",
                         0,
                         "http://localhost:8080/boards/1",
-                        responses1
-                ),
+                        responses1),
                 new BoardDto.Response(
                         1,
                         1,
@@ -389,8 +386,7 @@ public class BoardControllerRestDocsTest {
                         "Test Body",
                         0,
                         "http://localhost:8080/boards/1",
-                        responses2
-                )
+                        responses2)
         );
 
         given(boardService.findBoards(Mockito.anyInt())).willReturn(pageBoards);

@@ -75,7 +75,7 @@ public class MemberControllerRestDocsTest {
     @Test
     public void postMemberTest() throws Exception {
         //given
-        MemberDto.Post post = new MemberDto.Post("Paul", "Paul@gmail.com", "Paul", "Paul");
+        MemberDto.Post post = new MemberDto.Post();
         String content = gson.toJson(post);
 
         MemberDto.Response responseDto =

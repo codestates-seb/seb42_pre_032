@@ -10,26 +10,23 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class AnswerDto {
-
-    @Getter
+    @Setter
+    @AllArgsConstructor
     @NoArgsConstructor
+    @Getter
     public static class Post{
-
-        @NotBlank(message = "제목은 공백이 아니어야 합니다")
+        @NotBlank
         private String title;
-
-        @NotBlank(message = "내용은 공백이 아니어야 합니다")
+        @NotBlank
         private String body;
-
-        public Post(String title, String body) {
-
-        }
 
     }
 
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Getter
     public static class Patch{
-
         private long answerId;
         private String title;
         private String body;
@@ -40,8 +37,8 @@ public class AnswerDto {
     @Setter
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response{
-
         private Long answerId;
         private long memberId;
         private long boardId;
@@ -55,5 +52,4 @@ public class AnswerDto {
         private String url;
         private List<CommentDto.Response> comments;
     }
-
 }

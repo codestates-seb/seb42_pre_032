@@ -51,6 +51,14 @@ public class Answer extends Auditable {
         this.title = title;
         this.body = body;
     }
+
+    //테스트용
+    public Answer (long answerId, String title, String body, long vote) {
+        this.answerId = answerId;
+        this.title = title;
+        this.body = body;
+        this.vote = vote;
+    }
     public void setMember(Member member) {
         this.member = member;
         if (!member.getAnswers().contains(this)) {
