@@ -14,6 +14,7 @@ import java.util.List;
 
 public class BoardDto {
     @Getter
+    @Setter
     @AllArgsConstructor
     @NoArgsConstructor //test
     public static class Post {
@@ -21,9 +22,7 @@ public class BoardDto {
         private String title;
         @NotBlank
         private String body;
-
     }
-
     @Getter
     @Setter
     @AllArgsConstructor
@@ -35,11 +34,11 @@ public class BoardDto {
         private String body;
 
     }
-
     @Getter
     @Setter
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private long boardId;
         private long memberId;
