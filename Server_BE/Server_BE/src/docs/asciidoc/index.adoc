@@ -37,6 +37,17 @@ include::{snippets}/patch-member/request-fields.adoc[]
 .http-response
 include::{snippets}/patch-member/http-response.adoc[]
 
+=== 회원 조회
+
+.curl-request
+include::{snippets}/get-member/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-member/http-request.adoc[]
+
+.http-response
+include::{snippets}/get-member/http-response.adoc[]
+>>>>>>> Stashed changes
 
 ***
 == BoardController
@@ -162,14 +173,3 @@ include::{snippets}/delete-board-dislike/path-parameters.adoc[]
 
 =======
 
-=== 회원 조회
-
-.curl-request
-include::{snippets}/get-member/curl-request.adoc[]
-
-.http-request
-include::{snippets}/get-member/http-request.adoc[]
-
-.http-response
-include::{snippets}/get-member/http-response.adoc[]
->>>>>>> Stashed changes
