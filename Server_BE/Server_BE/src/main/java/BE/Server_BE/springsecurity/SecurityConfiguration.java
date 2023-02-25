@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -98,6 +99,7 @@ public class SecurityConfiguration {
             builder.addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
+
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -131,7 +133,7 @@ public class SecurityConfiguration {
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // 위에서 정한 configuration의 CORS 정책을 적용하고 싶은 URL ex)
+        // 위에서 정한 configuration의 CORS 정책을 적용하고 싶은 URL
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
