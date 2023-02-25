@@ -31,6 +31,7 @@ const Main = () => {
   const sortButtonOnClickHandler = (e) => {
     setCurrentTab(e.target.value);
   };
+
   return (
     <MainContainer>
       <HeaderRow>

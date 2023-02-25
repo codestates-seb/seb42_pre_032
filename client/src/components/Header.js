@@ -13,7 +13,8 @@ import StyledInput from './styled/Input.styled';
 const Header = () => {
   const [searchParams] = useSearchParams();
   let query = searchParams.get('q');
-  const [str, setStr] = useState(query);
+  const inputValue = query || '';
+  const [str, setStr] = useState(inputValue);
   const navigate = useNavigate();
   // const { pathname } = useLocation();
 
@@ -22,9 +23,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const inputValue = query || '';
     setStr(inputValue);
-  }, [query]);
+  }, [inputValue]);
 
   const onSubmit = (e) => {
     e.preventDefault();
