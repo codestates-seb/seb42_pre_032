@@ -9,6 +9,7 @@ import {
 } from '../components/styled/Main.styled';
 import { useState } from 'react';
 import styled from 'styled-components';
+import Pagination from '../components/Pagination/Pagination';
 
 const MainContainer = styled.div`
   display: flex;
@@ -20,6 +21,8 @@ const MainContainer = styled.div`
 
 const PaginationContainer = styled.div`
   margin-left: 20px;
+  height: 50px;
+  /* margin: 5px 0px 0px 20px; */
 `;
 
 const Main = () => {
@@ -28,6 +31,7 @@ const Main = () => {
   const sortButtonOnClickHandler = (e) => {
     setCurrentTab(e.target.value);
   };
+
   return (
     <MainContainer>
       <HeaderRow>
@@ -63,7 +67,9 @@ const Main = () => {
       <QuestionBox></QuestionBox>
       <QuestionBox></QuestionBox>
       <QuestionBox></QuestionBox>
-      <PaginationContainer></PaginationContainer>
+      <PaginationContainer>
+        <Pagination></Pagination>
+      </PaginationContainer>
     </MainContainer>
   );
 };
