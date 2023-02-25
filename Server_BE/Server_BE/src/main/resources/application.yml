@@ -1,8 +1,8 @@
 spring:
   h2:
     console:
-      enabled: true
       path: /h2
+      enabled: true
       settings:
         web-allow-others: true
   datasource:
