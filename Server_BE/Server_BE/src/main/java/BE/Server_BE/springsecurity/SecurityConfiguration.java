@@ -8,6 +8,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -23,10 +24,29 @@ import java.util.Arrays;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity(debug = true)
-public class SecurityConfiguration {
+@EnableWebSecurity(debug = true)        // extends부터 추가함.
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JwtTokenizer jwtTokenizer;
     private final HelloAuthorityUtils authorityUtils;
+
+
+    // 요부분 추가함
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/h2/**");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // 요부분 추가
+        http.authorizeRequests()
+                .antMatchers("/","/h2/**","/events","/events/*").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic().disable()
+                .csrf().disable();
+
+    }
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer, HelloAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
@@ -36,7 +56,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
