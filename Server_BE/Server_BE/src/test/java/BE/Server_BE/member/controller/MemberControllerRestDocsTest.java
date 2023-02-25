@@ -4,7 +4,6 @@ import BE.Server_BE.member.dto.MemberDto;
 import BE.Server_BE.member.entity.Member;
 import BE.Server_BE.member.mapper.MemberMapper;
 
-import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 
 import com.google.gson.Gson;
@@ -22,31 +21,22 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.security.access.method.P;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
-import javax.xml.transform.Result;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
-import static BE.Server_BE.member.util.ApiDocumentUtils.getRequestPreProcessor;
-import static BE.Server_BE.member.util.ApiDocumentUtils.getResponsePreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getRequestPreProcessor;
+import static BE.Server_BE.util.ApiDocumentUtils.getResponsePreProcessor;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -75,7 +65,17 @@ public class MemberControllerRestDocsTest {
     @Test
     public void postMemberTest() throws Exception {
         //given
-        MemberDto.Post post = new MemberDto.Post("Paul", "Paul@gmail.com", "Paul", "Paul");
+        MemberDto.Post post = new MemberDto.Post("Paul","Paul@gmail.com","Paul","Paul");
+        /*
+        @NotBlank(message = "이름은 공백이 아니어야 합니다.")
+        String nickName;
+        @NotBlank
+        @Email
+        String email;
+        @NotBlank
+        String password;
+        String about_Me;
+        * */
         String content = gson.toJson(post);
 
         MemberDto.Response responseDto =
@@ -206,35 +206,38 @@ public class MemberControllerRestDocsTest {
     public void getMemberTest() throws Exception {
 
         long memberId = 1L;
-        MemberDto.Patch patch = new MemberDto.Patch(memberId, "John", "Paul@gmail.com", "John", "John");
+        Member member = new Member(1, "John", "Paul@gmail.com", "John", "John");
 
-        ResultActions actions1 =
-                mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/{member-id}", memberId)
-                        .contentType(MediaType.APPLICATION_JSON)
+        MemberDto.Response response =
+                new MemberDto.Response(
+                        1L,
+                        "John",
+                        "Paul@gmail.com",
+                        "John",
+                        "John",
+                        "http://localhost:8080/members/1"
+                );
+
+        given(memberService.getMember(Mockito.any(Long.class))).willReturn(new Member());
+        given(mapper.memberToMemberDtoResponse(Mockito.any(Member.class))).willReturn(response);
+
+        ResultActions actions =
+                mockMvc.perform(RestDocumentationRequestBuilders.get("/members/{member-id}", memberId)
                         .accept(MediaType.APPLICATION_JSON)
                 );
 
-        actions1
+        actions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.memberId").value(patch.getMemberId()))
-                .andExpect(jsonPath("$.nickName").value(patch.getNickName()))
-                .andExpect(jsonPath("$.email").value(patch.getEmail()))
-                .andExpect(jsonPath("$.password").value(patch.getPassword()))
-                .andExpect(jsonPath("$.about_Me").value(patch.getAbout_Me()))
-                .andDo(document("patch-member",
+                .andExpect(jsonPath("$.memberId").value(member.getMemberId()))
+                .andExpect(jsonPath("$.nickName").value(member.getNickName()))
+                .andExpect(jsonPath("$.email").value(member.getEmail()))
+                .andExpect(jsonPath("$.password").value(member.getPassword()))
+                .andExpect(jsonPath("$.about_Me").value(member.getAbout_Me()))
+                .andDo(document("get-member",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
                         pathParameters(
                                 parameterWithName("member-id").description("회원 식별자")
-                        ),
-                        requestFields(
-                                List.of(
-                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자").ignored(),
-                                        fieldWithPath("nickName").type(JsonFieldType.STRING).description("작성자").optional(),
-                                        fieldWithPath("email").type(JsonFieldType.STRING).description("이메일").optional(),
-                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional(),
-                                        fieldWithPath("about_Me").type(JsonFieldType.STRING).description("자기소개").optional()
-                                )
                         ),
                         responseFields(
                                 List.of(

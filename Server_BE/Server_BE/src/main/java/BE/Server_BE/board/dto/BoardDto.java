@@ -14,29 +14,19 @@ import java.util.List;
 
 public class BoardDto {
     @Getter
+    @Setter
     @AllArgsConstructor
-<<<<<<< Updated upstream
     @NoArgsConstructor //test
-
-=======
-    @NoArgsConstructor
->>>>>>> Stashed changes
     public static class Post {
         @NotBlank
         private String title;
         @NotBlank
         private String body;
-
     }
-
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     public static class Patch {
         private long memberId;
         private long boardId;
@@ -44,11 +34,11 @@ public class BoardDto {
         private String body;
 
     }
-
     @Getter
     @Setter
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private long boardId;
         private long memberId;

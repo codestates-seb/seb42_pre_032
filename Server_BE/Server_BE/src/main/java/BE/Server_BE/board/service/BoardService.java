@@ -46,14 +46,12 @@ public class BoardService {
 
         return boardRepository.save(findBoard);
     }
-
     public Board findBoard(long boardId) {
         return findVerifiedBoard(boardId);
     }
     public Page<Board> findBoardByTitle(String q, int page) {
         return boardRepository.findAllByTitle(q, PageRequest.of(page-1,15, Sort.by("VOTE").descending()));
     }
-
 
     @Transactional(readOnly = true)
     public Page<Board> findBoards(int page) {

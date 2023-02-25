@@ -11,11 +11,9 @@ import javax.validation.constraints.NotBlank;
 
 public class MemberDto {
     @Getter
-<<<<<<< Updated upstream
     @NoArgsConstructor
-=======
     @Setter
->>>>>>> Stashed changes
+    @AllArgsConstructor
     public static class Post{
         @NotBlank(message = "이름은 공백이 아니어야 합니다.")
         String nickName;
@@ -25,6 +23,8 @@ public class MemberDto {
         @NotBlank
         String password;
         String about_Me;
+
+
     }
     @Getter
     @Setter

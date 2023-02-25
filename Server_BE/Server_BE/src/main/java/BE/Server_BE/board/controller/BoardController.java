@@ -151,6 +151,4 @@ public class BoardController {
         return new ResponseEntity(
                 new MultiResponse(responses, pageInfo),  HttpStatus.OK);
     }
-
-
 }

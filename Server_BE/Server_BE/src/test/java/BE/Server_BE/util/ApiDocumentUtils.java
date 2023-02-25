@@ -1,4 +1,4 @@
-package BE.Server_BE.board.util;
+package BE.Server_BE.util;
 
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;

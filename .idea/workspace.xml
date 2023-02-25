@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62d64894-9a55-40e7-9891-d36a475e1b1e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/docs/asciidoc/index.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/docs/asciidoc/index.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/board/dto/BoardDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/member/controller/MemberControllerRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/member/controller/MemberControllerRestDocsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/comment/controller/CommentControllerRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/comment/controller/CommentControllerRestDocsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +36,11 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Server_BE" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Server_BE" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -49,9 +52,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="Empty" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -69,12 +72,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feat/BE/board" />
-                    <option name="lastUsedInstant" value="1676557608" />
+                    <option name="branchName" value="dev" />
+                    <option name="lastUsedInstant" value="1677215416" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="feature" />
-                    <option name="lastUsedInstant" value="1676557607" />
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1677215415" />
                   </RecentBranch>
                 </list>
               </option>
@@ -121,79 +124,81 @@
       <recent name="BE.Server_BE.member.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerBeApplication">
-    <configuration name="ServerBeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.ServerBeApplication" />
-      <module name="Server_BE.main" />
+  <component name="RunManager" selected="JUnit.CommentControllerRestDocsTest">
+    <configuration name="CommentControllerRestDocsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberControllerRestDocsTest.deleteBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.deleteCommentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
-      <option name="METHOD_NAME" value="deleteBoardTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="deleteCommentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberControllerRestDocsTest.deleteMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.getCommentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
-      <option name="METHOD_NAME" value="deleteMemberTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="getCommentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberControllerRestDocsTest.getMembersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.getCommentsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
-      <option name="METHOD_NAME" value="getMembersTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="getCommentsTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberControllerRestDocsTest.postMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.patchCommentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
-      <option name="METHOD_NAME" value="postMemberTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="patchCommentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -201,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ServerBeApplication" />
-        <item itemvalue="JUnit.MemberControllerRestDocsTest.postMemberTest" />
-        <item itemvalue="JUnit.MemberControllerRestDocsTest.deleteMemberTest" />
-        <item itemvalue="JUnit.MemberControllerRestDocsTest.deleteBoardTest" />
-        <item itemvalue="JUnit.MemberControllerRestDocsTest.getMembersTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.deleteCommentTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.getCommentsTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.getCommentTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.patchCommentTest" />
       </list>
     </recent_temporary>
   </component>
@@ -242,6 +247,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/member/controller/MemberControllerRestDocsTest.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
