@@ -1,11 +1,11 @@
 import { GrSearch } from 'react-icons/gr';
 import {
   Link,
-  // useLocation,
+  useLocation,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { LinkButton, BlueLinkButton } from './Buttons';
+import { LinkButton, BlueLinkButton, BlueButton } from './Buttons';
 import { StyledHeader, StyledWrapper } from './styled/Header.styled';
 import { useEffect, useState } from 'react';
 import StyledInput from './styled/Input.styled';
@@ -16,11 +16,16 @@ const Header = () => {
   const inputValue = query || '';
   const [str, setStr] = useState(inputValue);
   const navigate = useNavigate();
-  // const { pathname } = useLocation();
+  const [token, setToken] = useState('');
+  const { pathname } = useLocation();
 
   const onChange = (e) => {
     setStr(e.target.value);
   };
+
+  useEffect(() => {
+    setToken(localStorage.getItem('user'));
+  }, [pathname]);
 
   useEffect(() => {
     setStr(inputValue);
@@ -29,6 +34,11 @@ const Header = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     navigate(`./searchresult?q=${str}`);
+  };
+
+  const onLogout = () => {
+    localStorage.removeItem('user');
+    navigate(`./log_in`);
   };
 
   return (
@@ -48,14 +58,20 @@ const Header = () => {
             />
           </div>
         </form>
-        <div>
-          <LinkButton to={'/log_in'} width="60px">
-            Log in
-          </LinkButton>
-          <BlueLinkButton to={'/signup'} width="66px">
-            Sign up
-          </BlueLinkButton>
-        </div>
+        {token ? (
+          <>
+            <BlueButton onClick={onLogout} value="Log out" width="60px" />
+          </>
+        ) : (
+          <div>
+            <LinkButton to={'/log_in'} width="60px">
+              Log in
+            </LinkButton>
+            <BlueLinkButton to={'/signup'} width="66px">
+              Sign up
+            </BlueLinkButton>
+          </div>
+        )}
       </StyledWrapper>
     </StyledHeader>
   );
