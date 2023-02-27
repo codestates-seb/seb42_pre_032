@@ -31,13 +31,14 @@ const PostContentContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const QuestionDetail = () => {
+const QuestionDetail = ({ data }) => {
+  console.log(data);
+
+  const { title, createdAt } = data;
   return (
     <DetailContainer>
       <HeaderRow>
-        <StyledHeader>
-          I cant reall understan why my code loops useContext
-        </StyledHeader>
+        <StyledHeader>{title}</StyledHeader>
         <BlueLinkButton to={'/create'} width={'100px'}>
           Ask&nbsp;Question
         </BlueLinkButton>
@@ -45,7 +46,7 @@ const QuestionDetail = () => {
       <HeaderRow>
         <InfoBox>
           <span style={{ color: ' #525960' }}>Asked</span>
-          <span style={{ marginLeft: '7px' }}>today</span>
+          <span style={{ marginLeft: '7px' }}>{createdAt}</span>
         </InfoBox>
       </HeaderRow>
       <PostContentContainer>

@@ -1,4 +1,5 @@
 // import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import {
   QuestionContainer,
   QuestionLeftSideContainer,
@@ -14,31 +15,36 @@ import {
   ProfileLog,
 } from '../components/styled/QuestionBox.styled';
 
-const QuestionBox = () => {
+const QuestionBox = ({ el }) => {
+  //console.log(el);
+  const { title, body, like, createdAt, writer, boardId } = el;
+
+  const navigate = useNavigate();
+
   return (
     <QuestionContainer>
       <QuestionLeftSideContainer>
-        <QuestionInfo>2 votes</QuestionInfo>
+        <QuestionInfo>{like} votes</QuestionInfo>
         <QuestionInfo>2 answers</QuestionInfo>
         <QuestionInfo>120 views</QuestionInfo>
       </QuestionLeftSideContainer>
       <QuestionRightSideContainer>
-        <QuestionTitle>
-          Programmatically navigate using React router
+        <QuestionTitle
+          onClick={() => {
+            navigate(`questiondetail/${boardId}`);
+          }}
+        >
+          {title}
         </QuestionTitle>
-        <QuestionPreview>
-          With react-router I can use the Link element to create links which are
-          natively handled by react router. I see internally it calls
-          this.context.transitionTo(...)
-        </QuestionPreview>
+        <QuestionPreview>{body.slice(3, -4)}</QuestionPreview>
         <QuestionFooter>
           <Tag>reat.js</Tag>
           <Tag>reat.js</Tag>
           <Tag>reat.js</Tag>
           <Profile>
             <ProfileImg></ProfileImg>
-            <ProfileName>서정희</ProfileName>
-            <ProfileLog>May 7, 2020 at 8:12</ProfileLog>
+            <ProfileName>{writer}</ProfileName>
+            <ProfileLog>{createdAt}</ProfileLog>
           </Profile>
         </QuestionFooter>
       </QuestionRightSideContainer>
