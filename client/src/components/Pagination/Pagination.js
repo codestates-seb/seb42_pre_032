@@ -3,7 +3,7 @@ import PageButton from './PageButton';
 const Pagination = () => {
   return (
     <div>
-      <PageButton></PageButton>
+      <PageButton>1</PageButton>
     </div>
   );
 };

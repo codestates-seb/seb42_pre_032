@@ -25,8 +25,7 @@ const PaginationContainer = styled.div`
   /* margin: 5px 0px 0px 20px; */
 `;
 
-const Main = ({ data }) => {
-  console.log(data);
+const Main = () => {
   const [currentTab, setCurrentTab] = useState('Newest');
 
   const sortButtonOnClickHandler = (e) => {
@@ -62,14 +61,12 @@ const Main = ({ data }) => {
           </SortButton>
         </MainbarSortButtonContainer>
       </HeaderRow>
-      {/* <QuestionBox data={data}></QuestionBox> */}
-      <div>
-        {console.log(data[0])}
-        {/* {data.map((el) => console.log(el))} */}
-        {data.map((el) => (
-          <QuestionBox el={el} key={el.boardId} />
-        ))}
-      </div>
+      <QuestionBox></QuestionBox>
+      <QuestionBox></QuestionBox>
+      <QuestionBox></QuestionBox>
+      <QuestionBox></QuestionBox>
+      <QuestionBox></QuestionBox>
+      <QuestionBox></QuestionBox>
       <PaginationContainer>
         <Pagination></Pagination>
       </PaginationContainer>
