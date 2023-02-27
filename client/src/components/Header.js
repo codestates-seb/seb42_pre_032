@@ -49,7 +49,7 @@ const Header = () => {
           </div>
         </form>
         <div>
-          <LinkButton to={'/login'} width="60px">
+          <LinkButton to={'/log_in'} width="60px">
             Log in
           </LinkButton>
           <BlueLinkButton to={'/signup'} width="66px">
