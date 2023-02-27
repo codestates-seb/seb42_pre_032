@@ -91,7 +91,7 @@ function App() {
           <Route path="/update/:id" element={<UpdatePage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/log_in" element={<LoginPage />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
