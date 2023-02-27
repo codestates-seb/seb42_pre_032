@@ -6,7 +6,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -22,10 +24,29 @@ import java.util.Arrays;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = true)        // extends부터 추가함.
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final HelloAuthorityUtils authorityUtils;
+
+
+//    // 요부분 추가함
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/h2/**");
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        // 요부분 추가
+//        http.authorizeRequests()
+//                .antMatchers("/","/h2/**","/events","/events/*").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .httpBasic().disable()
+//                .csrf().disable();
+//
+//    }
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer, HelloAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
@@ -35,7 +56,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
@@ -98,6 +118,7 @@ public class SecurityConfiguration {
             builder.addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
+
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -131,7 +152,7 @@ public class SecurityConfiguration {
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // 위에서 정한 configuration의 CORS 정책을 적용하고 싶은 URL ex)
+        // 위에서 정한 configuration의 CORS 정책을 적용하고 싶은 URL
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
