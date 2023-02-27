@@ -30,24 +30,6 @@ public class SecurityConfiguration {
     private final HelloAuthorityUtils authorityUtils;
 
 
-//    // 요부분 추가함
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/h2/**");
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        // 요부분 추가
-//        http.authorizeRequests()
-//                .antMatchers("/","/h2/**","/events","/events/*").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .httpBasic().disable()
-//                .csrf().disable();
-//
-//    }
-
     public SecurityConfiguration(JwtTokenizer jwtTokenizer, HelloAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;

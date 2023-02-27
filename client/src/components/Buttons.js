@@ -11,8 +11,12 @@ export const Button = ({ value, width }) => {
   return <StyledButton width={width}>{value}</StyledButton>;
 };
 
-export const BlueButton = ({ value, width }) => {
-  return <StyledBlueButton width={width}>{value}</StyledBlueButton>;
+export const BlueButton = ({ value, width, onClick }) => {
+  return (
+    <StyledBlueButton onClick={onClick} width={width}>
+      {value}
+    </StyledBlueButton>
+  );
 };
 
 export const BlueBigButton = ({ value, width }) => {
