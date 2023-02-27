@@ -1,28 +1,21 @@
 import Editor from '../components/Editor';
-import {
-  useLocation,
-  // , useNavigate
-} from 'react-router-dom';
-import {
-  // useEffect,
-  useState,
-} from 'react';
-import useJWT from '../hook/useJWT';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { createPost } from '../util/api';
 
 const CreatePage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const path = useLocation().pathname.slice(1);
-  // const navigate = useNavigate();
-  const jwt = useJWT();
+  const navigate = useNavigate();
+  const jwt = localStorage.getItem('user');
 
-  // useEffect(() => {
-  //   if (!jwt) {
-  //     console.log(jwt);
-  //     navigate(`/log_in`);
-  //   }
-  // }, [jwt, navigate]);
+  useEffect(() => {
+    if (!jwt) {
+      console.log(jwt);
+      navigate(`/log_in`);
+    }
+  }, [jwt, navigate]);
 
   const onTitleChange = (e) => {
     setTitle(e.target.value);
@@ -32,6 +25,7 @@ const CreatePage = () => {
     e.preventDefault();
     try {
       createPost(jwt, title, content);
+      navigate(`/`);
     } catch (e) {
       console.log(e);
     }

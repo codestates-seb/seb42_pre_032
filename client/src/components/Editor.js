@@ -19,7 +19,6 @@ const Editor = ({
   onSubmit,
 }) => {
   const quillEl = useRef(null);
-
   const onContentChange = (value) => {
     setContent(value);
   };
