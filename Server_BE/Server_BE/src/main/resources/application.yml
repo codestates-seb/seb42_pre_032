@@ -1,15 +1,14 @@
 spring:
-  h2:
-    console:
-      path: /h2
-      enabled: true
-      settings:
-        web-allow-others: true
   datasource:
-    url: jdbc:h2:mem:test
+    url: jdbc:mysql://pre032project.ctmvpylzede6.ap-northeast-2.rds.amazonaws.com:13306/pre032project
+    username: davidhan
+    password: pre032project
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -29,6 +28,6 @@ mail:
     admin: admin@gmail.com
 jwt:
   key: zxcasdlqwealksjdioqywejkashdjkhj1k23hjkhsd87382h
-  access-token-expiration-minutes: 30
-  refresh-token-expiration-minutes: 420
+  access-token-expiration-minutes: 1440
+  refresh-token-expiration-minutes: 1440
 
