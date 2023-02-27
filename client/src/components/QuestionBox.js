@@ -36,7 +36,7 @@ const QuestionBox = ({ el }) => {
         >
           {title}
         </QuestionTitle>
-        <QuestionPreview>{body}</QuestionPreview>
+        <QuestionPreview>{body.slice(3, -4)}</QuestionPreview>
         <QuestionFooter>
           <Tag>reat.js</Tag>
           <Tag>reat.js</Tag>

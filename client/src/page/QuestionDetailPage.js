@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import QuestionDetail from '../components/QuestionDetail';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionDetailContainer = styled.div`
   display: flex;
@@ -13,8 +14,17 @@ const QuestionDetailPage = () => {
   const [data, setData] = useState([]);
   const params = useParams();
   console.log(params);
+  const navigate = useNavigate();
 
   console.log(data);
+  const jwt = localStorage.getItem('user');
+
+  useEffect(() => {
+    if (!jwt) {
+      console.log(jwt);
+      navigate('/log_in');
+    }
+  }, [jwt, navigate]);
 
   useEffect(() => {
     async function fetchdata() {
@@ -22,8 +32,7 @@ const QuestionDetailPage = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2Nzc0OTgyNjIsImV4cCI6MTY3NzU4NDY2Mn0.DX5IPNVkG2yQelMoRHtjQbXV3z6dkMo77Aob-chnrhugrD681D3HzeaVJQGeC-aL',
+          Authorization: jwt,
         },
         //body: JSON.stringify({}),
         credentials: 'include',
