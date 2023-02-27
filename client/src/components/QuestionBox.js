@@ -31,7 +31,7 @@ const QuestionBox = ({ el }) => {
       <QuestionRightSideContainer>
         <QuestionTitle
           onClick={() => {
-            navigate(`questiondetail/${boardId}/${title}`);
+            navigate(`questiondetail/${boardId}`);
           }}
         >
           {title}
