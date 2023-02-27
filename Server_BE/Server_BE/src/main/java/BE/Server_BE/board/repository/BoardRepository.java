@@ -11,6 +11,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
-    @Query(value = "SELECT * FROM BOARD WHERE TITLE LIKE CONCAT('%', :q ,'%')", nativeQuery = true)
+    @Query(value = "SELECT * FROM board WHERE TITLE LIKE CONCAT('%', :q ,'%')", nativeQuery = true)
     public Page<Board> findAllByTitle(@Param("q")String q, Pageable pageable);
 }
