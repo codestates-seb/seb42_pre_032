@@ -7,7 +7,7 @@ import {
   SortButton,
   QuestionsNum,
 } from '../components/styled/Main.styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Pagination from '../components/Pagination/Pagination';
 
@@ -31,6 +31,46 @@ const Main = () => {
   const sortButtonOnClickHandler = (e) => {
     setCurrentTab(e.target.value);
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const responce = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify({
+            // nickName: '아이언맨',
+            // email: 'IronMan@marvel.com',
+            // password: 'ironman',
+            // about_Me: 'I am IronMan',
+            username: 'IronMan@marvel.com',
+            password: 'ironman',
+          }),
+          credentials: 'include',
+        });
+        // const responce = await fetch(
+        //   'http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/boards',
+        //   {
+        //     method: 'GET',
+        //     Authorization:
+        //       'Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2NzY4MTc3MjAsImV4cCI6MTY3NjgxOTUyMH0.YA6Ll0_rIi9blJKDJZuz1eoVWZA6SSbzgOj4T_TzLXzM5yCgYRB-22v_cnPVvrs1i0hnnhOTMaILQsBg0WjlFQ',
+        //     credentials: 'include',
+        //   }
+        // );
+        console.log(responce.headers.get('authorization'));
+        if (!responce.ok) {
+          console.log(responce.status);
+        }
+        const data = await responce.json();
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
 
   return (
     <MainContainer>
