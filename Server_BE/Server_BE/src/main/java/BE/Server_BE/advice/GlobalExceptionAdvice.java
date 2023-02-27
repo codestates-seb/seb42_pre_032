@@ -33,5 +33,4 @@ public class GlobalExceptionAdvice {
         final ErrorResponse response = ErrorResponse.of(e);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
-
 }

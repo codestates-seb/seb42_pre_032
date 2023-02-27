@@ -21,6 +21,8 @@ public interface CommentMapper {
                 .builder()
                 .commentId(comment.getCommentId())
                 .body(comment.getBody())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
                 .answerId(comment.getAnswer().getAnswerId())
                 .memberId(comment.getMember().getMemberId())
                 .build();
@@ -28,13 +30,20 @@ public interface CommentMapper {
     }
 
     default List<CommentDto.Response> commentsToCommentDtoResponse(List<Comment> comments){
+        final String url = "http://localhost:8080/comments";
         return comments
                 .stream()
                 .map(comment -> CommentDto.Response
                         .builder()
+                        .memberId(comment.getMember().getMemberId())
                         .commentId(comment.getCommentId())
                         .body(comment.getBody())
                         .answerId(comment.getAnswer().getAnswerId())
+
+                        .createdAt(comment.getCreatedAt())
+                        .modifiedAt(comment.getModifiedAt())
+                        .url(url+comment.getCommentId())
+
                         .build())
                 .collect(Collectors.toList());
     }

@@ -85,14 +85,14 @@ function App()
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/searchreasult" element={<SearchResultPage />} />
+          <Route path="/searchresult" element={<SearchResultPage />} />
           <Route path="/questiondetail">
             <Route path=":id/:title" element={<QuestionDetailPage />} />
           </Route>
           <Route path="/update/:id" element={<UpdatePage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
         <Footer />

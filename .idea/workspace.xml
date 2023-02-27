@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62d64894-9a55-40e7-9891-d36a475e1b1e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/member/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/comment/controller/CommentControllerRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/comment/controller/CommentControllerRestDocsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +39,7 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Server_BE" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Server_BE" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -58,9 +52,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="Empty" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -78,12 +72,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feat/BE/board" />
-                    <option name="lastUsedInstant" value="1676557608" />
+                    <option name="branchName" value="dev" />
+                    <option name="lastUsedInstant" value="1677215416" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="feature" />
-                    <option name="lastUsedInstant" value="1676557607" />
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1677215415" />
                   </RecentBranch>
                 </list>
               </option>
@@ -96,6 +90,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar:///Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/NullPointerException.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.3.25/a1dbd0ee414155d8330405526538e0956c0f9435/spring-core-5.3.25-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
@@ -129,86 +124,81 @@
       <recent name="BE.Server_BE.member.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MemberControllerRestDocsTest.patchMemberTest">
-    <configuration name="Server_BE [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/Server_BE/Server_BE" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="MemberControllerRestDocsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CommentControllerRestDocsTest">
+    <configuration name="CommentControllerRestDocsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberControllerRestDocsTest.patchMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.deleteCommentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
-      <option name="METHOD_NAME" value="patchMemberTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="deleteCommentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberControllerRestDocsTest.postMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.getCommentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.controller.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.controller.MemberControllerRestDocsTest" />
-      <option name="METHOD_NAME" value="postMemberTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="getCommentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberRepositoryTest.saveMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CommentControllerRestDocsTest.getCommentsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server_BE.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BE.Server_BE.member.repository.*" />
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="BE.Server_BE.member.repository" />
-      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.member.repository.MemberRepositoryTest" />
-      <option name="METHOD_NAME" value="saveMemberTest" />
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="getCommentsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommentControllerRestDocsTest.patchCommentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server_BE.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BE.Server_BE.comment.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="BE.Server_BE.comment.controller" />
+      <option name="MAIN_CLASS_NAME" value="BE.Server_BE.comment.controller.CommentControllerRestDocsTest" />
+      <option name="METHOD_NAME" value="patchCommentTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -216,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MemberControllerRestDocsTest.patchMemberTest" />
-        <item itemvalue="Gradle.Server_BE [build]" />
-        <item itemvalue="JUnit.MemberControllerRestDocsTest.postMemberTest" />
-        <item itemvalue="JUnit.MemberRepositoryTest.saveMemberTest" />
-        <item itemvalue="JUnit.MemberControllerRestDocsTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.deleteCommentTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.getCommentsTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.getCommentTest" />
+        <item itemvalue="JUnit.CommentControllerRestDocsTest.patchCommentTest" />
       </list>
     </recent_temporary>
   </component>
@@ -257,6 +247,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/member/controller/MemberControllerRestDocsTest.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>

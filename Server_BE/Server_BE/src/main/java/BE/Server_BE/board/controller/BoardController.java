@@ -36,31 +36,27 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardMapper boardMapper;
     private final VoteService voteService;
-    private final AnswerService answerService;
-    private final AnswerMapper answerMapper;
     private final MemberService memberService;
 
     public BoardController(BoardService boardService,
                            BoardMapper boardMapper,
                            VoteService voteService,
-                           AnswerService answerService,
-                           AnswerMapper answerMapper,
                            MemberService memberService) {
         this.boardService = boardService;
         this.boardMapper = boardMapper;
         this.voteService = voteService;
-        this.answerService = answerService;
-        this.answerMapper = answerMapper;
         this.memberService = memberService;
     }
     @PostMapping
     public ResponseEntity postBoard(@RequestBody BoardDto.Post requestBody,
                                     Principal principal) {
+
         Member member = memberService.findMemberByEmail(principal.getName());
         Board board = boardMapper.boardPostDtoToBoard(requestBody);
         board.setMember(member);
         board.setVote(0L);
         Board postedBoard = boardService.createBoard(board);
+
         BoardDto.Response response = boardMapper.boardToBoardResponse(postedBoard);
         response.setUrl(url+response.getBoardId());
 
@@ -85,7 +81,9 @@ public class BoardController {
     @GetMapping("/{board-id}")
     public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId) {
         Board board = boardService.findBoard(boardId);
-        return new ResponseEntity(boardMapper.boardToBoardResponse(board), HttpStatus.OK);
+        BoardDto.Response response = boardMapper.boardToBoardResponse(board);
+        response.setUrl(url+response.getBoardId());
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping
@@ -94,9 +92,11 @@ public class BoardController {
         PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
                 pageBoards.getTotalElements(),pageBoards.getTotalPages());
         List<Board> boards = pageBoards.getContent();
+        List<BoardDto.Response> responses = boardMapper.boardsToBoardResponse(boards);
+        responses.stream().forEach(b -> b.setUrl(url+b.getBoardId()));
 
         return new ResponseEntity(
-                new MultiResponse(boardMapper.boardsToBoardResponse(boards), pageInfo),  HttpStatus.OK);
+                new MultiResponse(responses, pageInfo),  HttpStatus.OK);
     }
 
     @DeleteMapping("/{board-id}")
@@ -127,7 +127,7 @@ public class BoardController {
         Member member = memberService.findMemberByEmail(principal.getName());
         voteService.deleteBoardVote(boardId, member.getMemberId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @DeleteMapping("/{board-id}/dislike")
     public ResponseEntity deleteDislike (@PathVariable("board-id") @Positive long boardId,
@@ -135,8 +135,20 @@ public class BoardController {
         Member member = memberService.findMemberByEmail(principal.getName());
         voteService.deleteBoardVote(boardId, member.getMemberId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchByTitle (@RequestParam String q,
+                                         @RequestParam(required = false, defaultValue = "1") int page){
+        Page<Board> pageBoards = boardService.findBoardByTitle(q, page);
+        PageInfo pageInfo = new PageInfo(pageBoards.getNumber(), pageBoards.getSize(),
+                pageBoards.getTotalElements(),pageBoards.getTotalPages());
+        List<Board> boards = pageBoards.getContent();
+        List<BoardDto.Response> responses = boardMapper.boardsToBoardResponse(boards);
+        responses.stream().forEach(b -> b.setUrl(url+b.getBoardId()));
 
+        return new ResponseEntity(
+                new MultiResponse(responses, pageInfo),  HttpStatus.OK);
+    }
 }

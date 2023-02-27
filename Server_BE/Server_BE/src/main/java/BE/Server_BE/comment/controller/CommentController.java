@@ -93,12 +93,4 @@ public class CommentController {
         commentService.deleteComment(commentId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-    private Comment buildComment(long answerId, String email,String body) {
-        Comment comment = Comment.builder()
-                .body(body)
-                .build();
-        comment.setAnswer(answerService.getAnswer(answerId));
-        comment.setMember(memberService.findMemberByEmail(email));
-        return comment;
-    }
 }

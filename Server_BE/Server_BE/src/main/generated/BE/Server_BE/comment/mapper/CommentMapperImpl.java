@@ -3,13 +3,12 @@ package BE.Server_BE.comment.mapper;
 import BE.Server_BE.comment.dto.CommentDto.Patch;
 import BE.Server_BE.comment.dto.CommentDto.Post;
 import BE.Server_BE.comment.entity.Comment;
-import BE.Server_BE.comment.entity.Comment.CommentBuilder;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-21T13:47:30+0900",
+    date = "2023-02-24T14:32:42+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -21,11 +20,11 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        CommentBuilder comment = Comment.builder();
+        Comment comment = new Comment();
 
-        comment.body( post.getBody() );
+        comment.setBody( post.getBody() );
 
-        return comment.build();
+        return comment;
     }
 
     @Override
@@ -34,10 +33,10 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        CommentBuilder comment = Comment.builder();
+        Comment comment = new Comment();
 
-        comment.body( patch.getBody() );
+        comment.setBody( patch.getBody() );
 
-        return comment.build();
+        return comment;
     }
 }

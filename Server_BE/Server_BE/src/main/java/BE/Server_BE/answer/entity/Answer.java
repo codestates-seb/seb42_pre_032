@@ -34,14 +34,15 @@ public class Answer extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name = "BOARD_ID")
     private Board board;
 
     @Column
     private Long vote;
 
-    @OneToMany(mappedBy = "answer")
+    @OneToMany(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
@@ -49,6 +50,14 @@ public class Answer extends Auditable {
         this.answerId = answerId;
         this.title = title;
         this.body = body;
+    }
+
+    //테스트용
+    public Answer (long answerId, String title, String body, long vote) {
+        this.answerId = answerId;
+        this.title = title;
+        this.body = body;
+        this.vote = vote;
     }
     public void setMember(Member member) {
         this.member = member;

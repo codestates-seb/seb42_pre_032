@@ -53,8 +53,8 @@ public class AnswerController{
                                      @Valid @RequestBody AnswerDto.Post requestBody,
                                      Principal principal) {
 
-        Answer answer = answerMapper.answerPostToAnswer(requestBody);
         Member member = memberService.findMemberByEmail(principal.getName());
+        Answer answer = answerMapper.answerPostToAnswer(requestBody);
         answer.setMember(member);
         answer.setVote(0L);
         answer.setBoard(boardService.findVerifiedBoard(boardId));
@@ -68,19 +68,28 @@ public class AnswerController{
 
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer (@PathVariable("answer-id") @Positive long answerId,
-                                       @Valid @RequestBody AnswerDto.Patch requestBody){
+                                       @Valid @RequestBody AnswerDto.Patch requestBody,
+                                       Principal principal){
+        Member member = memberService.findMemberByEmail(principal.getName());
+        Answer answer = answerMapper.answerPatchToAnswer(requestBody);
+        answer.setAnswerId(answerId);
+        answer.setMember(member);
+        Answer updatedAnswer = answerService.updateAnswer(answer);
+        AnswerDto.Response response = answerMapper.answerToAnswerResponse(updatedAnswer);
+        response.setUrl(url+response.getAnswerId());
 
-        Answer answer = answerService.updateAnswer(answerMapper.answerPatchToAnswer(requestBody));
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.findAnswer(answerId);
-
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponse(answer), HttpStatus.OK);
+        AnswerDto.Response response = answerMapper.answerToAnswerResponse(answer);
+        response.setUrl(url+answerId);
+        
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
@@ -90,17 +99,17 @@ public class AnswerController{
                 answerPage.getTotalElements(),answerPage.getTotalPages());
         List<Answer> answers = answerPage.getContent();
         List<AnswerDto.Response> responses = answerMapper.answersToAnswerResponses(answers);
+        responses.stream().forEach(a -> a.setUrl(url+a.getAnswerId()));
 
         return new ResponseEntity<>(
-                new MultiResponse<>(responses, pageInfo), HttpStatus.OK
-        );
+                new MultiResponse<>(responses, pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer (@PathVariable("answer-id") @Positive long answerId){
         answerService.deleteAnswer(answerId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/{answer-id}/like")
@@ -135,6 +144,5 @@ public class AnswerController{
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 
