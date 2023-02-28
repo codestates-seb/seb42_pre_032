@@ -35,6 +35,7 @@ const QuestionDetail = ({ data }) => {
   console.log(data);
 
   const { title, createdAt } = data;
+
   return (
     <DetailContainer>
       <HeaderRow>

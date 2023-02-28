@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import { BlueBigButton } from '../Buttons';
 
 const EditorContainer = styled.div`
@@ -10,22 +10,28 @@ const EditorContainer = styled.div`
   flex-direction: column;
 `;
 
-const AnswerEditor = (path, content = '', setContent) => {
-  const quillEl = useRef(null);
+const AnswerEditor = ({ content = '', setContent, onSubmit }) => {
+  // const quillEl = useRef(null);
+
+  // console.log(quillEl.current);
 
   const onContentChange = (value) => {
     setContent(value);
   };
 
+  console.log(content);
+
   return (
     <EditorContainer>
-      <ReactQuill
-        style={{ height: '150px', marginBottom: '60px' }}
-        ref={quillEl}
-        value={content}
-        onChange={onContentChange}
-      />
-      <BlueBigButton value="Post Your Answer" width="120px"></BlueBigButton>
+      <form onSubmit={onSubmit}>
+        <ReactQuill
+          style={{ height: '150px', marginBottom: '60px' }}
+          // ref={quillEl}
+          value={content}
+          onChange={onContentChange}
+        />
+        <BlueBigButton value="Post Your Answer" width="120px"></BlueBigButton>
+      </form>
     </EditorContainer>
   );
 };
