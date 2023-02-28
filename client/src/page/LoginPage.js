@@ -3,7 +3,6 @@ import Login from '../components/Login';
 import { Link } from 'react-router-dom';
 import logo_stack from '../asset/stack-overflow.png';
 import { useEffect } from 'react';
-// import { response } from 'express';
 
 const Background = styled.div`
   background-color: ${({ theme }) => theme.color.header.bg};
@@ -65,8 +64,7 @@ const LoginPage = () =>
           password: '123',
         }),
         credentials: 'include',
-      });
-      console.log(response.headers.get('authorization'));
+      }); return response
     }
     fetchdata();
   }, []);

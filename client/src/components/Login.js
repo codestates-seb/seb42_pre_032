@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-// import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const LoginFormLayout = styled.div`
   display: flex;
@@ -40,6 +40,7 @@ const Login = () =>
   const [username, setUsername] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
 
   const emailInputHandler = (event) =>
@@ -62,29 +63,29 @@ const Login = () =>
   const handleSubmit = (event) =>
   {
     event.preventDefault();
-    fetch("http://localhost:8080/login", {
+    fetch("/login", {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-    })
-      .then((response) => response.json())
-      .then((response) =>
+    }).then((response) =>
       {
-        if (response.token) {
-          localStorage.setItem('access-token', response.token);
-        } else {
-          alert(response.message);
-        }
-      });
+        localStorage.setItem('user', response.headers.get('authorization'));
+        navigate(`/`);
+        
+      }).catch((e) => {console.log(e)})
   };
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+  }
 
   return (
     <LoginFormLayout>
       <form
-        style={{ display: 'flex', flexDirection: 'column' }}
+        style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmit}
       >
         <label htmlFor="email">
           Email <br />
@@ -108,7 +109,7 @@ const Login = () =>
             color: '#fff',
             border: 'none',
             cursor: 'pointer',
-          }} onSubmit={handleSubmit}
+          }} onClick={handleSubmit}
         > Log in
         </button>
       </form>

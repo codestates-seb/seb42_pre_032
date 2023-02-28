@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import SignUp from '../components/SignUp';
-// import React from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react'
 
 const Background = styled.div`
   background-color: ${({ theme }) => theme.color.header.bg};
@@ -52,38 +50,8 @@ const NavLink = styled(Link)`
   font-size: ${({ theme }) => theme.size.common.default_font};
 `;
 
-//   a {
-//     text-align: center;
-//     float: right;
-//     text-decoration: none;
-//     color: ${({ theme }) => theme.color.common.blue_btn_bg};
-//   }
-// `;
-
 const SignUpPage = () =>
 {
-  useEffect(() =>
-  {
-    async function fetchdata()
-    {
-      const response = await fetch('/members', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          "nickName": "관리자",
-          "email": "admin@gmail.com",
-          "password": "123",
-          "about_Me": "관리자 입니다",
-        }),
-        credentials: 'include',
-      });
-      console.log(response);
-
-    }
-    fetchdata();
-  }, []);
 
   return (
     <Background>
@@ -100,7 +68,7 @@ const SignUpPage = () =>
         <SignupbottomText>
           <p>
             Already have an account? &nbsp;
-            <NavLink to="/login">Log in</NavLink>
+            <NavLink to="/log_in" >Log in</NavLink>
           </p>
         </SignupbottomText>
       </div>
