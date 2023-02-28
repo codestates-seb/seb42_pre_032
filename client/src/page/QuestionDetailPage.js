@@ -11,11 +11,13 @@ const QuestionDetailContainer = styled.div`
 
 const QuestionDetailPage = () => {
   const [data, setData] = useState([]);
+
   const params = useParams();
   console.log(params);
   const navigate = useNavigate();
 
   console.log(data);
+
   const jwt = localStorage.getItem('user');
 
   useEffect(() => {
@@ -40,7 +42,7 @@ const QuestionDetailPage = () => {
       setData(data);
     }
     fetchdata();
-  }, []);
+  }, [jwt, params.id]);
 
   return (
     <QuestionDetailContainer>

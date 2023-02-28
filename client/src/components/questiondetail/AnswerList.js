@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AnswerBox from './AnswerBox';
-import Vote from '../Vote';
+// import AnswerVote from '../AswerVote';
+import AnswerContainer from './AnswerContainer';
 
 const AnswerListContainer = styled.div`
   width: 100%;
@@ -14,19 +15,18 @@ const AnswerListInnerContainer = styled.div`
   width: 100%;
 `;
 
-const AnswerList = () => {
+const AnswerList = ({ answers }) => {
+  console.log(answers);
   return (
     <div>
       <AnswerListContainer>
-        <Vote></Vote>
+        <AnswerContainer></AnswerContainer>
+        {/* <AnswerVote></AnswerVote> */}
         <AnswerListInnerContainer>
-          <AnswerBox></AnswerBox>
-        </AnswerListInnerContainer>
-      </AnswerListContainer>
-      <AnswerListContainer>
-        <Vote></Vote>
-        <AnswerListInnerContainer>
-          <AnswerBox></AnswerBox>
+          {answers &&
+            answers.map((answers) => (
+              <AnswerBox answers={answers} key={answers.answerId} />
+            ))}
         </AnswerListInnerContainer>
       </AnswerListContainer>
     </div>
