@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 const SignupForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,8 +71,8 @@ const SignUp = () =>
   const [isPwError, setIsPwError] = useState(false);
   const [pwErrorMessage, setPwErrorMessage] = useState("");
   const [pwState, setPwState] = useState(false);
-
   const navigate = useNavigate();
+
   const nickNameHandler = (e) =>
   {
     setNickName(e.target.value);
@@ -141,27 +140,27 @@ const SignUp = () =>
   const signUpHandler = (event) =>
   {
     event.preventDefault();
-
-    fetch("http://localhost:8080/signup", {
-      method: 'POST',
-      body: JSON.stringify({ nickName, email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
-      .then((response) => response.json())
-      .then((response) =>
-      {
-        console.log(response)
-        if (response.signUp === true) {
-          navigate("/login");
-        } else {
-          console.log("이미 가입된 회원입니다.");
-        }
+    if (pwState === true && emailState === true && nameState === true) {
+      fetch("http://localhost:8080/signup", {
+        method: 'POST',
+        body: JSON.stringify({ nickName, email, password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
       })
+        .then((response) => response.json())
+        .then((data) =>
+        {
+          console.log(data)
+          if (data.signUp === true) {
+            navigate("/login");
+          } else {
+            console.log("이미 가입된 회원입니다.");
+          }
+        })
+    }
   };
-
 
   return (
     <Container>
@@ -169,21 +168,20 @@ const SignUp = () =>
         <form style={{ display: 'flex', flexDirection: 'column' }}>
           <label htmlFor="text">
             Display name <br />
-            <input type="text" name="text" onChange={nickNameHandler} isNameError={isNameError} />
+            <input type="text" name="text" onChange={nickNameHandler}  />
           </label>
           <br />
           <label htmlFor="email">
             Email <br />
-            <input type="email" name="email" onChange={emailHandler} isEmailError={isEmailError} />
-            {isEmailError ? <Error>{emailErrorMessage}</Error> : null}
+            <input type="email" name="email" onChange={emailHandler} />
           </label>
+          {isEmailError ? <Error>{emailErrorMessage}</Error> : null}
           <br />
           <label htmlFor="pasword" >
             Password <br />
-            <input type="password" name="password" onChange={passwordHandler} isPwError={isPwError}
-            />
-            {isPwError ? <Error>{pwErrorMessage}</Error> : null}
+            <input type="password" name="password" onChange={passwordHandler} />
           </label>
+          {isPwError ? <Error>{pwErrorMessage}</Error> : null}
           <br />
           <div className="text">
             Passwords must contain at least eight <br />

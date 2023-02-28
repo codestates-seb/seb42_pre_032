@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const LoginFormLayout = styled.div`
   display: flex;
@@ -28,30 +29,24 @@ const LoginFormLayout = styled.div`
     }
   }
 `;
-const ErrorMessage = styled.span`
+const Error = styled.span`
   color: tomato;
   font-weight: 500;
   font-size: 12px;
 `;
-/* a {
-  text-align: right;
-  float: right;
-  text-decoration: none;
-  color: ${({ theme }) => theme.color.common.blue_btn_bg};
-  font-size: ${({ theme }) => theme.size.common.default_font};
-} */
 
 const Login = () =>
 {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [password, setPassword] = useState('');
+
 
   const emailInputHandler = (event) =>
   {
     const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const currentEmail = event.target.value;
-    setEmail(currentEmail);
+    setUsername(currentEmail);
 
     if (!emailRegex.test(currentEmail)) {
       setEmailErrorMessage('올바른 이메일 형식이 아닙니다.');
@@ -67,22 +62,21 @@ const Login = () =>
   const handleSubmit = (event) =>
   {
     event.preventDefault();
-
     fetch("http://localhost:8080/login", {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
     })
       .then((response) => response.json())
-      .then((data) =>
+      .then((response) =>
       {
-        if (data.success) {
-          localStorage.setItem('access-token', data.token);
+        if (response.token) {
+          localStorage.setItem('access-token', response.token);
         } else {
-          alert(data.message);
+          alert(response.message);
         }
       });
   };
@@ -94,13 +88,12 @@ const Login = () =>
       >
         <label htmlFor="email">
           Email <br />
-          <input type="email" name="email" value={email} onChange={emailInputHandler} />
-          {email.length > 0 && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
+          <input type="email" name="username" value={username} onChange={emailInputHandler} />
+          {username.length > 0 && <Error>{emailErrorMessage}</Error>}
         </label>
         <br />
         <label htmlFor="pasword">
           Password &nbsp;
-          {/* <a href="/">Forgot password?</a> */}
           <br />
           <input type="password" name="password" value={password} onChange={passwordInputValueHandler} />
         </label>
@@ -116,8 +109,7 @@ const Login = () =>
             border: 'none',
             cursor: 'pointer',
           }} onSubmit={handleSubmit}
-        >
-          Log in
+        > Log in
         </button>
       </form>
     </LoginFormLayout>
