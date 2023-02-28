@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 
 const SignupForm = styled.div`
   display: flex;
@@ -29,63 +32,229 @@ const SignupForm = styled.div`
       height: 35px;
     }
   }
-
-  div {
+  /* div {
     color: ${({ theme }) => theme.color.sign_up.pwd_bottom_text};
     font-size: 12px;
     margin-top: 5px;
     padding: 5px;
     line-height: 20px;
-  }
+  } */
 `;
+const Error = styled.div`
+  color: #d0393e;
+  font-size: 12px;
+  margin-bottom: 13px;
+  width: 240px;
+`;
+const Name = styled.div`
+  width: 240px;
+  font-weight: 800px;
+  font-size: 13px;
+  margin-bottom: 5px;
+`;
+
+const NameForm = styled.input`
+  width: 240px;
+  height: 33px;
+  font-size: 13px;
+  padding: 7.8px 9.1px;
+  border: ${({ isNameError }) =>
+    isNameError ? "1px solid #d0393e" : "1px solid rgb(186, 191, 196)"};
+  border-radius: 4px;
+  font-weight: 400px;
+  margin-bottom: 10px;
+`;
+
+const Email = styled.div`
+  width: 240px;
+  font-weight: 800px;
+  font-size: 13px;
+  margin-bottom: 5px;
+`;
+
+const EmailForm = styled.input`
+  width: 240px;
+  height: 33px;
+  font-size: 13px;
+  padding: 7.8px 9.1px;
+  border: ${({ isEmailError }) =>
+    isEmailError ? "1px solid #d0393e" : "1px solid rgb(186, 191, 196)"};
+  border-radius: 4px;
+  font-weight: 400px;
+  margin-bottom: 10px;
+`;
+
+const Password = styled.div`
+  width: 240px;
+  font-weight: 800px;
+  font-size: 13px;
+  margin-bottom: 5px;
+`;
+
+const PasswordForm = styled.input`
+  width: 240px;
+  height: 33px;
+  font-size: 13px;
+  padding: 7.8px 9.1px;
+  border: ${({ isPwError }) =>
+    isPwError ? "1px solid #d0393e" : "1px solid rgb(186, 191, 196)"};
+  border-radius: 4px;
+  font-weight: 400px;
+  margin-bottom: 10px;
+`;
+const PasswordMessage = styled.div`
+  width: 240px;
+  height: 48px;
+  font-size: 11px;
+  color: #4b4b4b;
+  margin-bottom: 16px;
+`;
+
+const SignupSubmit = styled.div`
+  padding: 10.4px;
+  width: 240px;
+  height: 38px;
+  background-color: #078AFF;
+  box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px 0px inset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  margin-top: 6px;
+  cursor: pointer;
+  border-radius: 5px;
+`;
+
 
 const Container = styled.div`
   display: flex;
 `;
 
-const SignUp = () => {
+const SignUp = () =>
+{
+  const [nickName, setNickName] = useState("");
+  const [isNameError, setIsNameError] = useState(false);
+  const [nameState, setNameState] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [emailState, setEmailState] = useState(false);
+
+  const [password, setPassword] = useState("");
+  const [isPwError, setIsPwError] = useState(false);
+  const [pwErrorMessage, setPwErrorMessage] = useState("");
+  const [pwState, setPwState] = useState(false);
+
+  const navigate = useNavigate();
+  const nickNameHandler = (e) =>
+  {
+    setNickName(e.target.value);
+  };
+
+  const emailHandler = (e) =>
+  {
+    setEmail(e.target.value);
+  };
+
+  const passwordHandler = (e) =>
+  {
+    setPassword(e.target.value);
+  };
+
+  useEffect(() =>
+  {
+    if (nickName === "") {
+      setIsNameError(false);
+      setNameState(false);
+    } else {
+      setIsNameError(false);
+      setNameState(true);
+    }
+
+    if (email === "") {
+      setIsEmailError(false);
+    } else if (
+      email.match(
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+      )
+    ) {
+      setIsEmailError(false);
+      setEmailState(true);
+    } else {
+      setEmailErrorMessage("Please enter the correct email format");
+      setIsEmailError(true);
+      setEmailState(false);
+    }
+
+    if (password === "") {
+      setIsPwError(false);
+    } else if (password.length >= 8 && password.match(/[a-zA-Z]+[0-9]+/)) {
+      setIsPwError(false);
+      setPwState(true);
+    } else if (!password.match(/[0-9]+/) && password.match(/[a-zA-z]+/)) {
+      setPwErrorMessage(
+        "Please add one of the following things to make your password stronger: number"
+      );
+      setIsPwError(true);
+      setPwState(false);
+    } else if (password.match(/[0-9]+/) && !password.match(/[a-zA-z]+/)) {
+      setPwErrorMessage(
+        "Please add one of the following things to make your password stronger: letters"
+      );
+      setIsPwError(true);
+      setPwState(false);
+    } else if (password.length < 8) {
+      setPwErrorMessage("Please enter at least 8 characters");
+      setIsPwError(true);
+      setPwState(false);
+    }
+  }, [nickName, email, password]);
+
+  const signUpHandler = (event) =>
+  { if (pwState === true && emailState === true && nameState === true){
+    event.preventDefault();
+
+    fetch("/members", {
+      method: 'POST',
+      body: JSON.stringify({ nickName, email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    }).then((response) =>
+      {
+        navigate(`/log_in`);
+        })
+      }
+    } 
+
   return (
     <Container>
-      <SignupForm>
-        <form style={{ display: 'flex', flexDirection: 'column' }}>
-          <label htmlFor="text">
-            Display name <br />
-            <input type="text" name="text" />
-          </label>
-          <br />
-          <label htmlFor="email">
-            Email <br />
-            <input type="email" name="email" />
-          </label>
-          <br />
-          <label htmlFor="pasword">
-            Password <br />
-            <input type="password" name="password" />
-          </label>
-          <br />
-          <div className="text">
-            Passwords must contain at least eight <br />
-            characters, including at least 1 letter and 1 number.
-          </div>
-          <br />
-          <button
-            type="submit"
-            style={{
-              height: '38px',
-              width: '240px',
-              backgroundColor: '#078AFF',
-              borderRadius: '5px',
-              color: '#fff',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            Sign up
-          </button>
-        </form>
+      <SignupForm >
+            <Name>Display name</Name>
+            <NameForm onChange={nickNameHandler} isNameError={isNameError} />
+            <Email>Email</Email>
+            <EmailForm onChange={emailHandler} isEmailError={isEmailError} />
+            {isEmailError ? <Error>{emailErrorMessage}</Error> : null}
+            <Password>Password</Password>
+            <PasswordForm
+              type="password"
+              onChange={passwordHandler}
+              isPwError={isPwError}/>
+            {isPwError ? <Error>{pwErrorMessage}</Error> : null}
+            <PasswordMessage>
+              Passwords must contain at least eight characters, including at
+              least 1 letter and 1 number.
+            </PasswordMessage>
+            <SignupSubmit className="signup" onClick={signUpHandler}>
+              Sign up
+            </SignupSubmit>
       </SignupForm>
-    </Container>
+    </Container >
   );
-};
+  }
 
 export default SignUp;
