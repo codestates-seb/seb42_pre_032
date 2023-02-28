@@ -26,7 +26,6 @@ const PaginationContainer = styled.div`
 `;
 
 const Main = ({ data }) => {
-  console.log(data);
   const [currentTab, setCurrentTab] = useState('Newest');
 
   const sortButtonOnClickHandler = (e) => {
