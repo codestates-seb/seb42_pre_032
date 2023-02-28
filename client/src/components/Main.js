@@ -9,7 +9,7 @@ import {
 } from '../components/styled/Main.styled';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Pagination from '../components/Pagination/Pagination';
+// import Pagination from '../components/Pagination/Pagination';
 
 const MainContainer = styled.div`
   display: flex;
@@ -19,11 +19,11 @@ const MainContainer = styled.div`
   height: max-content;
 `;
 
-const PaginationContainer = styled.div`
-  margin-left: 20px;
-  height: 50px;
-  /* margin: 5px 0px 0px 20px; */
-`;
+// const PaginationContainer = styled.div`
+//   margin-left: 20px;
+//   height: 50px;
+//   /* margin: 5px 0px 0px 20px; */
+// `;
 
 const Main = ({ data }) => {
   const [currentTab, setCurrentTab] = useState('Newest');
@@ -69,9 +69,6 @@ const Main = ({ data }) => {
           <QuestionBox el={el} key={el.boardId} />
         ))}
       </div>
-      <PaginationContainer>
-        <Pagination></Pagination>
-      </PaginationContainer>
     </MainContainer>
   );
 };

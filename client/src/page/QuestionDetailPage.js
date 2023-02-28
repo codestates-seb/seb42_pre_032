@@ -39,7 +39,7 @@ const QuestionDetailPage = () => {
       setData(data);
     }
     fetchdata();
-  }, []);
+  }, [jwt, params.id]);
 
   return (
     <QuestionDetailContainer>
