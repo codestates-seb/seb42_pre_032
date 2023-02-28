@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSearchRsult } from '../util/api';
+import Paging from '../components/Pagination';
 
 const ResultPageContainer = styled.div`
   display: flex;
@@ -14,6 +15,8 @@ const SearchResultPage = () => {
   const [resultNum, setresultNum] = useState(0);
   const jwt = localStorage.getItem('user');
   const [searchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+  const [pageinfo, setPageinfo] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -25,6 +28,7 @@ const SearchResultPage = () => {
         );
         setSearchResult(data.data);
         setresultNum(data.pageinfo.totalElements);
+        setPageinfo(data.pageinfo);
       } catch (e) {
         console.log(e);
       }
@@ -32,13 +36,17 @@ const SearchResultPage = () => {
   }, [jwt, searchParams]);
 
   return (
-    <ResultPageContainer>
+    <>
+      <ResultPageContainer>
       <Sidebar></Sidebar>
       <ResultMain
         searchResult={searchResult}
         resultNum={resultNum}
       ></ResultMain>
-    </ResultPageContainer>
+      </ResultPageContainer>
+      <Paging page={page} setPage={setPage} itemsCount={pageinfo.size} totalItemCount={pageinfo.totalElements} pageRange={5}/>
+    </>
+    
   );
 };
 
