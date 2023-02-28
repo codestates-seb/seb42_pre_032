@@ -8,8 +8,15 @@ import {
   AuthorProfileImage,
   AuthorProfileLinker,
 } from '../../components/styled/PostBox.styled';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const PostBox = () => {
+  const navigate = useNavigate();
+
+  const params = useParams();
+
+  console.log(params);
+
   return (
     <div>
       <QuestionTopContainer>
@@ -21,7 +28,9 @@ const PostBox = () => {
         <AnswerBottomContainer>
           <div>
             <div>
-              <ShareLinker>Share</ShareLinker>
+              <ShareLinker onClick={() => navigate(`/update/${params.id}`)}>
+                update
+              </ShareLinker>
 
               <DeleteButton>Delete</DeleteButton>
             </div>
