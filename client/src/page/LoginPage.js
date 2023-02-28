@@ -55,19 +55,20 @@ const LoginPage = () =>
   {
     async function fetchdata()
     {
-      const { data } = await fetch('/login', {
+      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: 'IronMan@marvel.com',
-          password: 'ironman',
+          username: 'admin@gmail.com',
+          password: '123',
         }),
         credentials: 'include',
-      }).then((response) => console.log(response));
-      console.log(data);
-    } fetchdata();
+      });
+      console.log(response.headers.get('authorization'));
+    }
+    fetchdata();
   }, []);
 
 
