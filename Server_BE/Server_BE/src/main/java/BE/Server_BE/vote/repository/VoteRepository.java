@@ -7,15 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface VoteRepository extends JpaRepository<Vote, Long> {
-    @Query(value = "SELECT SUM(VOTE) FROM VOTE WHERE ANSWER_ID = :answerId", nativeQuery = true)
+    @Query(value = "SELECT SUM(VOTE) FROM vote WHERE ANSWER_ID = :answerId", nativeQuery = true)
     Long getAnswerVoteCount(long answerId);
 
-    @Query(value = "SELECT * FROM VOTE WHERE ANSWER_ID = :answerId AND MEMBER_ID = :memberId", nativeQuery = true)
+    @Query(value = "SELECT * FROM vote WHERE ANSWER_ID = :answerId AND MEMBER_ID = :memberId", nativeQuery = true)
     Optional<Vote> getAnswerVote(long answerId, long memberId);
 
-    @Query(value = "SELECT SUM(VOTE) FROM VOTE WHERE BOARD_ID = :boardId", nativeQuery = true)
+    @Query(value = "SELECT SUM(VOTE) FROM vote WHERE BOARD_ID = :boardId", nativeQuery = true)
     Long getBoardVoteCount(long boardId);
 
-    @Query(value = "SELECT * FROM VOTE WHERE BOARD_ID = :boardId AND MEMBER_ID = :memberId", nativeQuery = true)
+    @Query(value = "SELECT * FROM vote WHERE BOARD_ID = :boardId AND MEMBER_ID = :memberId", nativeQuery = true)
     Optional<Vote> getBoardVote(long boardId, long memberId);
 }

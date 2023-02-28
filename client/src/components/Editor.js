@@ -10,9 +10,15 @@ import {
 import StyledInput from '../components/styled/Input.styled';
 import { BlueBigButton } from '../components/Buttons';
 
-const Editor = ({ path, title = '', setTitle, content = '', setContent }) => {
+const Editor = ({
+  path,
+  title = '',
+  setTitle,
+  content = '',
+  setContent,
+  onSubmit,
+}) => {
   const quillEl = useRef(null);
-
   const onContentChange = (value) => {
     setContent(value);
   };
@@ -63,7 +69,7 @@ const Editor = ({ path, title = '', setTitle, content = '', setContent }) => {
         </div>
       </div>
 
-      <StyledForm>
+      <StyledForm onSubmit={onSubmit}>
         <StyledBlock className="title">
           <h3>Title</h3>
           <label htmlFor="title">

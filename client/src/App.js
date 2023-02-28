@@ -87,7 +87,7 @@ function App()
           <Route path="/" element={<MainPage />} />
           <Route path="/searchresult" element={<SearchResultPage />} />
           <Route path="/questiondetail">
-            <Route path=":id/:title" element={<QuestionDetailPage />} />
+            <Route path=":id" element={<QuestionDetailPage />} />
           </Route>
           <Route path="/update/:id" element={<UpdatePage />} />
           <Route path="/create" element={<CreatePage />} />
