@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const LoginFormLayout = styled.div`
   display: flex;
@@ -26,34 +28,75 @@ const LoginFormLayout = styled.div`
       height: 35px;
     }
   }
-
-  /* a {
-    text-align: right;
-    float: right;
-    text-decoration: none;
-    color: ${({ theme }) => theme.color.common.blue_btn_bg};
-    font-size: ${({ theme }) => theme.size.common.default_font};
-  } */
+`;
+const Error = styled.span`
+  color: tomato;
+  font-weight: 500;
+  font-size: 12px;
 `;
 
-const Login = () => {
+const Login = () =>
+{
+  const [username, setUsername] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+
+  const emailInputHandler = (event) =>
+  {
+    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const currentEmail = event.target.value;
+    setUsername(currentEmail);
+
+    if (!emailRegex.test(currentEmail)) {
+      setEmailErrorMessage('올바른 이메일 형식이 아닙니다.');
+    } else {
+      setEmailErrorMessage('');
+    }
+  };
+  const passwordInputValueHandler = (event) =>
+  {
+    setPassword(event.target.value);
+  }
+
+  const handleSubmit = (event) =>
+  {
+    event.preventDefault();
+    fetch("/login", {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    }).then((response) =>
+      {
+        localStorage.setItem('user', response.headers.get('authorization'));
+        navigate(`/`);
+        
+      }).catch((e) => {console.log(e)})
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+  }
+
   return (
     <LoginFormLayout>
       <form
-        style={{ display: 'flex', flexDirection: 'column' }}
-        // onSubmit={onSubmit}
-        // onChange={onChange}
+        style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmit}
       >
         <label htmlFor="email">
           Email <br />
-          <input type="email" name="email" />
+          <input type="email" name="username" value={username} onChange={emailInputHandler} />
+          {username.length > 0 && <Error>{emailErrorMessage}</Error>}
         </label>
         <br />
         <label htmlFor="pasword">
           Password &nbsp;
-          {/* <a href="/">Forgot password?</a> */}
           <br />
-          <input type="password" name="password" />
+          <input type="password" name="password" value={password} onChange={passwordInputValueHandler} />
         </label>
         <br />
         <button
@@ -66,12 +109,12 @@ const Login = () => {
             color: '#fff',
             border: 'none',
             cursor: 'pointer',
-          }}
-        >
-          Log in
+          }} onClick={handleSubmit}
+        > Log in
         </button>
       </form>
     </LoginFormLayout>
   );
 };
+
 export default Login;
