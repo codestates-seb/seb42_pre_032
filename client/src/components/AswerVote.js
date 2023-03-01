@@ -4,12 +4,76 @@ import {
   VotingButton,
   VotingCounter,
 } from '../components/styled/Vote.styled';
+// import { useParams } from 'react-router-dom';
 
 const Vote = ({ answers }) => {
+  // const param = useParams()
+  const jwt = localStorage.getItem('user');
+  console.log(answers)
+
+  const postLike = async (jwt) => {
+    try {
+      const response = await fetch(`/answers/${answers.answerId}/like`, {
+        method: 'POST',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ title: 'aaa', body: content }),
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw Error(response.status);
+      }
+      console.log(response);
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+
+  const onLike = (e) => {
+    e.preventDefault();
+      try {
+        postLike(jwt)
+        window.location.reload()
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
+  const postDislike = async (jwt) => {
+    try {
+      const response = await fetch(`/answers/${answers.answerId}/dislike`, {
+        method: 'POST',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ title: 'aaa', body: content }),
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw Error(response.status);
+      }
+      console.log(response);
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+
+  const onDisLike = (e) => {
+    e.preventDefault();
+      try {
+        postDislike(jwt)
+        window.location.reload()
+      } catch (e) {
+        console.log(e);
+      }
+  }
   return (
     <VotingComponentConatiner>
       <VotingComponent>
-        <VotingButton>
+        <VotingButton onClick={onLike}>
           <svg
             width="36"
             height="36"
@@ -21,7 +85,7 @@ const Vote = ({ answers }) => {
           </svg>
         </VotingButton>
         <VotingCounter>{answers.like}</VotingCounter>
-        <VotingButton>
+        <VotingButton onClick={onDisLike}>
           <svg
             width="36"
             height="36"
