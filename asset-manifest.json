@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://codestates-seb.github.io/seb42_pre_032/static/css/main.d9dc97d9.css",
-    "main.js": "https://codestates-seb.github.io/seb42_pre_032/static/js/main.8b9c2cd2.js",
+    "main.js": "https://codestates-seb.github.io/seb42_pre_032/static/js/main.bd17ce5e.js",
     "static/js/787.c4e7f8f9.chunk.js": "https://codestates-seb.github.io/seb42_pre_032/static/js/787.c4e7f8f9.chunk.js",
     "static/media/1200px-Stack_Overflow_logo.png": "https://codestates-seb.github.io/seb42_pre_032/static/media/1200px-Stack_Overflow_logo.db7ae04aab8e2b22e98c.png",
     "static/media/stack-overflow.png": "https://codestates-seb.github.io/seb42_pre_032/static/media/stack-overflow.579cff432dec19bc3d23.png",
@@ -9,11 +9,11 @@
     "index.html": "https://codestates-seb.github.io/seb42_pre_032/index.html",
     "static/media/LogoGraysm.svg": "https://codestates-seb.github.io/seb42_pre_032/static/media/LogoGraysm.d7d5e94555f28031f7ca27838b19b471.svg",
     "main.d9dc97d9.css.map": "https://codestates-seb.github.io/seb42_pre_032/static/css/main.d9dc97d9.css.map",
-    "main.8b9c2cd2.js.map": "https://codestates-seb.github.io/seb42_pre_032/static/js/main.8b9c2cd2.js.map",
+    "main.bd17ce5e.js.map": "https://codestates-seb.github.io/seb42_pre_032/static/js/main.bd17ce5e.js.map",
     "787.c4e7f8f9.chunk.js.map": "https://codestates-seb.github.io/seb42_pre_032/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d9dc97d9.css",
-    "static/js/main.8b9c2cd2.js"
+    "static/js/main.bd17ce5e.js"
   ]
 }
