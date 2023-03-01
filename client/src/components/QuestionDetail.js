@@ -51,7 +51,9 @@ const QuestionDetail = ({ data }) => {
       </HeaderRow>
       <PostContentContainer>
         <Question data={data} />
-        <span style={{ fontSize: '1.5rem', padding: '2% 0%' }}>2Answers</span>
+        <span style={{ fontSize: '1.5rem', padding: '2% 0%' }}>
+          {answers && answers.length} Answers
+        </span>
         <AnswerList answers={answers} />
         <PostAnswer />
       </PostContentContainer>

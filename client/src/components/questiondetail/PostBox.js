@@ -9,6 +9,7 @@ import {
   AuthorProfileLinker,
 } from '../../components/styled/PostBox.styled';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactQuill from 'react-quill';
 
 const PostBox = ({ data }) => {
   const navigate = useNavigate();
@@ -20,7 +21,9 @@ const PostBox = ({ data }) => {
 
   return (
     <div>
-      <QuestionTopContainer>{data.body}</QuestionTopContainer>
+      <QuestionTopContainer>
+        <ReactQuill value={data.body} readOnly={true} theme={'bubble'} />
+      </QuestionTopContainer>
       <QuestionBottom>
         <AnswerBottomContainer>
           <div>
