@@ -12,7 +12,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import SearchResultPage from './page/SearchResultPage';
 
-function App() {
+function App()
+{
   const theme = {
     color: {
       header: {

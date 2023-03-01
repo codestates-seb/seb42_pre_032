@@ -22,12 +22,13 @@ const PaginationContainer = styled.div`
   margin-left: 20px;
 `;
 
-const ResultMain = () => {
+const ResultMain = ({ searchResult, resultNum }) => {
   const [currentTab, setCurrentTab] = useState('Newest');
 
   const sortButtonOnClickHandler = (e) => {
     setCurrentTab(e.target.value);
   };
+
   return (
     <MainContainer>
       <HeaderRow>
@@ -37,7 +38,7 @@ const ResultMain = () => {
         </BlueLinkButton>
       </HeaderRow>
       <HeaderRow>
-        <QuestionsNum>5&nbsp;questions</QuestionsNum>
+        <QuestionsNum>{resultNum}&nbsp;questions</QuestionsNum>
         <MainbarSortButtonContainer>
           <SortButton
             className={currentTab === 'Newest' ? 'selected' : ''}
@@ -57,12 +58,10 @@ const ResultMain = () => {
           </SortButton>
         </MainbarSortButtonContainer>
       </HeaderRow>
-      <QuestionBox></QuestionBox>
-      <QuestionBox></QuestionBox>
-      <QuestionBox></QuestionBox>
-      <QuestionBox></QuestionBox>
-      <QuestionBox></QuestionBox>
-      <QuestionBox></QuestionBox>
+      {searchResult.map((el) => (
+        <QuestionBox el={el} key={el.boardId} />
+      ))}
+
       <PaginationContainer></PaginationContainer>
     </MainContainer>
   );

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import SignUp from '../components/SignUp';
-// import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Background = styled.div`
@@ -51,15 +50,9 @@ const NavLink = styled(Link)`
   font-size: ${({ theme }) => theme.size.common.default_font};
 `;
 
-//   a {
-//     text-align: center;
-//     float: right;
-//     text-decoration: none;
-//     color: ${({ theme }) => theme.color.common.blue_btn_bg};
-//   }
-// `;
+const SignUpPage = () =>
+{
 
-const SignUpPage = () => {
   return (
     <Background>
       <div>
@@ -75,7 +68,7 @@ const SignUpPage = () => {
         <SignupbottomText>
           <p>
             Already have an account? &nbsp;
-            <NavLink to="/login">Log in</NavLink>
+            <NavLink to="/log_in" >Log in</NavLink>
           </p>
         </SignupbottomText>
       </div>

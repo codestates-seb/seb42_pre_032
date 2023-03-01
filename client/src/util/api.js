@@ -38,10 +38,6 @@ export const updatePost = async (jwt, title, content, boardID) => {
 };
 
 export const getPost = async (jwt, boardID) => {
-  console.log(jwt, boardID);
-  if (!jwt) {
-    return { title: '', body: '' };
-  }
   try {
     const response = await fetch(`/boards/${boardID}`, {
       method: 'GET',
@@ -56,6 +52,27 @@ export const getPost = async (jwt, boardID) => {
     }
     const { body, title } = await response.json();
     return { body, title };
+  } catch (e) {
+    throw Error(e);
+  }
+};
+
+export const getSearchRsult = async (jwt, q, page) => {
+  try {
+    page = page ?? 1;
+    const response = await fetch(`boards/search?q=${q}&page=${page}`, {
+      method: 'GET',
+      headers: {
+        Authorization: jwt,
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    if (!response.ok) {
+      throw Error(response.status);
+    }
+    const data = await response.json();
+    return data;
   } catch (e) {
     throw Error(e);
   }

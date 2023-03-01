@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Sidebar from '../components/Sidebar';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Paging from '../components/Pagination';
 
 const MainPageContainer = styled.div`
   display: flex;
@@ -13,7 +14,10 @@ const MainPageContainer = styled.div`
 const MainPage = () => {
   //데이터 저장하는 함수
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageinfo, setPageinfo] = useState({});
   const navigate = useNavigate();
+  
 
   // console.log(data);
   const jwt = localStorage.getItem('user');
@@ -27,7 +31,7 @@ const MainPage = () => {
 
   useEffect(() => {
     async function fetchdata() {
-      const response = await fetch('/boards', {
+      const response = await fetch(`/boards?page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -37,18 +41,24 @@ const MainPage = () => {
         credentials: 'include',
       });
       const data = await response.json();
-      // console.log(data.data[0].title);
       setData(data.data);
+      setPageinfo(data.pageinfo);
     }
     fetchdata();
-  }, []);
+  }, [page,jwt]);
+
 
   return (
+  <>
     <MainPageContainer>
       <Sidebar></Sidebar>
-      <Main data={data}></Main>
+      <Main data={data} ></Main>
     </MainPageContainer>
+    <Paging page={page} setPage={setPage} itemsCount={pageinfo.size} totalItemCount={pageinfo.totalElements} pageRange={5}/>
+  </>
+    
   );
 };
+
 
 export default MainPage;

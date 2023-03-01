@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Login from '../components/Login';
 import { Link } from 'react-router-dom';
 import logo_stack from '../asset/stack-overflow.png';
+import { useEffect } from 'react';
 
 const Background = styled.div`
   background-color: ${({ theme }) => theme.color.header.bg};
@@ -47,7 +48,28 @@ const NavLink = styled(Link)`
   font-size: ${({ theme }) => theme.size.common.default_font};
 `;
 
-const LoginPage = () => {
+const LoginPage = () =>
+{
+  useEffect(() =>
+  {
+    async function fetchdata()
+    {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: 'admin@gmail.com',
+          password: '123',
+        }),
+        credentials: 'include',
+      }); return response
+    }
+    fetchdata();
+  }, []);
+
+
   return (
     <Background>
       <Logowrapper>

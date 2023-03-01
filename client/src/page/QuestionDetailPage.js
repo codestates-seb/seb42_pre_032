@@ -13,7 +13,6 @@ const QuestionDetailPage = () => {
   const [data, setData] = useState([]);
 
   const params = useParams();
-  console.log(params);
   const navigate = useNavigate();
 
   console.log(data);
