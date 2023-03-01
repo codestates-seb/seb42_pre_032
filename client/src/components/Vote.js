@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import {
   VotingComponentConatiner,
   VotingComponent,
@@ -6,10 +7,72 @@ import {
 } from '../components/styled/Vote.styled';
 
 const Vote = ({ likedata }) => {
+  const param = useParams()
+  const jwt = localStorage.getItem('user');
+
+  const postLike = async (jwt) => {
+    try {
+      const response = await fetch(`/boards/${param.id}/like`, {
+        method: 'POST',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ title: 'aaa', body: content }),
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw Error(response.status);
+      }
+      console.log(response);
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+
+  const onLike = (e) => {
+    e.preventDefault();
+      try {
+        postLike(jwt)
+        window.location.reload()
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
+  const postDislike = async (jwt) => {
+    try {
+      const response = await fetch(`/boards/${param.id}/dislike`, {
+        method: 'POST',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ title: 'aaa', body: content }),
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw Error(response.status);
+      }
+      console.log(response);
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+
+  const ondisLike = (e) => {
+    e.preventDefault();
+      try {
+        postDislike(jwt)
+        window.location.reload()
+      } catch (e) {
+        console.log(e);
+      }
+  }
   return (
     <VotingComponentConatiner>
       <VotingComponent>
-        <VotingButton>
+        <VotingButton onClick={onLike}>
           <svg
             width="36"
             height="36"
@@ -21,7 +84,7 @@ const Vote = ({ likedata }) => {
           </svg>
         </VotingButton>
         <VotingCounter>{likedata}</VotingCounter>
-        <VotingButton>
+        <VotingButton onClick={ondisLike}>
           <svg
             width="36"
             height="36"
@@ -31,7 +94,7 @@ const Vote = ({ likedata }) => {
           >
             <path d="M2 11H34L18 27L2 11Z" fill="#BABFC3" />
           </svg>
-        </VotingButton>
+        </VotingButton >
       </VotingComponent>
     </VotingComponentConatiner>
   );
