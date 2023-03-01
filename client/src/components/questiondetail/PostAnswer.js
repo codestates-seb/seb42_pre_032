@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import AnswerEditor from './AnswerEditor';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {   useParams } from 'react-router-dom';
 
 const PostAnswerContaniner = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ const PostAnswerContaniner = styled.div`
 const PostAnswer = () => {
   const [content, setContent] = useState('');
   const param = useParams();
-  const navigate = useNavigate();
+  //  const navigate = useNavigate();
   const jwt = localStorage.getItem('user');
 
   const createAnswer = async (jwt, content) => {
@@ -40,7 +40,9 @@ const PostAnswer = () => {
     e.preventDefault();
     try {
       createAnswer(jwt, content);
-      navigate(`/questiondetail/${param.id}`);
+      // setContent("")
+      //  navigate(`/questiondetail/${param.id}`);
+      window.location.reload()
     } catch (e) {
       console.log(e);
     }
