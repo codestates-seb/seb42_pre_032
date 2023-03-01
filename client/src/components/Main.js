@@ -27,6 +27,7 @@ const MainContainer = styled.div`
 
 const Main = ({ data }) => {
   const [currentTab, setCurrentTab] = useState('Newest');
+  console.log(data)
 
   const sortButtonOnClickHandler = (e) => {
     setCurrentTab(e.target.value);
@@ -41,7 +42,7 @@ const Main = ({ data }) => {
         </BlueLinkButton>
       </HeaderRow>
       <HeaderRow>
-        <QuestionsNum>23&nbsp;questions</QuestionsNum>
+        <QuestionsNum>{data&&data.length} questions</QuestionsNum>
         <MainbarSortButtonContainer>
           <SortButton
             className={currentTab === 'Newest' ? 'selected' : ''}

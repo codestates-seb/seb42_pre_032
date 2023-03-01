@@ -13,7 +13,7 @@ const PostAnswerContaniner = styled.div`
 const PostAnswer = () => {
   const [content, setContent] = useState('');
   const param = useParams();
-  //  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const jwt = localStorage.getItem('user');
 
   const createAnswer = async (jwt, content) => {
@@ -36,12 +36,12 @@ const PostAnswer = () => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit =  (e) => {
     e.preventDefault();
     try {
-      createAnswer(jwt, content);
+       createAnswer(jwt, content);
       // setContent("")
-      //  navigate(`/questiondetail/${param.id}`);
+      //navigate(`/questiondetail/${param.id}`);
       window.location.reload()
     } catch (e) {
       console.log(e);

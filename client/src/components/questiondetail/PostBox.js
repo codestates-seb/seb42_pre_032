@@ -16,8 +16,43 @@ const PostBox = ({ data }) => {
 
   const params = useParams();
 
-  console.log(params);
-  console.log(data.body);
+  const param = useParams();
+  //  const navigate = useNavigate();
+  const jwt = localStorage.getItem('user');
+
+  const deletePost = async (jwt) => {
+    try {
+      const response = await fetch(`/boards/${param.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ title: 'aaa', body: content }),
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw Error(response.status);
+      }
+      console.log(response);
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+
+  const onDelete = async(e) => {
+    e.preventDefault();
+    try {
+      await deletePost(jwt);   
+       navigate(`/`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+
+
 
   return (
     <div>
@@ -32,7 +67,7 @@ const PostBox = ({ data }) => {
                 update
               </ShareLinker>
 
-              <DeleteButton>Delete</DeleteButton>
+              <DeleteButton onClick={onDelete}>Delete</DeleteButton>
             </div>
           </div>
           <AuthorInfoContainer>
