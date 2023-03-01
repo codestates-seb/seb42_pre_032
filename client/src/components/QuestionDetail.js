@@ -33,7 +33,7 @@ const PostContentContainer = styled.div`
 
 const QuestionDetail = ({ data }) => {
   const { title, createdAt, answers } = data;
-  console.log(answers);
+  
 
   return (
     <DetailContainer>
