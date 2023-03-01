@@ -41,6 +41,7 @@ const PostAnswer = () => {
     try {
       createAnswer(jwt, content);
       navigate(`/questiondetail/${param.id}`);
+      window.location.reload();
     } catch (e) {
       console.log(e);
     }
