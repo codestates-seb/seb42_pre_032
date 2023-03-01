@@ -9,20 +9,20 @@ import {
   AuthorProfileLinker,
 } from '../../components/styled/PostBox.styled';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactQuill from 'react-quill';
 
-const PostBox = () => {
+const PostBox = ({ data }) => {
   const navigate = useNavigate();
 
   const params = useParams();
 
   console.log(params);
+  console.log(data.body);
 
   return (
     <div>
       <QuestionTopContainer>
-        {
-          'Ok so my code was originally written using just props but then my teacher asked me to remove those props and use useContext instead. Eveything was fine until i try to load the code. It just loops and bugs my browser. Could you guys gimme a clue on what it might be?'
-        }
+        <ReactQuill value={data.body} readOnly={true} theme={'bubble'} />
       </QuestionTopContainer>
       <QuestionBottom>
         <AnswerBottomContainer>
@@ -37,7 +37,7 @@ const PostBox = () => {
           </div>
           <AuthorInfoContainer>
             <AuthorProfileImage />
-            <AuthorProfileLinker>nickname</AuthorProfileLinker>
+            <AuthorProfileLinker>{data.writer}</AuthorProfileLinker>
           </AuthorInfoContainer>
         </AnswerBottomContainer>
       </QuestionBottom>

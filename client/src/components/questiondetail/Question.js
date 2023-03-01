@@ -14,12 +14,14 @@ const PostTopInnerContainer = styled.div`
   width: 100%;
 `;
 
-const Question = () => {
+const Question = ({ data }) => {
+  const likedata = data.like;
+
   return (
     <PostTopContainer>
-      <Vote></Vote>
+      <Vote likedata={likedata}></Vote>
       <PostTopInnerContainer>
-        <PostBox></PostBox>
+        <PostBox data={data}></PostBox>
       </PostTopInnerContainer>
     </PostTopContainer>
   );

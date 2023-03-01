@@ -11,10 +11,12 @@ const QuestionDetailContainer = styled.div`
 
 const QuestionDetailPage = () => {
   const [data, setData] = useState([]);
+
   const params = useParams();
   const navigate = useNavigate();
 
   console.log(data);
+
   const jwt = localStorage.getItem('user');
 
   useEffect(() => {

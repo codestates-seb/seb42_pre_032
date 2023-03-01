@@ -32,9 +32,8 @@ const PostContentContainer = styled.div`
 `;
 
 const QuestionDetail = ({ data }) => {
-  console.log(data);
-
-  const { title, createdAt } = data;
+  const { title, createdAt, answers } = data;
+  console.log(answers);
 
   return (
     <DetailContainer>
@@ -51,9 +50,11 @@ const QuestionDetail = ({ data }) => {
         </InfoBox>
       </HeaderRow>
       <PostContentContainer>
-        <Question />
-        <span style={{ fontSize: '1.5rem', padding: '2% 0%' }}>2Answers</span>
-        <AnswerList />
+        <Question data={data} />
+        <span style={{ fontSize: '1.5rem', padding: '2% 0%' }}>
+          {answers && answers.length} Answers
+        </span>
+        <AnswerList answers={answers} />
         <PostAnswer />
       </PostContentContainer>
     </DetailContainer>

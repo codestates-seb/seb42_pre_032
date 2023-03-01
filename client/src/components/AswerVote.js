@@ -5,7 +5,7 @@ import {
   VotingCounter,
 } from '../components/styled/Vote.styled';
 
-const Vote = ({ likedata }) => {
+const Vote = ({ answers }) => {
   return (
     <VotingComponentConatiner>
       <VotingComponent>
@@ -20,7 +20,7 @@ const Vote = ({ likedata }) => {
             <path d="M2 25H34L18 9L2 25Z" fill="#BABFC3" />
           </svg>
         </VotingButton>
-        <VotingCounter>{likedata}</VotingCounter>
+        <VotingCounter>{answers.like}</VotingCounter>
         <VotingButton>
           <svg
             width="36"
