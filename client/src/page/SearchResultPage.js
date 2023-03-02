@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ResultMain from '../components/ResultMain';
 import Sidebar from '../components/Sidebar';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSearchRsult } from '../util/api';
 import Paging from '../components/Pagination';
@@ -17,6 +17,15 @@ const SearchResultPage = () => {
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [pageinfo, setPageinfo] = useState({});
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (!jwt) {
+      console.log(jwt);
+      navigate('/log_in');
+    }
+  }, [jwt, navigate]);
 
   useEffect(() => {
     (async () => {
