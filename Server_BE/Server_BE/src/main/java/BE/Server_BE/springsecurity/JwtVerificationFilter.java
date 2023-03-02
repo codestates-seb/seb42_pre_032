@@ -26,6 +26,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         this.authorityUtils = authorityUtils;
     }
     // 새로 추가한거
+    // String 타입의 Authorization를 요청 헤더로 받도록 한다.
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -47,24 +48,6 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    // 원래 있던거
-//    @Override
-//    protected void doFilterInternal(HttpServletRequest request,
-//                                    HttpServletResponse response,
-//                                    FilterChain filterChain) throws ServletException, IOException {
-//        try {
-//            Map<String, Object> claims = verifyJws(request);
-//            setAuthenticationToContext(claims);
-//        } catch (SignatureException se) {
-//            request.setAttribute("exception", se);
-//        } catch (ExpiredJwtException ee) {
-//            request.setAttribute("exception", ee);
-//        } catch (Exception e) {
-//            request.setAttribute("exception", e);
-//        }
-//        filterChain.doFilter(request, response);
-//    }
-
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String authorization = request.getHeader("Authorization");
@@ -72,19 +55,14 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     }
 
     // 새로 추가한거
+    // verifyJws 메서드의 파라미터를 HttpServletRequest가 아닌 String 타입으로 생성하여
+    // response 헤더에 담기는 토큰을 string으로 받도록 생성함.
     private Map<String, Object> verifyJws(String jws) {
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
         Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
         return claims;
     }
 
-    // 원래 있던거
-//    private Map<String, Object> verifyJws (HttpServletRequest request) {
-//        String jws = request.getHeader("Authorization").replace("Bearer ","");
-//        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-//        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-//        return claims;
-//    }
     private void setAuthenticationToContext(Map<String, Object> claims) {
         String username = (String) claims.get("username");
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
