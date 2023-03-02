@@ -51,6 +51,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setHeader("Authorization", "Bearer "+accessToken);
         response.setHeader("Refresh", refreshToken);
+
+        /*
+        로그인 이후 response 헤더에 포함되는 Authorization이 전달이 되지 않음으로 인해
+        JwtAuthenticationFilter 클래스 내부에서 인증에 성공할 때 JWT를 생성하여 응답 헤더로
+        전달하는 메서드인 successfulAuthentication() 내부에서
+        response 응답 객체의 헤더에 Authorization, Refresh 내용을
+        수동으로 추가 처리하여 인식이 될 수 있도록 처리함.
+        */
+        response.addHeader("Access-Control-Expose-Headers", "Authorization, Refresh");
+
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
     private String delegateAccessToken(Member member) {
