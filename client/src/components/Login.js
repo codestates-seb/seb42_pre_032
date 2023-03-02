@@ -72,7 +72,13 @@ const Login = () =>
       credentials: 'include',
     }).then((response) =>
       {
-        localStorage.setItem('user', response.headers.get('authorization'));
+        console.log(response);
+        console.log(response.headers);
+        console.log(response.headers.entries());
+        console.log(response.headers.get('Authorization'));
+        console.log(response.headers.get('authorization'));
+        
+        localStorage.setItem('user', response.headers.get('Authorization'));
         navigate(`/`);
         
       }).catch((e) => {console.log(e)})
@@ -86,7 +92,7 @@ const Login = () =>
     <LoginFormLayout>
       <form
         style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmit}
-        method="post"
+        method="POST"
       >
         <label htmlFor="email">
           Email <br />
