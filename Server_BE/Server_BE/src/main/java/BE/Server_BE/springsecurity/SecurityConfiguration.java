@@ -24,7 +24,7 @@ import java.util.Arrays;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity(debug = true)        // extends부터 추가함.
+@EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final HelloAuthorityUtils authorityUtils;
@@ -115,7 +115,7 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // 1. 브라우저가 허용하는 출처 (request를 보내는 입장의 주소)에 대한 설정.
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000","http://project032.s3-website.ap-northeast-2.amazonaws.com/"));
         // 2. 이거는 1번과 동일한 역할을 함.
 //        configuration.setAllowedOrigins(Arrays.asList("*"));
         // 3. 여기에는 pre-flight를 위해 OPTIONS을 추가.

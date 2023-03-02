@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62d64894-9a55-40e7-9891-d36a475e1b1e" name="Changes" comment="">
+    <list default="true" id="62d64894-9a55-40e7-9891-d36a475e1b1e" name="Changes" comment="[feat] 게시판 기능 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/answer/mapper/AnswerMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/board/mapper/BoardMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/comment/mapper/CommentMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/generated/BE/Server_BE/member/mapper/MemberMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/comment/entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/comment/controller/CommentControllerRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/test/java/BE/Server_BE/comment/controller/CommentControllerRestDocsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/ServerBeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/ServerBeApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/springsecurity/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server_BE/Server_BE/src/main/java/BE/Server_BE/springsecurity/SecurityConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +85,6 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar:///Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/NullPointerException.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.3.25/a1dbd0ee414155d8330405526538e0956c0f9435/spring-core-5.3.25-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
