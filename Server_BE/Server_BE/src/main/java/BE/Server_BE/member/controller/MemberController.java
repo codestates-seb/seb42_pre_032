@@ -8,6 +8,7 @@ import BE.Server_BE.MultiResponse;
 import BE.Server_BE.member.response.PageInfo;
 import BE.Server_BE.member.service.MemberService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -37,7 +38,9 @@ public class MemberController {
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response = mapper.memberToMemberDtoResponse(createdMember);
         response.setUrl(url + response.getMemberId());
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Expose-Headers", "Authorization");
+        return new ResponseEntity(response, headers, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
