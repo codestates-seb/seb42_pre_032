@@ -22,7 +22,7 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     if (!jwt) {
-      console.log(jwt);
+      
       navigate('/log_in');
     }
   }, [jwt, navigate]);

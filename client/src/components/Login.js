@@ -71,13 +71,7 @@ const Login = () =>
       },
       credentials: 'include',
     }).then((response) =>
-      {
-        console.log(response);
-        console.log(response.headers);
-        console.log(response.headers.entries());
-        console.log(response.headers.get('Authorization'));
-        console.log(response.headers.get('authorization'));
-        
+      { 
         localStorage.setItem('user', response.headers.get('Authorization'));
         navigate(`/`);
         

@@ -28,10 +28,10 @@ const UpdatePage = () => {
     setTitle(e.target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      updatePost(jwt, title, content, id);
+      await updatePost(jwt, title, content, id);
       navigate(`/questiondetail/${id}`);
     } catch (e) {
       console.log(e);

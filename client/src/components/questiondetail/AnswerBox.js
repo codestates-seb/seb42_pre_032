@@ -12,7 +12,7 @@ import ReactQuill from 'react-quill';
 
 
 const AnswerBox = ({ answers }) => {
-  console.log(answers)
+  
 
   
 
@@ -32,7 +32,7 @@ const AnswerBox = ({ answers }) => {
       if (!response.ok) {
         throw Error(response.status);
       }
-      console.log(response);
+      
     } catch (e) {
       throw Error(e);
     }

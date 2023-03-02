@@ -19,7 +19,7 @@ const AnswerEditor = ({ content = '', setContent, onSubmit }) => {
     setContent(value);
   };
 
-  console.log(content);
+
 
   return (
     <EditorContainer>

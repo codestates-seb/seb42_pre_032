@@ -12,7 +12,7 @@ const CreatePage = () => {
 
   useEffect(() => {
     if (!jwt) {
-      console.log(jwt);
+      
       navigate(`/log_in`);
     }
   }, [jwt, navigate]);
@@ -21,10 +21,10 @@ const CreatePage = () => {
     setTitle(e.target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      createPost(jwt, title, content);
+      await createPost(jwt, title, content);
       navigate(`/`);
     } catch (e) {
       console.log(e);

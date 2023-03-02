@@ -34,7 +34,7 @@ const PostBox = ({ data }) => {
       if (!response.ok) {
         throw Error(response.status);
       }
-      console.log(response);
+      
     } catch (e) {
       throw Error(e);
     }

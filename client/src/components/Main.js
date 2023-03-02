@@ -27,7 +27,7 @@ const MainContainer = styled.div`
 
 const Main = ({ data }) => {
   const [currentTab, setCurrentTab] = useState('Newest');
-  console.log(data)
+  
 
   const sortButtonOnClickHandler = (e) => {
     setCurrentTab(e.target.value);

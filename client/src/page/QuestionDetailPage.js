@@ -15,13 +15,13 @@ const QuestionDetailPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  console.log(data);
+
 
   const jwt = localStorage.getItem('user');
 
   useEffect(() => {
     if (!jwt) {
-      console.log(jwt);
+    
       navigate('/log_in');
     }
   }, [jwt, navigate]);

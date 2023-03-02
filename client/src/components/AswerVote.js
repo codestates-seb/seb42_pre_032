@@ -9,7 +9,7 @@ import {
 const Vote = ({ answers }) => {
   // const param = useParams()
   const jwt = localStorage.getItem('user');
-  console.log(answers)
+  
 
   const postLike = async (jwt) => {
     try {
@@ -55,7 +55,7 @@ const Vote = ({ answers }) => {
       if (!response.ok) {
         throw Error(response.status);
       }
-      console.log(response);
+      
     } catch (e) {
       throw Error(e);
     }
