@@ -22,7 +22,7 @@ const PostBox = ({ data }) => {
 
   const deletePost = async (jwt) => {
     try {
-      const response = await fetch(`/boards/${param.id}`, {
+      const response = await fetch(`http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/boards/${param.id}`, {
         method: 'DELETE',
         headers: {
           Authorization: jwt,

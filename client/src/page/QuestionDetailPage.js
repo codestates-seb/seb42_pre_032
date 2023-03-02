@@ -28,7 +28,7 @@ const QuestionDetailPage = () => {
 
   useEffect(() => {
     async function fetchdata() {
-      const response = await fetch(`/boards/${params.id}`, {
+      const response = await fetch(`http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/boards/${params.id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

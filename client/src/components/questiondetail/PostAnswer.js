@@ -18,7 +18,7 @@ const PostAnswer = () => {
 
   const createAnswer = async (jwt, content) => {
     try {
-      const response = await fetch(`/answers/${param.id}`, {
+      const response = await fetch(`http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/answers/${param.id}`, {
         method: 'POST',
         headers: {
           Authorization: jwt,

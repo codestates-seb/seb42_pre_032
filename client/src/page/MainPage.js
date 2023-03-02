@@ -31,7 +31,7 @@ const MainPage = () => {
 
   useEffect(() => {
     async function fetchdata() {
-      const response = await fetch(`/boards?page=${page}`, {
+      const response = await fetch(`http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/boards?page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

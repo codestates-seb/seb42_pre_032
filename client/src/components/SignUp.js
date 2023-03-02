@@ -217,7 +217,7 @@ const SignUp = () =>
   { if (pwState === true && emailState === true && nameState === true){
     event.preventDefault();
 
-    fetch("/members", {
+    fetch("http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/members", {
       method: 'POST',
       body: JSON.stringify({ nickName, email, password }),
       headers: {

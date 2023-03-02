@@ -63,7 +63,7 @@ const Login = () =>
   const handleSubmit = (event) =>
   {
     event.preventDefault();
-    fetch("/login", {
+    fetch("http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/login", {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {
@@ -86,6 +86,7 @@ const Login = () =>
     <LoginFormLayout>
       <form
         style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmit}
+        method="post"
       >
         <label htmlFor="email">
           Email <br />

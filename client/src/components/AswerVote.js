@@ -13,7 +13,7 @@ const Vote = ({ answers }) => {
 
   const postLike = async (jwt) => {
     try {
-      const response = await fetch(`/answers/${answers.answerId}/like`, {
+      const response = await fetch(`http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/answers/${answers.answerId}/like`, {
         method: 'POST',
         headers: {
           Authorization: jwt,
@@ -43,7 +43,7 @@ const Vote = ({ answers }) => {
 
   const postDislike = async (jwt) => {
     try {
-      const response = await fetch(`/answers/${answers.answerId}/dislike`, {
+      const response = await fetch(`http://ec2-3-36-117-214.ap-northeast-2.compute.amazonaws.com:8080/answers/${answers.answerId}/dislike`, {
         method: 'POST',
         headers: {
           Authorization: jwt,
