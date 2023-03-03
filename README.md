@@ -2,6 +2,8 @@
 
 stack overflow 와 유사한 웹 애플리케이션입니다.
 
+배포 링크 : http://project032.s3-website.ap-northeast-2.amazonaws.com/
+
 ## Features
 
 - 편리한 UI로 질문과 댓글을 쉽게 생성하고 삭제할 수 있습니다.
